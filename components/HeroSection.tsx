@@ -42,10 +42,10 @@ export default function HeroSection({ theme }: any) {
           </span>
         </Typography>
         <Typography variant="h4" gutterBottom>
-          Full-Stack Developer & AI Enthusiast
+          Full Stack Developer
         </Typography>
         <Typography variant="body1" paragraph>
-          Crafting innovative solutions at the intersection of web development and artificial intelligence.
+          Crafting innovative solutions at the intersection of web development and design.
         </Typography>
 
         <motion.div
@@ -87,7 +87,7 @@ export default function HeroSection({ theme }: any) {
         }}
         className="absolute bottom-10"
       >
-        <ChevronDown className={`w-8 h-8 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`} />
+        {/* <ChevronDown className={`w-8 h-8 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`} /> */}
       </motion.div>
     </StyledContainer>
   )

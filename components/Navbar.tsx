@@ -1,10 +1,12 @@
 'use client'
+import { GeistSans } from 'next/font/google'
 
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Sun, Moon, Menu } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 
+const geist = GeistSans({ subsets: ['latin'] })
 export default function Navbar({ theme, toggleTheme }: { theme: string; toggleTheme: () => void }) {
   const [activeSection, setActiveSection] = useState('home')
   const [isOpen, setIsOpen] = useState(false)
@@ -23,13 +25,13 @@ export default function Navbar({ theme, toggleTheme }: { theme: string; toggleTh
         <div className="relative bg-black/20 backdrop-filter backdrop-blur-md border-b border-white/5">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center py-4">
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5 }}
                 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-500 to-blue-600"
               >
-                LOGO
+                Ali
               </motion.div>
               <div className="hidden md:flex space-x-1">
                 {sections.map((section) => (
@@ -40,19 +42,19 @@ export default function Navbar({ theme, toggleTheme }: { theme: string; toggleTh
                   >
                     <Button
                       onClick={() => {
-                        
-                        const sectionElement = document.getElementById(section);
-    if (sectionElement) {
-      const offset = 80;  
-      const yOffset = -offset;
-      const yPosition = sectionElement.getBoundingClientRect().top + window.pageYOffset + yOffset;
 
-      setActiveSection(section);
-      window.scrollTo({ top: yPosition, behavior: 'smooth' });
-    }
-  }}
-  
-                  
+                        const sectionElement = document.getElementById(section);
+                        if (sectionElement) {
+                          const offset = 80;
+                          const yOffset = -offset;
+                          const yPosition = sectionElement.getBoundingClientRect().top + window.pageYOffset + yOffset;
+
+                          setActiveSection(section);
+                          window.scrollTo({ top: yPosition, behavior: 'smooth' });
+                        }
+                      }}
+
+
                       variant="ghost"
                       className={`
                         relative overflow-hidden text-sm font-medium transition-all duration-300 
@@ -141,8 +143,7 @@ export default function Navbar({ theme, toggleTheme }: { theme: string; toggleTh
                     `}
                   >
                     <span className="flex items-center">
-                      <span className="mr-2">{section.charAt(0).toUpperCase()}</span>
-                      <span className="text-xs uppercase tracking-wider">{section.slice(1)}</span>
+                      <span className="text-xs uppercase tracking-wider">{section}</span>
                     </span>
                   </Button>
                 </motion.div>

@@ -16,10 +16,9 @@ export default function AboutSection({ theme }:any) {
   
     return (
       <Parallax
-        blur={{ min: -15, max: 15 }}
+        blur={{ min: -15, max: 15  }}
         bgImage="/icons/about.svg"
         strength={-200}
-        className="m-0"
       >
         <Container id="about" maxWidth="md" className="py-20">
           <motion.div

@@ -49,12 +49,12 @@ export default function ContactSection({ theme }:any) {
               </Button>
             </motion.div>
             <motion.div whileHover={{ y: -5 }} whileTap={{ scale: 0.95 }}>
-              <Button variant="contained" color="primary" href="https://www.linkedin.com/in/your-profile" target="_blank" rel="noopener noreferrer">
+              <Button variant="contained" color="primary" href="https://www.linkedin.com/in/alishahid-fswebdev/" target="_blank" rel="noopener noreferrer">
                 <Linkedin className="w-5 h-5 mr-2" /> LinkedIn
               </Button>
             </motion.div>
             <motion.div whileHover={{ y: -5 }} whileTap={{ scale: 0.95 }}>
-              <Button variant="contained" color="primary" href="https://github.com/your-username" target="_blank" rel="noopener noreferrer">
+              <Button variant="contained" color="primary" href="https://github.com/GitMuhammadAli" target="_blank" rel="noopener noreferrer">
                 <Github className="w-5 h-5 mr-2" /> GitHub
               </Button>
             </motion.div>
