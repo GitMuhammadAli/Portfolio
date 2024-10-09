@@ -12,7 +12,7 @@ const config: Config = {
     extend: {
       fontFamily: {
         sans: ['Orbitron', 'sans-serif'],
-        'londrina-sketch': ['"Londrina Sketch"', 'cursive'],
+        // 'londrina-sketch': ['"Londrina Sketch"', 'cursive'],
       },
       colors: {
         primary: {

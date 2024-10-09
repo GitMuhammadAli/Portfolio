@@ -1,12 +1,10 @@
 'use client'
-import { GeistSans } from 'next/font/google'
 
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Sun, Moon, Menu } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 
-const geist = GeistSans({ subsets: ['latin'] })
 export default function Navbar({ theme, toggleTheme }: { theme: string; toggleTheme: () => void }) {
   const [activeSection, setActiveSection] = useState('home')
   const [isOpen, setIsOpen] = useState(false)
