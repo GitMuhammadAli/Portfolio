@@ -21,7 +21,7 @@ const technologies = [
 export default function SkillsSection({ theme }:any) {
     return (
       <Container id="skills" maxWidth="lg" className="py-20">
-        <Typography variant="h2" align="center" gutterBottom className="mb-12 text-3xl font-light">
+        <Typography variant="h2" align="center" gutterBottom className="mb-24 text-3xl font-light">
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-600 to-blue-500">
             Technical Proficiencies
           </span>

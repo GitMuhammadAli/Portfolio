@@ -31,7 +31,7 @@ export default function Portfolio() {
     <div
       className={`min-h-screen ${theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-gray-50 text-gray-900'} transition-colors duration-300 ease-in-out relative z-10`}
     >
-      {/* <Background theme={theme} /> */}
+      <Background theme={theme} />
       <Navbar theme={theme} toggleTheme={toggleTheme} />
 
       <main className='mx-3'>
