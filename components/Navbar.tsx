@@ -10,26 +10,46 @@ export default function Navbar({ theme, toggleTheme }: { theme: string; toggleTh
   const [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem('theme') || 'light'
-    document.documentElement.classList.toggle('dark', savedTheme === 'dark')
-  }, [])
+    const handleScroll = () => {
+      const sections = ['home', 'about', 'skills', 'projects', 'contact'];
+
+      sections.forEach((section) => {
+        const sectionElement = document.getElementById(section);
+        const offset = 150; // Adjust this to fine-tune when section gets active
+        if (sectionElement) {
+          const top = sectionElement.getBoundingClientRect().top;
+          const isActive = top >= -offset && top <= offset;
+
+          if (isActive) {
+            setActiveSection(section);
+          }
+        }
+      });
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   const sections = ['home', 'about', 'skills', 'projects', 'contact']
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50">
-      <div className="relative">
-        <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-blue-500 opacity-55 blur-lg"></div>
-        <div className="relative bg-black/20 backdrop-filter backdrop-blur-md border-b border-white/5">
+    <nav className="fixed top-4 left-0 right-0 z-50 flex justify-center items-center px-4">
+      <div className="relative w-full max-w-4xl">
+        <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-blue-500 opacity-65 blur-lg rounded-full"></div>
+        <div className="relative bg-black/20 backdrop-filter backdrop-blur-md border border-white/5 rounded-full">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between items-center py-4">
+            <div className="flex justify-between items-center py-2 sm:py-3">
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5 }}
-                className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-500 to-blue-600"
+                className="text-2xl sm:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-500 to-blue-600"
               >
-                Ali
+                {/* Ali */}
               </motion.div>
               <div className="hidden md:flex space-x-1">
                 {sections.map((section) => (
@@ -40,7 +60,6 @@ export default function Navbar({ theme, toggleTheme }: { theme: string; toggleTh
                   >
                     <Button
                       onClick={() => {
-
                         const sectionElement = document.getElementById(section);
                         if (sectionElement) {
                           const offset = 80;
@@ -51,13 +70,12 @@ export default function Navbar({ theme, toggleTheme }: { theme: string; toggleTh
                           window.scrollTo({ top: yPosition, behavior: 'smooth' });
                         }
                       }}
-
-
                       variant="ghost"
                       className={`
-                        relative overflow-hidden text-sm font-medium transition-all duration-300 
-                        ${activeSection === section ? 'text-white' : 'text-gray-300 hover:text-white'} 
-                        rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-black
+                        relative overflow-hidden text-lgnpm run dev
+                         sm:text-base font-medium transition-all duration-300 
+                        ${activeSection === section ? 'text-white' : 'text-gray-50 hover:text-white'} 
+                        rounded-full px-4 sm:px-6 py-2 sm:py-3 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-black
                       `}
                     >
                       {activeSection === section && (
@@ -73,38 +91,40 @@ export default function Navbar({ theme, toggleTheme }: { theme: string; toggleTh
                   </motion.div>
                 ))}
               </div>
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Button
-                  onClick={toggleTheme}
-                  variant="outline"
-                  size="icon"
-                  className="rounded-full bg-white/5 border-white/10 text-white hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-black"
-                >
-                  {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-                </Button>
-              </motion.div>
-              <div className="md:hidden">
+              <div className="flex items-center space-x-2">
                 <motion.div
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
                   <Button
-                    onClick={() => setIsOpen(!isOpen)}
+                    onClick={toggleTheme}
                     variant="outline"
                     size="icon"
                     className="rounded-full bg-white/5 border-white/10 text-white hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-black"
                   >
-                    <motion.div
-                      animate={{ rotate: isOpen ? 90 : 0 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <Menu className="w-5 h-5" />
-                    </motion.div>
+                    {theme === 'dark' ? <Sun className="w-5 h-5 sm:w-6 sm:h-6" /> : <Moon className="w-5 h-5 sm:w-6 sm:h-6" />}
                   </Button>
                 </motion.div>
+                <div className="md:hidden">
+                  <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <Button
+                      onClick={() => setIsOpen(!isOpen)}
+                      variant="outline"
+                      size="icon"
+                      className="rounded-full bg-white/5 border-white/10 text-white hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-black"
+                    >
+                      <motion.div
+                        animate={{ rotate: isOpen ? 90 : 0 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <Menu className="w-5 h-5 sm:w-6 sm:h-6" />
+                      </motion.div>
+                    </Button>
+                  </motion.div>
+                </div>
               </div>
             </div>
           </div>
@@ -117,9 +137,9 @@ export default function Navbar({ theme, toggleTheme }: { theme: string; toggleTh
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden bg-black/80 backdrop-filter backdrop-blur-md overflow-hidden"
+            className="absolute top-full left-0 right-0 md:hidden bg-black/80 backdrop-filter backdrop-blur-md overflow-hidden mt-2 rounded-2xl mx-4"
           >
-            <div className="px-2 py-3 space-y-2">
+            <div className="px-4 py-4 space-y-2">
               {sections.map((section) => (
                 <motion.div
                   key={section}
@@ -134,14 +154,13 @@ export default function Navbar({ theme, toggleTheme }: { theme: string; toggleTh
                       document.getElementById(section)?.scrollIntoView({ behavior: 'smooth' })
                     }}
                     variant="ghost"
-                    className={`
-                      w-full text-left text-sm font-medium transition-all duration-300 
-                      ${activeSection === section ? 'text-white bg-gradient-to-r from-cyan-600/50 to-blue-600/50' : 'text-gray-300 hover:text-white hover:bg-white/5'} 
+                    className={`w-full text-left text-lg font-medium transition-all duration-300 
+                      ${activeSection === section ? 'text-white bg-gradient-to-r from-cyan-600/50 to-blue-600/50' : 'text-gray-50 hover:text-white hover:bg-white/5'} 
                       rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-black
                     `}
                   >
                     <span className="flex items-center">
-                      <span className="text-xs uppercase tracking-wider">{section}</span>
+                      <span className="uppercase tracking-wider">{section.charAt(0).toUpperCase() + section.slice(1)}</span>
                     </span>
                   </Button>
                 </motion.div>

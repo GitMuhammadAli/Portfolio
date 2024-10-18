@@ -19,7 +19,7 @@
     ],
     "paths": {
       "@/*": ["./*"],
-      "@compnents/*": ["./components/*"]
+      "@components/*": ["./components/*"]
     }
   },
   "include": [
