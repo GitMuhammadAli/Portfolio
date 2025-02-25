@@ -34,18 +34,18 @@ export default function Portfolio() {
       <Background theme={theme} />
       <Navbar theme={theme} toggleTheme={toggleTheme} />
 
-      <main className='mx-3'>
+      <main className=''>
         <HeroSection theme={theme} />
-        <section id="about" className="min-h-screen py-20">
-          <AboutSection theme={theme} />
+        <section  className="min-h-screen">
+          <AboutSection  theme={theme} />
         </section>
-        <section id="skills" className="min-h-screen py-20">
+        <section id="skills" className="min-h-screen">
           <SkillsSection theme={theme} />
         </section>
-        <section id="projects" className="min-h-screen py-20 ">
-          <ProjectsSection />
+        <section id="projects" className="min-h-screen">
+          <ProjectsSection theme={theme} />
         </section>
-        <section id="contact" className="min-h-screen py-20">
+        <section id="contact" className="min-h-screen">
           <ContactSection theme={theme} />
         </section>
       </main>
