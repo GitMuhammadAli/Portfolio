@@ -12,6 +12,11 @@
   font-style: normal;
 }
 
+html {
+  scroll-padding-bottom: 180px;
+}
+
+
 @font-face {
   font-family: 'GeistMono';
   src: url('/app/fonts/GeistMonoVF.woff') format('woff');
@@ -27,6 +32,11 @@ html {
   --font-geist-sans: 'GeistSans', sans-serif;
   --font-geist-mono: 'GeistMono', monospace;
 }
+
+body {
+  overflow-x: hidden;
+}
+
 
 body {
   font-family: var(--font-geist-sans);

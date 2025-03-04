@@ -11,7 +11,6 @@ import Background from '@/components/Background'
 
 export default function Portfolio() {
   const [theme, setTheme] = useState('dark');
-  const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme');
@@ -29,13 +28,15 @@ export default function Portfolio() {
 
   return (
     <div
-      className={`min-h-screen ${theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-gray-50 text-gray-900'} transition-colors duration-300 ease-in-out relative z-10`}
+      className={`min-h-screen overflow-x-hidden ${
+        theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-gray-50 text-gray-900'
+      } transition-colors duration-300 ease-in-out relative z-10`}
     >
-      <Background theme={theme} />
       <Navbar theme={theme} toggleTheme={toggleTheme} />
+      <Background theme={theme} />
 
       <main className=''>
-        <HeroSection theme={theme} />
+        <HeroSection />
         <section  className="min-h-screen">
           <AboutSection  theme={theme} />
         </section>

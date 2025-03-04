@@ -7,19 +7,21 @@ export const metadata: Metadata = {
 };
       {/* <Background theme={theme} /> */}
 
+import { Inter } from 'next/font/google'
+
+const inter = Inter({ subsets: ['latin'] })
+
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <head>
-        <link href="https://fonts.googleapis.com/css2?family=Londrina+Sketch&display=swap" rel="stylesheet" />
-      </head>
-      <body className="antialiased font-londrina-sketch">
-        {children}
-      </body>
+    <html lang="en" className={inter.className}>
+      <body>{children}</body>
     </html>
-  );
+  )
 }
+
+export const dynamic = 'force-static'
+export const revalidate = 86400 // Revalidate once per day

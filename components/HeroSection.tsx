@@ -1,11 +1,10 @@
 import { motion, useInView, useAnimation } from 'framer-motion';
 import { useEffect, useRef } from 'react';
-import { ChevronDown } from 'lucide-react';
 import { styled } from '@mui/system'
-import { Button, Card, Container, Typography, Chip } from '@mui/material'
+import { Button, Container, Typography } from '@mui/material'
 
 
-const StyledContainer = styled(Container)(({ theme }) => ({
+const StyledContainer = styled(Container)(() => ({
   minHeight: '100vh',
   display: 'flex',
   flexDirection: 'column',
@@ -14,7 +13,7 @@ const StyledContainer = styled(Container)(({ theme }) => ({
   textAlign: 'center',
 }))
 
-export default function HeroSection({ theme }: any) {
+export default function HeroSection() {
   const controls = useAnimation()
   const ref = useRef(null)
   const inView = useInView(ref)
@@ -87,7 +86,6 @@ export default function HeroSection({ theme }: any) {
         }}
         className="absolute bottom-10"
       >
-        {/* <ChevronDown className={`w-8 h-8 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`} /> */}
       </motion.div>
     </StyledContainer>
   )

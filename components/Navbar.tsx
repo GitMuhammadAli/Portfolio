@@ -12,22 +12,28 @@ export default function Navbar({ theme, toggleTheme }: { theme: string; toggleTh
   useEffect(() => {
     const handleScroll = () => {
       const sections = ['home', 'about', 'skills', 'projects', 'contact'];
+      let currentSection = '';
+      let minDistance = Infinity;
 
       sections.forEach((section) => {
         const sectionElement = document.getElementById(section);
-        const offset = 150; // Adjust this to fine-tune when section gets active
         if (sectionElement) {
-          const top = sectionElement.getBoundingClientRect().top;
-          const isActive = top >= -offset && top <= offset;
-
-          if (isActive) {
-            setActiveSection(section);
+          const rect = sectionElement.getBoundingClientRect();
+          const distance = Math.abs(rect.top);
+          if (distance < minDistance) {
+            minDistance = distance;
+            currentSection = section;
           }
         }
       });
+
+      if (currentSection) {
+        setActiveSection(currentSection);
+      }
     };
 
     window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Initial check
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
@@ -62,19 +68,16 @@ export default function Navbar({ theme, toggleTheme }: { theme: string; toggleTh
                       onClick={() => {
                         const sectionElement = document.getElementById(section);
                         if (sectionElement) {
-                          const offset = 80;
-                          const yOffset = -offset;
-                          const yPosition = sectionElement.getBoundingClientRect().top + window.pageYOffset + yOffset;
-
+                          const yPosition = sectionElement.offsetTop;
                           setActiveSection(section);
                           window.scrollTo({ top: yPosition, behavior: 'smooth' });
                         }
                       }}
                       variant="ghost"
                       className={`
-                        relative overflow-hidden text-lgnpm run dev
-                         sm:text-base font-medium transition-all duration-300 
-                        ${activeSection === section ? 'text-white' : 'text-gray-50 hover:text-white'} 
+                        relative overflow-hidden text-lg
+                        sm:text-base font-medium transition-all duration-300 
+                        ${activeSection === section ? 'text-white' : 'text-gray-50/50 hover:text-white/75'} 
                         rounded-full px-4 sm:px-6 py-2 sm:py-3 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-black
                       `}
                     >
@@ -149,13 +152,17 @@ export default function Navbar({ theme, toggleTheme }: { theme: string; toggleTh
                 >
                   <Button
                     onClick={() => {
-                      setActiveSection(section)
-                      setIsOpen(false)
-                      document.getElementById(section)?.scrollIntoView({ behavior: 'smooth' })
+                      const sectionElement = document.getElementById(section);
+                      if (sectionElement) {
+                        const yPosition = sectionElement.offsetTop;
+                        setActiveSection(section);
+                        window.scrollTo({ top: yPosition, behavior: 'smooth' });
+                      }
+                      setIsOpen(false);
                     }}
                     variant="ghost"
                     className={`w-full text-left text-lg font-medium transition-all duration-300 
-                      ${activeSection === section ? 'text-white bg-gradient-to-r from-cyan-600/50 to-blue-600/50' : 'text-gray-50 hover:text-white hover:bg-white/5'} 
+                      ${activeSection === section ? 'text-white bg-gradient-to-r from-cyan-600/50 to-blue-600/50' : 'text-gray-50/50 hover:text-white/75 hover:bg-white/5'} 
                       rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-black
                     `}
                   >

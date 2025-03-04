@@ -10,11 +10,11 @@ const socialLinks = [
   { name: "Twitter", url: "https://twitter.com/yourusername", icon: Twitter },
 ]
 
-export default function Footer() {
+export default function Footer({ theme }: { theme: string }) {
   return (
     <footer className="relative py-20 overflow-hidden">
       {/* Background with subtle gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-gray-900 to-gray-950" />
+      <div className={`absolute inset-0 bg-gradient-to-b  ${theme === 'dark' ? 'bg-[#1a1f2e]' : 'bg-gray-50'}`} />
 
       {/* Glowing orbs */}
       <div className="absolute inset-0 overflow-hidden">
