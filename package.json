@@ -9,6 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+  "@eslint/config-array": "^latest",  
+  "@eslint/object-schema": "^latest",  
+  "@tsparticles/react": "^latest",
+  "@emailjs/browser": "^latest",
     "@babel/core": "^7.25.7",
     "@codesandbox/sandpack-react": "^2.19.9",
     "@emotion/react": "^11.13.3",

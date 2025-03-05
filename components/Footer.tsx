@@ -4,11 +4,7 @@ import { motion } from "framer-motion"
 import { Github, Linkedin, Twitter, Heart } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
-const socialLinks = [
-  { name: "LinkedIn", url: "https://linkedin.com/in/alishahid-fswebdev", icon: Linkedin },
-  { name: "GitHub", url: "https://github.com/GitMuhammadAli", icon: Github },
-  { name: "Twitter", url: "https://twitter.com/yourusername", icon: Twitter },
-]
+
 
 export default function Footer({ theme }: { theme: string }) {
   return (
@@ -41,18 +37,6 @@ export default function Footer({ theme }: { theme: string }) {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="flex space-x-6 mb-12"
           >
-            {socialLinks.map((social) => (
-              <motion.div key={social.name} whileHover={{ y: -5 }} whileTap={{ scale: 0.95 }}>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  className="rounded-full bg-gray-800/50 border-gray-700/50 text-gray-300 hover:bg-gray-700/50 hover:text-white"
-                  onClick={() => window.open(social.url, "_blank")}
-                >
-                  <social.icon className="w-5 h-5" />
-                </Button>
-              </motion.div>
-            ))}
           </motion.div>
 
           <motion.div
