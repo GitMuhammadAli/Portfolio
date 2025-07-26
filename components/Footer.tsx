@@ -8,25 +8,25 @@ import { Button } from "@/components/ui/button"
 
 export default function Footer({ theme }: { theme: string }) {
   return (
-    <footer className="relative py-20 overflow-hidden">
+    <footer className="relative py-8 overflow-hidden">
       {/* Background with subtle gradient */}
       <div className={`absolute inset-0 bg-gradient-to-b  ${theme === 'dark' ? 'bg-[#1a1f2e]' : 'bg-gray-50'}`} />
 
-      {/* Glowing orbs */}
+      {/* Glowing orbs (smaller and less tall) */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -bottom-1/2 left-1/4 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl" />
-        <div className="absolute -top-1/2 right-1/4 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl" />
+        <div className="absolute -bottom-1/4 left-1/4 w-40 h-16 bg-cyan-500/10 rounded-full blur-2xl" />
+        <div className="absolute -top-1/4 right-1/2 w-40 h-40 bg-blue-500/10 rounded-full blur-2xl" />
       </div>
 
-      <div className="relative container mx-auto px-6 z-10">
+      <div className="relative container mx-auto px-4 z-10 pt-8">
         <div className="flex flex-col items-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="mb-8"
+            className="mb-4"
           >
-            <h2 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400">
+            <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400">
               Let's Connect
             </h2>
           </motion.div>
@@ -35,8 +35,9 @@ export default function Footer({ theme }: { theme: string }) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="flex space-x-6 mb-12"
+            className="flex space-x-4 mb-6"
           >
+            {/* Social icons or links can go here */}
           </motion.div>
 
           <motion.div
@@ -45,10 +46,10 @@ export default function Footer({ theme }: { theme: string }) {
             transition={{ delay: 0.5, duration: 0.5 }}
             className="text-center"
           >
-            <p className="text-gray-400 mb-4">
+            <p className="text-gray-400 mb-2 text-sm">
               Thank you for visiting my portfolio. I'm always open to new opportunities and collaborations.
             </p>
-            <p className="text-gray-500 text-sm flex items-center justify-center">
+            <p className="text-gray-500 text-xs flex items-center justify-center">
               © {new Date().getFullYear()} ALI SHAHID | Crafted with
               <Heart className="w-4 h-4 mx-1 text-red-500" />
               and passion

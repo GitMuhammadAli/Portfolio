@@ -33,10 +33,10 @@ export default function Portfolio() {
       } transition-colors duration-300 ease-in-out relative z-10`}
     >
       <Navbar theme={theme} toggleTheme={toggleTheme} />
-      <Background theme={theme} />
+      <Background theme={theme}  />
 
       <main className=''>
-        <HeroSection />
+        {/* <HeroSection /> */}
         <section  className="min-h-screen">
           <AboutSection  theme={theme} />
         </section>

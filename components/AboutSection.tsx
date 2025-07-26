@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion"
 import { GraduationCap, Code2, Briefcase } from "lucide-react"
+import Image from "next/image"
 
 export default function AboutSection({ theme }: { theme: string }) {
   return (
@@ -11,14 +12,23 @@ export default function AboutSection({ theme }: { theme: string }) {
         <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl" />
       </div>
 
-      <div className="relative z-10 container mx-auto px-4 pt-32 pb-20">
+      <div className="relative z-10 container mx-auto px-4 pt-28 pb-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           className="max-w-4xl mx-auto"
         >
-          <div className="text-center mb-16">
+          <div className="flex flex-col items-center mb-10">
+            {/* Profile Picture - replace /profile.jpg with your own image */}
+            <Image
+              src="/images/me.png"
+              alt="Your profile picture"
+              width={144}
+              height={144}
+              className="rounded-full border-4 border-cyan-400 bg-white object-cover mb-6"
+              priority
+            />
             <h2 className="text-5xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400">
               About Me
             </h2>

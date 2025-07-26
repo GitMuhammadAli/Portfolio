@@ -43,17 +43,17 @@ export default function Navbar({ theme, toggleTheme }: { theme: string; toggleTh
   const sections = ['home', 'about', 'skills', 'projects', 'contact']
 
   return (
-    <nav className="fixed top-4 left-0 right-0 z-50 flex justify-center items-center px-4">
+    <nav className="fixed top-4 left-0 right-0 z-50 flex justify-center items-center px-2">
       <div className="relative w-full max-w-4xl">
-        <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-blue-500 opacity-65 blur-lg rounded-full"></div>
-        <div className="relative bg-black/20 backdrop-filter backdrop-blur-md border border-white/5 rounded-full">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between items-center py-2 sm:py-3">
+        <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-blue-500 opacity-65 blur rounded-full"></div>
+        <div className="relative bg-black/20 backdrop-filter backdrop-blur border border-white/5 rounded-full">
+          <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-6">
+            <div className="flex justify-between items-center py-1 sm:py-2">
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5 }}
-                className="text-2xl sm:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-500 to-blue-600"
+                className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-500 to-blue-600"
               >
                 {/* Ali */}
               </motion.div>
@@ -75,10 +75,9 @@ export default function Navbar({ theme, toggleTheme }: { theme: string; toggleTh
                       }}
                       variant="ghost"
                       className={`
-                        relative overflow-hidden text-lg
-                        sm:text-base font-medium transition-all duration-300 
+                        relative overflow-hidden text-base sm:text-sm font-medium transition-all duration-300 
                         ${activeSection === section ? 'text-white' : 'text-gray-50/50 hover:text-white/75'} 
-                        rounded-full px-4 sm:px-6 py-2 sm:py-3 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-black
+                        rounded-full px-2 sm:px-4 py-1 sm:py-2 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-black
                       `}
                     >
                       {activeSection === section && (
@@ -161,9 +160,9 @@ export default function Navbar({ theme, toggleTheme }: { theme: string; toggleTh
                       setIsOpen(false);
                     }}
                     variant="ghost"
-                    className={`w-full text-left text-lg font-medium transition-all duration-300 
+                    className={`w-full text-left text-base font-medium transition-all duration-300 
                       ${activeSection === section ? 'text-white bg-gradient-to-r from-cyan-600/50 to-blue-600/50' : 'text-gray-50/50 hover:text-white/75 hover:bg-white/5'} 
-                      rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-black
+                      rounded-full px-2 py-1 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-black
                     `}
                   >
                     <span className="flex items-center">
