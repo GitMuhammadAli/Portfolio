@@ -32,3 +32,44 @@ body {
   font-family: var(--font-geist-sans);
   overflow-x: hidden;
 }
+
+/* Dark Reader compatibility - ensure gradient text has fallback */
+@supports (-webkit-background-clip: text) or (background-clip: text) {
+  [class*="bg-clip-text"] {
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+}
+
+/* Force text visibility when Dark Reader is active */
+html[data-darkreader-mode] [class*="bg-clip-text"],
+html[data-darkreader-scheme] [class*="bg-clip-text"],
+html[style*="darkreader"] [class*="bg-clip-text"] {
+  -webkit-text-fill-color: unset !important;
+  color: white !important;
+  background: none !important;
+  background-image: none !important;
+}
+
+/* Specific fix for hero section text */
+html[data-darkreader-mode] h1 [class*="bg-clip-text"],
+html[data-darkreader-scheme] h1 [class*="bg-clip-text"],
+html[style*="darkreader"] h1 [class*="bg-clip-text"] {
+  -webkit-text-fill-color: unset !important;
+  color: white !important;
+}
+
+/* Ensure name is always visible */
+html[data-darkreader-mode] h1 span:first-child,
+html[data-darkreader-scheme] h1 span:first-child {
+  color: white !important;
+  -webkit-text-fill-color: white !important;
+}
+
+/* Ensure subtitle is visible */
+html[data-darkreader-mode] h1 span:last-child,
+html[data-darkreader-scheme] h1 span:last-child {
+  color: #67e8f9 !important;
+  -webkit-text-fill-color: #67e8f9 !important;
+}

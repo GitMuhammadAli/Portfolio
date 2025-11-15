@@ -156,13 +156,29 @@ export default function Background({
           </motion.div>
           <motion.div custom={1} variants={fadeUpVariants} initial="hidden" animate="visible">
             <h1 className="text-4xl sm:text-6xl md:text-8xl font-bold mb-6 md:mb-8 tracking-tight">
-              <span className="bg-clip-text text-transparent bg-gradient-to-b from-white to-white/80">Ali Shahid</span>
+              <span 
+                className="text-white bg-clip-text bg-gradient-to-b from-white to-white/80"
+                style={{
+                  WebkitTextFillColor: 'transparent',
+                  WebkitBackgroundClip: 'text',
+                  backgroundClip: 'text',
+                  color: 'white', // Fallback for Dark Reader
+                }}
+              >
+                Ali Shahid
+              </span>
               <br />
               <span
                 className={cn(
-                  "bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-white/90 to-blue-400 ",
+                  "text-white bg-clip-text bg-gradient-to-r from-cyan-400 via-white/90 to-blue-400",
                   pacifico.className,
                 )}
+                style={{
+                  WebkitTextFillColor: 'transparent',
+                  WebkitBackgroundClip: 'text',
+                  backgroundClip: 'text',
+                  color: '#67e8f9', // Fallback cyan color for Dark Reader
+                }}
               >
                 Full Stack Developer
               </span>
