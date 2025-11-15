@@ -192,6 +192,13 @@ export default function Background({
         </div>
       </div>
       <div className="absolute inset-0 bg-gradient-to-t from-[#1a1f2e] via-transparent to-[#1a1f2e]/80 pointer-events-none" />
+      
+      {/* Bottom gradient fade to next section */}
+      <div className={`absolute bottom-0 left-0 right-0 h-32 z-20 pointer-events-none ${
+        theme === 'dark' 
+          ? 'bg-gradient-to-t from-[#1a1f2e] to-transparent' 
+          : 'bg-gradient-to-t from-gray-100 to-transparent'
+      }`} />
     </div>
   )
 }

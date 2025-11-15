@@ -7,10 +7,26 @@ import Image from "next/image"
 export default function AboutSection({ theme }: { theme: string }) {
   return (
     <section id="about" className="relative min-h-screen py-20">
+      {/* Top gradient fade from previous section */}
+      <div className={`absolute top-0 left-0 right-0 h-32 z-20 pointer-events-none ${
+        theme === 'dark' 
+          ? 'bg-gradient-to-b from-[#1a1f2e] to-transparent' 
+          : 'bg-gradient-to-b from-gray-50 to-transparent'
+      }`} />
+      
       <div className={`absolute inset-0 ${theme === 'dark' ? 'bg-[#1a1f2e]' : 'bg-gray-100'}`}>
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl" />
+        <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/[0.08] via-transparent to-blue-500/[0.08] blur-3xl" />
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+        <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl" />
       </div>
+      
+      {/* Bottom gradient fade to next section */}
+      <div className={`absolute bottom-0 left-0 right-0 h-32 z-20 pointer-events-none ${
+        theme === 'dark' 
+          ? 'bg-gradient-to-t from-[#1a1f2e] to-transparent' 
+          : 'bg-gradient-to-t from-gray-100 to-transparent'
+      }`} />
 
       <div className="relative z-10 container mx-auto px-4 pt-28 pb-20">
         <motion.div
