@@ -37,9 +37,9 @@ export default function AboutSection({ theme }: { theme: string }) {
 
           <div className="text-center mb-16">
             <p className={`text-xl leading-relaxed ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
-              I'm a passionate web developer specializing in both <span className="text-cyan-400 font-medium">frontend and backend development</span>. 
-              My core expertise includes <span className="text-blue-400 font-medium">Node.js, Express, EJS, and MongoDB</span>, and I'm currently expanding my skills with{" "}
-              <span className="text-cyan-400 font-medium">React.js and Nest.js</span>. I have a strong foundation in building interactive user interfaces and robust backend systems.
+              I'm a web developer working on both <span className="text-cyan-400 font-medium">frontend and backend</span>. 
+              I work with <span className="text-blue-400 font-medium">Node.js, Express, EJS, MongoDB, React.js, Next.js, and Nest.js</span>. 
+              I'm also learning <span className="text-cyan-400 font-medium">Python</span> and always exploring new technologies to build better web applications.
             </p>
           </div>
 
@@ -92,8 +92,8 @@ export default function AboutSection({ theme }: { theme: string }) {
             className={`text-center ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}
           >
             <p className="text-lg">
-              I'm experienced with <span className="text-blue-400">Agile methodologies</span> and version control systems like Git. 
-              Currently seeking opportunities as a backend developer, I'm eager to collaborate on innovative projects and contribute to dynamic development teams.
+              I use <span className="text-blue-400">Git</span> for version control and follow <span className="text-cyan-400">Agile</span> practices. 
+              I'm open to opportunities where I can work on interesting projects and learn from experienced teams.
             </p>
           </motion.div>
         </motion.div>
