@@ -47,14 +47,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={inter.className}>
-      <head>
-        <link rel="icon" href="/favicon.ico" />
-        {/* Open Graph and Twitter meta tags are handled by Next.js metadata */}
-      </head>
       <body>{children}</body>
     </html>
   )
 }
-
-export const dynamic = 'force-static'
-export const revalidate = 86400

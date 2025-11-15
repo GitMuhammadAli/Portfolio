@@ -1,43 +1,34 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* globals.css */
 @font-face {
   font-family: 'GeistSans';
   src: url('/app/fonts/GeistVF.woff') format('woff');
   font-weight: 100 900;
   font-style: normal;
+  font-display: swap;
 }
-
-html {
-  scroll-padding-bottom: 180px;
-}
-
 
 @font-face {
   font-family: 'GeistMono';
   src: url('/app/fonts/GeistMonoVF.woff') format('woff');
   font-weight: 100 900;
   font-style: normal;
+  font-display: swap;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-/* Apply the fonts globally */
 :root {
   --font-geist-sans: 'GeistSans', sans-serif;
   --font-geist-mono: 'GeistMono', monospace;
 }
 
-body {
-  overflow-x: hidden;
+html {
+  scroll-behavior: smooth;
+  scroll-padding-bottom: 180px;
 }
-
 
 body {
   font-family: var(--font-geist-sans);
+  overflow-x: hidden;
 }
