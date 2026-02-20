@@ -8,10 +8,10 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-700 hover:to-pink-700",
-        outline: "border border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white",
-        ghost: "text-purple-600 hover:bg-purple-600/10",
-        link: "text-purple-600 underline-offset-4 hover:underline",
+        default: "bg-gradient-to-r from-cyan-500 to-blue-500 text-white hover:from-cyan-600 hover:to-blue-600 shadow-lg shadow-cyan-500/25",
+        outline: "border border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/10 hover:border-cyan-500/50",
+        ghost: "text-cyan-400 hover:bg-cyan-500/10",
+        link: "text-cyan-400 underline-offset-4 hover:underline",
       },
       size: {
         default: "h-10 py-2 px-4",

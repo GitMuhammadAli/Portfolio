@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3:*)",
+      "Bash(/tmp/navbar_patch.py:*)",
+      "Bash(python:*)",
+      "Bash(\"C:/Ali/Pro/Portfolio/app/projects/[slug]/ProjectDetailClient.tsx\":*)",
+      "Bash(/tmp/write_file.py:*)",
+      "Bash(printf:*)",
+      "Bash(node -e:*)",
+      "Bash(node:*)",
+      "Bash(/tmp/write_detail.js:*)",
+      "Bash(/tmp/encode_and_write.js:*)",
+      "Bash(/tmp/detail_part1.txt:*)"
+    ],
+    "additionalDirectories": [
+      "\\tmp",
+      "C:\\Ali\\Pro\\Portfolio\\app\\projects\\[slug]"
+    ]
+  }
+}

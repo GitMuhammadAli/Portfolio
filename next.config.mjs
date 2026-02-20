@@ -6,6 +6,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'images.unsplash.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'cdn.jsdelivr.net',
+      },
     ],
     formats: ['image/avif', 'image/webp'],
     minimumCacheTTL: 60,
@@ -15,7 +19,7 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   experimental: {
-    optimizePackageImports: ['lucide-react', 'framer-motion', '@mui/material'],
+    optimizePackageImports: ['lucide-react', 'framer-motion'],
   },
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production' ? {

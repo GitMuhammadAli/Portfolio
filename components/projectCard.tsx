@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { Github, ExternalLink } from "lucide-react";
-import { Button } from "@mui/material";
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
@@ -93,34 +92,30 @@ export default function ProjectCard({
 
           {/* Buttons */}
           <div className="flex gap-3 mt-5">
-            <Button
-              variant="outlined"
-              size="small"
-              className={`bg-gradient-to-r from-cyan-500/10 to-blue-500/10 ${
-                theme === "dark"
-                  ? "border-cyan-500/20 text-cyan-400 hover:bg-cyan-500/20 hover:text-cyan-300"
-                  : "border-cyan-500/20 text-cyan-700 hover:bg-cyan-500/20 hover:text-cyan-900"
-              }`}
+            <button
+              className={`inline-flex items-center gap-2 px-4 py-1.5 text-sm rounded-full border transition-all duration-200
+                ${theme === "dark"
+                  ? "border-cyan-500/20 text-cyan-400 hover:bg-cyan-500/10 hover:border-cyan-500/40"
+                  : "border-cyan-500/30 text-cyan-700 hover:bg-cyan-500/10"
+                }`}
               onClick={() => window.open(github, "_blank")}
             >
-              <Github className="w-4 h-4 mr-2" />
+              <Github className="w-4 h-4" />
               Code
-            </Button>
+            </button>
 
             {demo && (
-              <Button
-                variant="outlined"
-                size="small"
-                className={`bg-gradient-to-r from-blue-500/10 to-purple-500/10 ${
-                  theme === "dark"
-                    ? "border-blue-500/20 text-blue-400 hover:bg-blue-500/20 hover:text-blue-300"
-                    : "border-blue-500/20 text-blue-700 hover:bg-blue-500/20 hover:text-blue-900"
-                }`}
+              <button
+                className={`inline-flex items-center gap-2 px-4 py-1.5 text-sm rounded-full border transition-all duration-200
+                  ${theme === "dark"
+                    ? "border-blue-500/20 text-blue-400 hover:bg-blue-500/10 hover:border-blue-500/40"
+                    : "border-blue-500/30 text-blue-700 hover:bg-blue-500/10"
+                  }`}
                 onClick={() => window.open(demo, "_blank")}
               >
-                <ExternalLink className="w-4 h-4 mr-2" />
+                <ExternalLink className="w-4 h-4" />
                 Demo
-              </Button>
+              </button>
             )}
           </div>
         </div>

@@ -40,6 +40,16 @@ const technologies = [
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
     category: "Database",
   },
+  {
+    name: "NestJS",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nestjs/nestjs-original.svg",
+    category: "Backend",
+  },
+  {
+    name: "Docker",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg",
+    category: "DevOps",
+  },
 ]
 
 export default function SkillsSection({ theme }: { theme: string }) {
@@ -71,7 +81,8 @@ export default function SkillsSection({ theme }: { theme: string }) {
       <div className="relative z-10 container mx-auto px-4 pt-28">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.3 }}
           className="max-w-6xl mx-auto"
         >
@@ -79,7 +90,8 @@ export default function SkillsSection({ theme }: { theme: string }) {
             <motion.h2
               className="text-5xl md:text-6xl font-bold"
               initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.3 }}
             >
               Tech Wizardry
@@ -89,7 +101,8 @@ export default function SkillsSection({ theme }: { theme: string }) {
 
           <motion.div
             initial="hidden"
-            animate="visible"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
             variants={{
               hidden: { opacity: 0 },
               visible: {
@@ -177,7 +190,8 @@ export default function SkillsSection({ theme }: { theme: string }) {
 
           <motion.div
             initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{ delay: 0.4, duration: 0.3 }}
             className="mt-16 text-center"
           >
@@ -186,7 +200,7 @@ export default function SkillsSection({ theme }: { theme: string }) {
               <motion.span
                 className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400"
               >
-                TypeScript, Git, TypeOrm
+                TypeScript, Git, Docker, Tailwind CSS, Postman
               </motion.span>
             </p>
           </motion.div>

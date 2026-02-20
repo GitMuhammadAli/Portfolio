@@ -1,10 +1,11 @@
 'use client'
 import { useState, useEffect } from 'react'
 import Navbar from '@/components/Navbar'
-import HeroSection from '@/components/HeroSection'
 import AboutSection from '@/components/AboutSection'
+import ExperienceSection from '@/components/ExperienceSection'
 import SkillsSection from '@/components/SkillsSection'
 import ProjectsSection from '@/components/ProjectsSection'
+import EducationSection from '@/components/EducationSection'
 import ContactSection from '@/components/ContactSection'
 import Footer from '@/components/Footer'
 import Background from '@/components/Background'
@@ -36,16 +37,17 @@ export default function Portfolio() {
       <Background theme={theme}  />
 
       <main className=''>
-        {/* <HeroSection /> */}
-        <section  className="min-h-screen">
-          <AboutSection  theme={theme} />
+        <section className="min-h-screen">
+          <AboutSection theme={theme} />
         </section>
+        <ExperienceSection theme={theme} />
         <section id="skills" className="min-h-screen">
           <SkillsSection theme={theme} />
         </section>
         <section id="projects" className="min-h-screen">
           <ProjectsSection theme={theme} />
         </section>
+        <EducationSection theme={theme} />
         <section id="contact" className="min-h-screen">
           <ContactSection theme={theme} />
         </section>

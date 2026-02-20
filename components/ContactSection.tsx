@@ -72,7 +72,8 @@ export default function ContactSection({ theme }: { theme: string }) {
       <div className="relative z-10 container mx-auto px-4 w-full">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6 }}
           className="max-w-6xl mx-auto"
         >
@@ -80,7 +81,8 @@ export default function ContactSection({ theme }: { theme: string }) {
           <div className="text-center mb-16">
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
               transition={{ delay: 0.2 }}
             >
               <h2 className="text-5xl md:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 mb-4">
@@ -90,7 +92,8 @@ export default function ContactSection({ theme }: { theme: string }) {
             </motion.div>
             <motion.p
               initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
               transition={{ delay: 0.4 }}
               className={`text-lg md:text-xl text-center ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'} mt-8 max-w-2xl mx-auto`}
             >
@@ -104,7 +107,8 @@ export default function ContactSection({ theme }: { theme: string }) {
               <motion.div
                 key={method.label}
                 initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
                 transition={{ delay: 0.3 + index * 0.1, type: "spring", stiffness: 100 }}
                 whileHover={{ y: -5, scale: 1.02 }}
                 className="group"
@@ -162,7 +166,8 @@ export default function ContactSection({ theme }: { theme: string }) {
           {/* Email Copy Section */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
             transition={{ delay: 0.7 }}
             className="max-w-2xl mx-auto"
           >
@@ -206,7 +211,8 @@ export default function ContactSection({ theme }: { theme: string }) {
           {/* CTA Button */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
             transition={{ delay: 0.8 }}
             className="mt-12 text-center"
           >

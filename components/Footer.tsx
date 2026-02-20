@@ -22,7 +22,8 @@ export default function Footer({ theme }: { theme: string }) {
         <div className="flex flex-col items-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.5 }}
             className="mb-4"
           >
@@ -33,7 +34,8 @@ export default function Footer({ theme }: { theme: string }) {
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
             className="flex space-x-4 mb-6"
           >
@@ -42,7 +44,8 @@ export default function Footer({ theme }: { theme: string }) {
 
           <motion.div
             initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
             transition={{ delay: 0.5, duration: 0.5 }}
             className="text-center"
           >

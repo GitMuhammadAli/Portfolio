@@ -3,19 +3,22 @@ import type { Metadata } from "next";
 import React from 'react';
 
 export const metadata: Metadata = {
-  title: "Ali Shahid | Full Stack Developer Portfolio",
-  description: "Portfolio of Ali Shahid, Full Stack Developer. Crafting innovative solutions at the intersection of web development and design.",
+  metadataBase: new URL("https://alishahid-dev.vercel.app"),
+  title: "Ali Shahid | Full Stack Developer",
+  description: "Full Stack Developer specializing in Next.js, NestJS, React, and TypeScript. Building scalable web applications with modern technologies.",
+  keywords: ["Full Stack Developer", "Next.js", "React", "TypeScript", "NestJS", "Portfolio", "Ali Shahid"],
+  authors: [{ name: "Ali Shahid" }],
   openGraph: {
-    title: "Ali Shahid | Full Stack Developer Portfolio",
-    description: "Portfolio of Ali Shahid, Full Stack Developer. Crafting innovative solutions at the intersection of web development and design.",
-    url: "https://your-domain.com/", // Replace with your actual domain
+    title: "Ali Shahid | Full Stack Developer",
+    description: "Full Stack Developer specializing in Next.js, NestJS, React, and TypeScript. Building scalable web applications with modern technologies.",
+    url: "https://alishahid-dev.vercel.app",
     siteName: "Ali Shahid Portfolio",
     images: [
       {
-        url: "/og-image.png", // Place an og-image.png in your public folder
+        url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Ali Shahid Portfolio Preview",
+        alt: "Ali Shahid - Full Stack Developer Portfolio",
       },
     ],
     locale: "en_US",
@@ -23,14 +26,16 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ali Shahid | Full Stack Developer Portfolio",
-    description: "Portfolio of Ali Shahid, Full Stack Developer. Crafting innovative solutions at the intersection of web development and design.",
+    title: "Ali Shahid | Full Stack Developer",
+    description: "Full Stack Developer specializing in Next.js, NestJS, React, and TypeScript.",
     images: ["/og-image.png"],
-    creator: "@yourtwitterhandle" // Replace with your Twitter handle
   },
   icons: {
-    icon: "/favicon.ico"
-  }
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico" },
+    ],
+  },
 };
 
 import { Inter } from 'next/font/google'

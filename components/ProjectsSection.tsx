@@ -2,58 +2,7 @@
 
 import ProjectCard from "./projectCard";
 import { motion } from "framer-motion";
-
-const projects = [
-  {
-    title: "Rent-Wise",
-    description:
-      "RentWise is a next-generation decentralized SaaS rental platform designed to bring trust, transparency, and automation into the property rental process.",
-    tags: ["JavaScript", "Full Stack", "Web App"],
-    imageUrl: "/projects/rentwise.png",
-    github: "https://github.com/GitMuhammadAli/Rent-Wise",
-  },
-  {
-    title: "Stock-Pilot",
-    description:
-      "Stock market tracking and analysis tool built with TypeScript. Monitor stocks and analyze trends.Your Inventory & Supply Chain Tracker SaaS is designed to help businesses manage inventory, track supply chains, and optimize stock levels efficiently.",
-    tags: ["TypeScript", "React", "Finance"],
-    imageUrl: "/projects/stockpilot.png",
-    github: "https://github.com/GitMuhammadAli/Stock-Pilot",
-  },
-  {
-    title: "AuthKit",
-    description:
-      "Authentication toolkit with secure login, registration and JWT session management.",
-    tags: ["JavaScript", "Authentication", "Security"],
-    imageUrl: "/projects/authkit.png",
-    github: "https://github.com/GitMuhammadAli/AuthKit",
-  },
-  {
-    title: "Fitness-Planner",
-    description:
-      "Track workouts, plan sessions, and maintain consistency with your fitness routine.",
-    tags: ["JavaScript", "Health", "Web App"],
-    imageUrl: "/projects/fitness.png",
-    github: "https://github.com/GitMuhammadAli/Fitness-Planner",
-  },
-  {
-    title: "APOD React",
-    description:
-      "NASA APOD viewer built with React to explore daily images from space.",
-    tags: ["React", "NASA API"],
-    imageUrl: "/projects/apod.png",
-    github: "https://github.com/GitMuhammadAli/APOD-react",
-  },
-  {
-    title: "Nova Plus",
-    description:
-      "Multi-tenant SaaS platform built with NestJS + Next.js 15. Role system, JWT auth, isolation.",
-    tags: ["NestJS", "Next.js", "SaaS"],
-    imageUrl: "/projects/nova-plus.png",
-    github: "https://github.com/GitMuhammadAli/nova-plus",
-  },
-];
-
+import { projects } from "@/data/projects";
 
 export default function ProjectsSection({ theme }: { theme: string }) {
   return (
@@ -62,7 +11,8 @@ export default function ProjectsSection({ theme }: { theme: string }) {
         {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: 25 }}
-          animate={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6 }}
           className="max-w-4xl mx-auto text-center mb-20"
         >
@@ -71,14 +21,50 @@ export default function ProjectsSection({ theme }: { theme: string }) {
           </h2>
         </motion.div>
 
-        {/* Vertical stacked projects */}
+        {/* Featured Projects */}
+        {projects.filter(p => p.featured).length > 0 && (
+          <div className="mb-16">
+            <motion.p
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              className={`text-center mb-8 text-sm uppercase tracking-wider ${
+                theme === 'dark' ? 'text-cyan-400' : 'text-cyan-600'
+              }`}
+            >
+              ★ Featured Projects
+            </motion.p>
+            <div className="space-y-12">
+              {projects.filter(p => p.featured).map((p, i) => (
+                <ProjectCard
+                  key={p.slug}
+                  title={p.title}
+                  description={p.description}
+                  tags={p.tags}
+                  imageUrl={p.imageUrl}
+                  github={p.github}
+                  demo={p.demo}
+                  theme={theme}
+                  reverse={i % 2 === 1}
+                />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Other Projects */}
         <div>
-          {projects.map((p, i) => (
+          {projects.filter(p => !p.featured).map((p, i) => (
             <ProjectCard
-              key={i}
-              {...p}
+              key={p.slug}
+              title={p.title}
+              description={p.description}
+              tags={p.tags}
+              imageUrl={p.imageUrl}
+              github={p.github}
+              demo={p.demo}
               theme={theme}
-              reverse={i % 2 === 1} // alternate layout
+              reverse={i % 2 === 1}
             />
           ))}
         </div>

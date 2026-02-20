@@ -31,7 +31,8 @@ export default function AboutSection({ theme }: { theme: string }) {
       <div className="relative z-10 container mx-auto px-4 pt-28 pb-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6 }}
           className="max-w-4xl mx-auto"
         >
@@ -53,9 +54,10 @@ export default function AboutSection({ theme }: { theme: string }) {
 
           <div className="text-center mb-16">
             <p className={`text-xl leading-relaxed ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
-              I'm a web developer working on both <span className="text-cyan-400 font-medium">frontend and backend</span>. 
-              I work with <span className="text-blue-400 font-medium">Node.js, Express, EJS, MongoDB, React.js, Next.js, and Nest.js</span>. 
-              I'm also learning <span className="text-cyan-400 font-medium">Python</span> and always exploring new technologies to build better web applications.
+              I'm a Full-Stack Developer with a BS in Computer Science from <span className="text-cyan-400 font-medium">Bahria University</span>. 
+              Currently at NgXoft Solutions, I build and ship production-grade web applications. 
+              I work with <span className="text-blue-400 font-medium">Node.js, Express, MongoDB, React.js, Next.js, NestJS, PostgreSQL, and Docker</span>. 
+              I've developed <span className="text-cyan-400 font-medium">5+ end-to-end web applications</span> spanning AI-powered platforms, authentication systems, and inventory management tools.
             </p>
           </div>
 
@@ -68,7 +70,8 @@ export default function AboutSection({ theme }: { theme: string }) {
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
                 transition={{ delay: index * 0.2 }}
                 className="group"
               >
@@ -103,12 +106,13 @@ export default function AboutSection({ theme }: { theme: string }) {
 
           <motion.div
             initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, margin: "-100px" }}
             transition={{ delay: 0.8 }}
             className={`text-center ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}
           >
             <p className="text-lg">
-              I use <span className="text-blue-400">Git</span> for version control and follow <span className="text-cyan-400">Agile</span> practices. 
+              Skilled in designing <span className="text-blue-400">RESTful APIs</span>, integrating third-party services, and automating deployments with <span className="text-cyan-400">Docker, Vercel, and VPS hosting</span>. 
               I'm open to opportunities where I can work on interesting projects and learn from experienced teams.
             </p>
           </motion.div>

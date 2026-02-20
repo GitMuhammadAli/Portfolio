@@ -11,7 +11,7 @@ export default function Navbar({ theme, toggleTheme }: { theme: string; toggleTh
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['home', 'about', 'skills', 'projects', 'contact'];
+      const sections = ['home', 'about', 'experience', 'skills', 'projects', 'education', 'contact'];
       let currentSection = '';
       let minDistance = Infinity;
 
@@ -40,7 +40,7 @@ export default function Navbar({ theme, toggleTheme }: { theme: string; toggleTh
     };
   }, []);
 
-  const sections = ['home', 'about', 'skills', 'projects', 'contact']
+  const sections = ['home', 'about', 'experience', 'skills', 'projects', 'education', 'contact']
 
   return (
     <nav className="fixed top-4 left-0 right-0 z-50 flex justify-center items-center px-2">
@@ -55,7 +55,7 @@ export default function Navbar({ theme, toggleTheme }: { theme: string; toggleTh
                 transition={{ duration: 0.5 }}
                 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-500 to-blue-600"
               >
-                {/* Ali */}
+                AS<span className="text-cyan-400">.</span>
               </motion.div>
               <div className="hidden md:flex space-x-1">
                 {sections.map((section) => (
