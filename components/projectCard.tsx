@@ -45,10 +45,10 @@ export default function ProjectCard({
     >
       <section
         className={`
-          relative max-w-[44rem] mx-auto border rounded-xl overflow-hidden 
-          transition-all sm:h-[22rem]
-          ${theme === "dark" 
-            ? "bg-gray-900/40 border-gray-700 hover:bg-gray-900/60" 
+          relative max-w-[44rem] mx-auto border rounded-xl overflow-hidden
+          transition-all sm:min-h-[22rem]
+          ${theme === "dark"
+            ? "bg-gray-900/40 border-gray-700 hover:bg-gray-900/60"
             : "bg-gray-100 border-gray-300 hover:bg-gray-200"
           }
           flex flex-col sm:flex-row
@@ -58,8 +58,8 @@ export default function ProjectCard({
         {/* Text Content */}
         <div className="
           pt-6 pb-8 px-6
-          sm:pl-10 sm:pr-4 sm:pt-10 
-          sm:max-w-[55%] 
+          sm:pl-10 sm:pr-4 sm:pt-10
+          sm:max-w-[55%]
           flex flex-col h-full
         ">
           <h3 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400">
@@ -92,30 +92,34 @@ export default function ProjectCard({
 
           {/* Buttons */}
           <div className="flex gap-3 mt-5">
-            <button
+            <a
+              href={github}
+              target="_blank"
+              rel="noopener noreferrer"
               className={`inline-flex items-center gap-2 px-4 py-1.5 text-sm rounded-full border transition-all duration-200
                 ${theme === "dark"
                   ? "border-cyan-500/20 text-cyan-400 hover:bg-cyan-500/10 hover:border-cyan-500/40"
                   : "border-cyan-500/30 text-cyan-700 hover:bg-cyan-500/10"
                 }`}
-              onClick={() => window.open(github, "_blank")}
             >
               <Github className="w-4 h-4" />
               Code
-            </button>
+            </a>
 
             {demo && (
-              <button
+              <a
+                href={demo}
+                target="_blank"
+                rel="noopener noreferrer"
                 className={`inline-flex items-center gap-2 px-4 py-1.5 text-sm rounded-full border transition-all duration-200
                   ${theme === "dark"
                     ? "border-blue-500/20 text-blue-400 hover:bg-blue-500/10 hover:border-blue-500/40"
                     : "border-blue-500/30 text-blue-700 hover:bg-blue-500/10"
                   }`}
-                onClick={() => window.open(demo, "_blank")}
               >
                 <ExternalLink className="w-4 h-4" />
                 Demo
-              </button>
+              </a>
             )}
           </div>
         </div>
@@ -127,11 +131,11 @@ export default function ProjectCard({
           width={700}
           height={500}
           className={`
-            absolute hidden sm:block top-10 w-[30rem] rounded-lg shadow-2xl 
+            absolute hidden sm:block top-10 w-[30rem] rounded-lg shadow-2xl
             transition duration-300
             group-hover:scale-[1.04] group-hover:translate-y-3 group-hover:-rotate-2
 
-            ${reverse 
+            ${reverse
               ? "right-[initial] -left-40 group-hover:translate-x-3 group-hover:rotate-2"
               : "-right-40 group-hover:-translate-x-3"
             }
@@ -141,4 +145,3 @@ export default function ProjectCard({
     </motion.div>
   );
 }
-
