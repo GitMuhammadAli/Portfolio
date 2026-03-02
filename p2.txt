@@ -1,0 +1,120 @@
+
+
+include pull new bracnch from main as well so i can see 2 design one in 
+3D Intro Effects (Hero):
+Interactive particle canvas with mouse-reactive dots and connection lines
+Floating glowing orbs (emerald, amber, teal) that drift around the background
+3D tilt Kanban mockup that follows your mouse with perspective transforms and glare effect
+Typing effect cycling through "Interviews", "Callbacks", "Offers", "Results" with a blinking cursor
+Animated gradient text with background-position shift
+Floating badges ("95% Match", "AI Generated", "Auto Sent") orbiting the mockup
+Shimmer sweep effect on the CTA button hover
+2D Scroll Animations (AnimateOnScroll):
+7 scroll-triggered variants: fade-up, fade-left, fade-right, zoom, flip-up, blur-in, rotate-in
+Each section uses different variants for visual variety as you scroll down
+Staggered delays between child elements for cascade effects
+3D Animations Throughout:
+Features - Each card has mouse-tracking 3D tilt with radial emerald glow on hover, gradient borders
+ProblemSolution - Glowing orb backgrounds behind cards, animated gradient on "Automatically" text, ping animation on the arrow
+HowItWorks - Gradient-colored timeline line, step numbers with glow halos, alternating left/right fade animations
+Modes - Full 3D perspective tilt on each mode card with translateZ depth, pulsing ring on the recommended card
+Safety - Glass morphism cards with backdrop blur, directional glow shadows per card
+Stats - Gradient-colored numbers per stat, cards with gradient background on hover
+Testimonials - 3D tilt on mouse move, gradient borders, star ratings
+CTA - Rising star particles on canvas, expanding pulse rings, gradient text animation, shimmer sweep button
+
+Now I'll replace the GlowingOrbs with a smooth flowing SVG wave/curve animation, and add CSS-only flowing gradient curves to the hero background. This is the kind of thing you see on Stripe, Linear, Vercel — organic flowing shapes, not dots.
+
+Both screenshots look great. Here's the complete prompt for your portfolio project. Copy the two screenshot images from c:\Ali\Pro\portfolio-screenshots\ into your portfolio's public/projects/ folder first, then paste this prompt:
+Step 1: Copy the screenshot files into your portfolio project
+Copy these files into your portfolio's public/projects/ folder (create it if it doesn't exist):
+c:\Ali\Pro\portfolio-screenshots\jobpilot-hero.png → public/projects/jobpilot.png
+c:\Ali\Pro\portfolio-screenshots\carecircle-hero.png → public/projects/carecircle.png
+Step 2: Paste this prompt into Cursor on your portfolio project:
+I want a full visual overhaul of my portfolio. Do everything below — go section by section.
+SCREENSHOTS ALREADY SAVED
+I've placed two project screenshots in public/projects/:
+jobpilot.png — hero screenshot of https://job-auto-applier-three.vercel.app
+carecircle.png — hero screenshot of https://care-giving-web.vercel.app
+Use these as the preview images in the project cards for JobPilot and CareCircle.
+GLOBAL DESIGN CHANGES
+Background: Replace flat navy with layered gradient: base #060610, with 2–3 soft radial gradient overlays using CSS (emerald, indigo, violet at very low opacity ~4-6%). Add organic morphing blob shapes using CSS border-radius animation (40% 60% 70% 30% / 40% 50% 60% 50% cycling over 20s). NO particles, NO floating dots, NO canvas effects.
+Color palette upgrade:
+Primary: #6366f1 (indigo)
+Secondary: #8b5cf6 (violet)
+Warm accent: #f59e0b (amber) for CTAs and highlights
+Teal accent: #14b8a6 for tech tags
+Text: white #fafafa and #a1a1aa (zinc-400)
+Card backgrounds: rgba(255,255,255,0.03) with backdrop-filter: blur(12px) and border: 1px solid rgba(255,255,255,0.06)
+Scroll animations: Build an AnimateOnScroll component using IntersectionObserver. Support variants: fade-up, fade-left, fade-right, zoom, flip-up (with perspective(600px) rotateX(15deg)), blur-in. Apply to every section with staggered delays (100–150ms per child). Include prefers-reduced-motion media query to disable.
+Flowing curves: Add subtle SVG <path> elements with gradient strokes to the hero and contact sections. Animate the d attribute with CSS keyframes so curves gently drift. Use emerald-to-indigo gradients with low opacity (10-20%). NOT dots or particles.
+Typography: Use Inter or DM Sans for body, plus a serif font (Instrument Serif or Playfair Display) for section headings to add personality.
+HERO SECTION
+Name "Ali Shahid" at text-6xl md:text-7xl font-bold
+"Full Stack Developer" with animated gradient text: cycling indigo→violet→teal using background-position animation (6s ease infinite, background-size: 200% 200%)
+Add a typing effect cycling through: "I build scalable web apps.", "I design clean APIs.", "I ship production code." with a blinking cursor
+Two CTA buttons: "View Projects" (solid indigo with shimmer sweep on hover) and "Get In Touch" (outline/ghost style)
+Background: 2-3 morphing blob shapes (CSS only) + flowing SVG curves
+Remove the current floating rounded-rectangle shapes
+ABOUT SECTION
+Keep the three role cards but make them glass-morphism style with 3D tilt on hover (mouse-tracking perspective(600px) rotateX/rotateY with a radial glare overlay)
+Each card gets a subtle colored top-border gradient (blue, violet, amber)
+Scroll animation: flip-up variant
+EXPERIENCE SECTION
+Timeline line as a vertical gradient (indigo→violet→amber, top to bottom)
+Each timeline node: colored circle with a glow halo behind it that fades in on scroll
+Content cards slide in from alternating left/right using fade-left and fade-right variants
+Glass-morphism card style
+SKILLS SECTION ("Tech Wizardry")
+Group into categories with colored left-borders: Frontend (indigo), Backend (violet), Database (teal), DevOps (amber)
+Each skill badge: glass-morphism pill, hover effect scale-1.05 -translate-y-1 shadow-lg with glow
+Staggered zoom scroll animation
+PROJECTS SECTION — IMPORTANT
+Update the project data for JobPilot and CareCircle to use the screenshots:
+JobPilot:
+Image: /projects/jobpilot.png
+Title: "JobPilot"
+Description: "AI-powered job application platform. Scrapes 8+ job sites, AI-matches jobs 0-100 against your profile, generates personalized cover emails, and tracks everything on a Kanban board. 3 automation modes from manual to full-auto."
+Tech tags: NEXT.JS, TYPESCRIPT, PRISMA, POSTGRESQL, GROQ AI, TAILWIND
+Links: Code → https://github.com/GitMuhammadAli/Job-AutoApplier, Demo → https://job-auto-applier-three.vercel.app
+CareCircle:
+Image: /projects/carecircle.png
+Title: "CareCircle"
+Description: "Family caregiving coordination platform. Private circles for sharing care updates, medication tracking, task assignment, and real-time notifications. Built for the 53 million Americans caring for loved ones."
+Tech tags: NEXT.JS, REACT, TYPESCRIPT, TAILWIND, VERCEL
+Links: Code → https://github.com/GitMuhammadAli/CareCircle, Demo → https://care-giving-web.vercel.app
+All project cards should:
+Show the screenshot image at the top with object-cover, rounded-t-2xl, aspect ratio 16/9
+Glass-morphism card body with backdrop-blur
+3D mouse-tracking tilt on hover (perspective + rotateX/Y)
+Colored gradient top-border unique per project
+"Code" and "Demo" buttons with shimmer sweep hover animation
+flip-up scroll animation with staggered delays
+EDUCATION SECTION
+Clean timeline layout
+Glass-morphism card with university icon
+Certifications as horizontal badge row
+fade-up scroll animation
+CONTACT SECTION
+"Let's work together" headline with animated gradient text
+Email, LinkedIn, GitHub as hoverable glass cards with icon + label + subtle glow on hover
+Flowing SVG curves in the dark background
+zoom scroll animation
+NAVBAR
+Frosted glass: background: rgba(6,6,16,0.7), backdrop-filter: blur(16px)
+Active section: smooth sliding pill indicator (CSS transition on left and width)
+"AS." logo with subtle indigo glow
+Keep theme toggle
+PERFORMANCE RULES
+will-change: transform on animated elements
+@media (prefers-reduced-motion: reduce) to disable all animations
+All animations CSS-based or lightweight IntersectionObserver — no heavy libraries like framer-motion or GSAP
+Use next/image for project screenshots with proper width, height, alt
+Do NOT add particle dots, floating circles with connection lines, starfields, or any effect that looks like a generic AI template. Keep it organic, smooth, premium.
+
+
+do all in 2 current one in new from main 
+
+and this one also in new bracnh form main main was deployed we dont want to distrub that
+
+2 new deisng seprate branches 

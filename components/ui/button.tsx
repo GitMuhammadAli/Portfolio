@@ -1,28 +1,30 @@
 import React from 'react'
 import { cva, type VariantProps } from 'class-variance-authority'
-import { cn } from "@/lib/utils"
+import { cn } from '@/lib/utils'
 import { Loader2 } from 'lucide-react'
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center rounded-full text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none",
+  'inline-flex items-center justify-center rounded-full text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 focus:ring-offset-[#0a0a0f] disabled:opacity-50 disabled:pointer-events-none',
   {
     variants: {
       variant: {
-        default: "bg-gradient-to-r from-cyan-500 to-blue-500 text-white hover:from-cyan-600 hover:to-blue-600 shadow-lg shadow-cyan-500/25",
-        outline: "border border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/10 hover:border-cyan-500/50",
-        ghost: "text-cyan-400 hover:bg-cyan-500/10",
-        link: "text-cyan-400 underline-offset-4 hover:underline",
+        default:
+          'bg-indigo-500 text-white hover:bg-indigo-400 shadow-lg shadow-indigo-500/20',
+        outline:
+          'border border-indigo-500/30 text-indigo-300 hover:bg-indigo-500/10 hover:border-indigo-500/50',
+        ghost: 'text-zinc-400 hover:text-zinc-200 hover:bg-white/5',
+        link: 'text-indigo-400 underline-offset-4 hover:underline',
       },
       size: {
-        default: "h-10 py-2 px-4",
-        sm: "h-8 px-3 text-xs",
-        lg: "h-12 px-8",
-        icon: "h-10 w-10",
+        default: 'h-10 py-2 px-4',
+        sm: 'h-8 px-3 text-xs',
+        lg: 'h-12 px-8',
+        icon: 'h-10 w-10',
       },
     },
     defaultVariants: {
-      variant: "default",
-      size: "default",
+      variant: 'default',
+      size: 'default',
     },
   }
 )
@@ -48,6 +50,6 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     )
   }
 )
-Button.displayName = "Button"
+Button.displayName = 'Button'
 
 export { Button, buttonVariants }

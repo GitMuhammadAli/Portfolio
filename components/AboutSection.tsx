@@ -1,122 +1,139 @@
-"use client"
+'use client'
 
-import { motion } from "framer-motion"
-import { GraduationCap, Code2, Briefcase } from "lucide-react"
-import Image from "next/image"
+import { useRef, useCallback } from 'react'
+import { GraduationCap, Code2, Briefcase } from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
+import Image from 'next/image'
 
-export default function AboutSection({ theme }: { theme: string }) {
+function TiltCard({
+  icon: Icon,
+  title,
+  index,
+}: {
+  icon: LucideIcon
+  title: string
+  index: number
+}) {
+  const cardRef = useRef<HTMLDivElement>(null)
+  const glareRef = useRef<HTMLDivElement>(null)
+
+  const handleMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    const card = cardRef.current
+    const glare = glareRef.current
+    if (!card) return
+
+    const rect = card.getBoundingClientRect()
+    const x = e.clientX - rect.left
+    const y = e.clientY - rect.top
+    const centerX = rect.width / 2
+    const centerY = rect.height / 2
+
+    const rotateX = ((y - centerY) / centerY) * -8
+    const rotateY = ((x - centerX) / centerX) * 8
+
+    card.style.transform = `perspective(600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`
+
+    if (glare) {
+      const px = (x / rect.width) * 100
+      const py = (y / rect.height) * 100
+      glare.style.setProperty('--glare-x', `${px}%`)
+      glare.style.setProperty('--glare-y', `${py}%`)
+      glare.style.opacity = '1'
+    }
+  }, [])
+
+  const handleLeave = useCallback(() => {
+    const card = cardRef.current
+    const glare = glareRef.current
+    if (card) card.style.transform = 'perspective(600px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)'
+    if (glare) glare.style.opacity = '0'
+  }, [])
+
   return (
-    <section id="about" className="relative min-h-screen py-20">
-      {/* Top gradient fade from previous section */}
-      <div className={`absolute top-0 left-0 right-0 h-32 z-20 pointer-events-none ${
-        theme === 'dark' 
-          ? 'bg-gradient-to-b from-[#1a1f2e] to-transparent' 
-          : 'bg-gradient-to-b from-gray-50 to-transparent'
-      }`} />
-      
-      <div className={`absolute inset-0 ${theme === 'dark' ? 'bg-[#1a1f2e]' : 'bg-gray-100'}`}>
-        <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/[0.08] via-transparent to-blue-500/[0.08] blur-3xl" />
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
-        <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl" />
+    <div
+      className="reveal-flip"
+      style={{ transitionDelay: `${index * 100}ms` }}
+    >
+      <div
+        ref={cardRef}
+        onMouseMove={handleMove}
+        onMouseLeave={handleLeave}
+        className="pulse-border-card relative p-8 rounded-2xl bg-white/[0.02] backdrop-blur-sm
+          transition-transform duration-200 ease-out cursor-default"
+        style={{ willChange: 'transform' }}
+      >
+        <div ref={glareRef} className="tilt-glare" />
+        <div className="relative z-10 flex flex-col items-center text-center">
+          <div className="p-4 rounded-xl bg-indigo-500/10 mb-5">
+            <Icon className="w-8 h-8 text-indigo-400" />
+          </div>
+          <h3 className="text-lg font-semibold text-zinc-100">{title}</h3>
+        </div>
       </div>
-      
-      {/* Bottom gradient fade to next section */}
-      <div className={`absolute bottom-0 left-0 right-0 h-32 z-20 pointer-events-none ${
-        theme === 'dark' 
-          ? 'bg-gradient-to-t from-[#1a1f2e] to-transparent' 
-          : 'bg-gradient-to-t from-gray-100 to-transparent'
-      }`} />
+    </div>
+  )
+}
 
-      <div className="relative z-10 container mx-auto px-4 pt-28 pb-20">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-          className="max-w-4xl mx-auto"
-        >
-          <div className="flex flex-col items-center mb-10">
-            {/* Profile Picture - replace /profile.jpg with your own image */}
+export default function AboutSection() {
+  const cards = [
+    { icon: Code2, title: 'Full-Stack Development' },
+    { icon: Briefcase, title: 'Backend Specialist' },
+    { icon: GraduationCap, title: 'Continuous Learner' },
+  ] as const
+
+  return (
+    <section id="about" className="relative py-28">
+      <div className="relative z-10 container mx-auto px-4">
+        <div className="max-w-4xl mx-auto">
+          {/* Profile + heading */}
+          <div className="flex flex-col items-center mb-12 reveal-blur">
             <Image
               src="/images/me.png"
-              alt="Your profile picture"
-              width={144}
-              height={144}
-              className="rounded-full border-4 border-cyan-400 bg-white object-cover mb-6"
+              alt="Ali Shahid"
+              width={128}
+              height={128}
+              className="rounded-full border-2 border-indigo-500/30 object-cover mb-6
+                shadow-lg shadow-indigo-500/10"
               priority
             />
-            <h2 className="text-5xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400">
-              About Me
-            </h2>
-            <div className="h-1 w-20 bg-gradient-to-r from-cyan-500 to-blue-500 mx-auto mt-4 rounded-full" />
+            <h2 className="text-4xl md:text-5xl font-bold gradient-text">About Me</h2>
+            <div className="h-1 w-16 bg-gradient-to-r from-indigo-500 to-violet-500 mt-4 rounded-full" />
           </div>
 
-          <div className="text-center mb-16">
-            <p className={`text-xl leading-relaxed ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
-              I'm a Full-Stack Developer with a BS in Computer Science from <span className="text-cyan-400 font-medium">Bahria University</span>. 
-              Currently at NgXoft Solutions, I build and ship production-grade web applications. 
-              I work with <span className="text-blue-400 font-medium">Node.js, Express, MongoDB, React.js, Next.js, NestJS, PostgreSQL, and Docker</span>. 
-              I've developed <span className="text-cyan-400 font-medium">5+ end-to-end web applications</span> spanning AI-powered platforms, authentication systems, and inventory management tools.
+          {/* Bio */}
+          <div className="text-center mb-16 reveal-blur" style={{ transitionDelay: '100ms' }}>
+            <p className="text-lg leading-relaxed text-zinc-400">
+              I&apos;m a Full-Stack Developer with a BS in Computer Science from{' '}
+              <span className="text-indigo-400 font-medium">Bahria University</span>.
+              Currently at NgXoft Solutions, I build and ship production-grade web applications.
+              I work with{' '}
+              <span className="text-violet-400 font-medium">
+                Node.js, Express, MongoDB, React.js, Next.js, NestJS, PostgreSQL, and Docker
+              </span>
+              . I&apos;ve developed{' '}
+              <span className="text-amber-400 font-medium">5+ end-to-end web applications</span>{' '}
+              spanning AI-powered platforms, authentication systems, and inventory management tools.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-            {[
-              { icon: Code2, title: "Full-Stack Development" },
-              { icon: Briefcase, title: "Backend Specialist" },
-              { icon: GraduationCap, title: "Continuous Learner" },
-            ].map((item, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ delay: index * 0.2 }}
-                className="group"
-              >
-                <div
-                  className={`relative p-6 rounded-2xl ${
-                    theme === 'dark'
-                      ? 'bg-gradient-to-b from-gray-800/50 to-gray-900/50 border border-gray-700/50'
-                      : 'bg-gradient-to-b from-gray-100 to-gray-200 border border-gray-200'
-                  } backdrop-blur-sm
-                  hover:bg-gradient-to-b ${
-                    theme === 'dark'
-                      ? 'hover:from-gray-800/60 hover:to-gray-900/60'
-                      : 'hover:from-gray-200 hover:to-gray-300'
-                  } transition-all duration-300
-                  before:absolute before:inset-0 before:bg-gradient-to-r before:from-cyan-500/20 before:to-blue-500/20 before:opacity-0 before:transition-opacity
-                  hover:before:opacity-100 before:rounded-2xl overflow-hidden`}
-                >
-                  <div className="relative z-10">
-                    <div className="flex justify-center mb-4">
-                      <div className="p-3 rounded-full bg-gradient-to-r from-cyan-500/20 to-blue-500/20">
-                        <item.icon className="w-8 h-8 text-cyan-400" />
-                      </div>
-                    </div>
-                    <h3 className={`text-xl text-center font-medium ${theme === 'dark' ? 'text-gray-200' : 'text-gray-800'}`}>
-                      {item.title}
-                    </h3>
-                  </div>
-                </div>
-              </motion.div>
+          {/* 3D Tilt cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+            {cards.map((item, i) => (
+              <TiltCard key={item.title} icon={item.icon} title={item.title} index={i} />
             ))}
           </div>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ delay: 0.8 }}
-            className={`text-center ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}
-          >
-            <p className="text-lg">
-              Skilled in designing <span className="text-blue-400">RESTful APIs</span>, integrating third-party services, and automating deployments with <span className="text-cyan-400">Docker, Vercel, and VPS hosting</span>. 
-              I'm open to opportunities where I can work on interesting projects and learn from experienced teams.
+          {/* Additional info */}
+          <div className="reveal text-center" style={{ transitionDelay: '400ms' }}>
+            <p className="text-lg text-zinc-400">
+              Skilled in designing <span className="text-indigo-400">RESTful APIs</span>,
+              integrating third-party services, and automating deployments with{' '}
+              <span className="text-violet-400">Docker, Vercel, and VPS hosting</span>.
+              I&apos;m open to opportunities where I can work on interesting projects and
+              learn from experienced teams.
             </p>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       </div>
     </section>
   )

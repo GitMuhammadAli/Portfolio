@@ -1,15 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
   <defs>
     <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#0f172a"/>
-      <stop offset="100%" stop-color="#1e293b"/>
+      <stop offset="0%" stop-color="#0a0a0f"/>
+      <stop offset="100%" stop-color="#131320"/>
     </linearGradient>
     <linearGradient id="text" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#22d3ee"/>
-      <stop offset="100%" stop-color="#60a5fa"/>
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
     </linearGradient>
   </defs>
   <rect width="64" height="64" rx="14" fill="url(#bg)"/>
   <text x="32" y="44" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-weight="800" font-size="30" fill="url(#text)">AS</text>
-  <circle cx="52" cy="42" r="4" fill="#22d3ee"/>
+  <circle cx="52" cy="42" r="4" fill="#f59e0b"/>
 </svg>

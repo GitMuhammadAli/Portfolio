@@ -1,204 +1,194 @@
+'use client'
 
-"use client"
+import { useState, useEffect } from 'react'
 
-import { motion } from "framer-motion"
-import { Pacifico } from "next/font/google"
-import { cn } from "@/lib/utils"
+const phrases = [
+  'I build scalable web apps',
+  'I design clean APIs',
+  'I ship production code',
+]
 
-const pacifico = Pacifico({
-  subsets: ["latin"],
-  weight: ["400"],
-  variable: "--font-pacifico",
-})
-
-function ElegantShape({
-  className,
-  delay = 0,
-  width = 400,
-  height = 100,
-  rotate = 0,
-  gradient = "from-cyan-500/[0.10]",
-}: {
-  className?: string
-  delay?: number
-  width?: number
-  height?: number
-  rotate?: number
-  gradient?: string
-}) {
+function FlowingSVG() {
   return (
-    <motion.div
-      initial={{
-        opacity: 0,
-        y: -150,
-        rotate: rotate - 15,
-      }}
-      animate={{
-        opacity: 1,
-        y: 0,
-        rotate: rotate,
-      }}
-      transition={{
-        duration: 2.4,
-        delay,
-        ease: [0.23, 0.86, 0.39, 0.96],
-        opacity: { duration: 1.2 },
-      }}
-      className={cn("absolute", className)}
+    <svg
+      className="absolute inset-0 w-full h-full pointer-events-none opacity-20 svg-flow"
+      viewBox="0 0 1200 800"
+      fill="none"
+      preserveAspectRatio="none"
     >
-      <motion.div
-        animate={{
-          y: [0, 15, 0],
-        }}
-        transition={{
-          duration: 12,
-          repeat: Number.POSITIVE_INFINITY,
-          ease: "easeInOut",
-        }}
-        style={{
-          width,
-          height,
-        }}
-        className="relative"
-      >
-        <div
-          className={cn(
-            "absolute inset-0 rounded-full",
-            "bg-gradient-to-r to-blue-500/0", // always fade to transparent blue
-            gradient,
-            "backdrop-blur-[2px] border-2 border-cyan-500/20",
-            "shadow-[0_8px_32px_0_rgba(0,255,255,0.08)]",
-            "after:absolute after:inset-0 after:rounded-full",
-            "after:bg-[radial-gradient(circle_at_50%_50%,rgba(0,255,255,0.12),transparent_70%)]",
-          )}
-        />
-      </motion.div>
-    </motion.div>
+      <defs>
+        <linearGradient id="heroGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#6366f1" stopOpacity="0.4" />
+          <stop offset="50%" stopColor="#8b5cf6" stopOpacity="0.2" />
+          <stop offset="100%" stopColor="#06b6d4" stopOpacity="0.1" />
+        </linearGradient>
+        <linearGradient id="heroGrad2" x1="100%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stopColor="#8b5cf6" stopOpacity="0.3" />
+          <stop offset="100%" stopColor="#6366f1" stopOpacity="0.1" />
+        </linearGradient>
+      </defs>
+      <path
+        d="M0 400 Q200 200 400 350 T800 300 T1200 400"
+        stroke="url(#heroGrad1)"
+        strokeWidth="1.5"
+        fill="none"
+      />
+      <path
+        d="M0 500 Q300 350 600 450 T1200 380"
+        stroke="url(#heroGrad2)"
+        strokeWidth="1"
+        fill="none"
+      />
+    </svg>
   )
 }
 
-const themeBackground = (theme: string) =>
-  theme === "light" ? "bg-gray-100" : "bg-[#1a1f2e]"
+export default function Background() {
+  const [phraseIndex, setPhraseIndex] = useState(0)
+  const [charIndex, setCharIndex] = useState(0)
+  const [isDeleting, setIsDeleting] = useState(false)
 
-export default function Background({
-  theme = "dark",
-} : {
-  theme?: string
-}) {
-  const fadeUpVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: (i: number) => ({
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 1,
-        delay: 0.5 + i * 0.2,
-        ease: [0.25, 0.4, 0.25, 1],
-      },
-    }),
-  }
+  useEffect(() => {
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (prefersReduced) {
+      setCharIndex(phrases[0].length)
+      return
+    }
+
+    const current = phrases[phraseIndex]
+    const speed = isDeleting ? 30 : 60
+
+    if (!isDeleting && charIndex === current.length) {
+      const timeout = setTimeout(() => setIsDeleting(true), 2000)
+      return () => clearTimeout(timeout)
+    }
+
+    if (isDeleting && charIndex === 0) {
+      setIsDeleting(false)
+      setPhraseIndex((prev) => (prev + 1) % phrases.length)
+      return
+    }
+
+    const timeout = setTimeout(() => {
+      setCharIndex((prev) => prev + (isDeleting ? -1 : 1))
+    }, speed)
+
+    return () => clearTimeout(timeout)
+  }, [charIndex, isDeleting, phraseIndex])
 
   return (
-    <div className={`relative min-h-screen w-full flex items-center justify-center overflow-hidden ${themeBackground(theme)}`} id="home"> 
-      <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/[0.08] via-transparent to-blue-500/[0.08] blur-3xl" />
-      <div className="absolute inset-0 overflow-hidden">
-        <ElegantShape
-          delay={0.3}
-          width={600}
-          height={140}
-          rotate={12}
-          gradient="from-cyan-500/[0.15]"
-          className="left-[-10%] md:left-[-5%] top-[15%] md:top-[20%]"
-        />
-        <ElegantShape
-          delay={0.5}
-          width={500}
-          height={120}
-          rotate={-15}
-          gradient="from-blue-500/[0.15]"
-          className="right-[-5%] md:right-[0%] top-[70%] md:top-[75%]"
-        />
-        <ElegantShape
-          delay={0.4}
-          width={300}
-          height={80}
-          rotate={-8}
-          gradient="from-cyan-400/[0.15]"
-          className="left-[5%] md:left-[10%] bottom-[5%] md:bottom-[10%]"
-        />
-        <ElegantShape
-          delay={0.6}
-          width={200}
-          height={60}
-          rotate={20}
-          gradient="from-blue-400/[0.15]"
-          className="right-[15%] md:right-[20%] top-[10%] md:top-[15%]"
-        />
-        <ElegantShape
-          delay={0.7}
-          width={150}
-          height={40}
-          rotate={-25}
-          gradient="from-cyan-300/[0.15]"
-          className="left-[20%] md:left-[25%] top-[5%] md:top-[10%]"
+    <section
+      id="home"
+      className="relative min-h-screen w-full flex items-center justify-center overflow-hidden"
+    >
+      {/* Layered radial gradient background */}
+      <div className="absolute inset-0">
+        <div
+          className="absolute inset-0"
+          style={{
+            background: `
+              radial-gradient(ellipse 80% 60% at 30% 30%, rgba(99, 102, 241, 0.1) 0%, transparent 60%),
+              radial-gradient(ellipse 60% 50% at 70% 60%, rgba(139, 92, 246, 0.07) 0%, transparent 50%),
+              radial-gradient(ellipse 50% 40% at 50% 90%, rgba(6, 182, 212, 0.06) 0%, transparent 50%)
+            `,
+          }}
         />
       </div>
+
+      {/* Flowing SVG curves */}
+      <FlowingSVG />
+
+      {/* Morphing blobs */}
+      <div
+        className="absolute w-[500px] h-[500px] animate-morph-slow opacity-[0.07]"
+        style={{
+          background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+          top: '10%',
+          left: '-5%',
+          willChange: 'border-radius',
+        }}
+      />
+      <div
+        className="absolute w-[400px] h-[400px] animate-morph-slow-2 opacity-[0.06]"
+        style={{
+          background: 'linear-gradient(135deg, #8b5cf6, #06b6d4)',
+          bottom: '5%',
+          right: '-3%',
+          willChange: 'border-radius',
+        }}
+      />
+      <div
+        className="absolute w-[300px] h-[300px] animate-morph-slow-3 opacity-[0.05]"
+        style={{
+          background: 'linear-gradient(135deg, #06b6d4, #6366f1)',
+          top: '50%',
+          left: '60%',
+          transform: 'translate(-50%, -50%)',
+          willChange: 'border-radius',
+        }}
+      />
+
+      {/* Content */}
       <div className="relative z-10 container mx-auto px-4 md:px-6">
         <div className="max-w-3xl mx-auto text-center">
-          <motion.div
-            custom={0}
-            variants={fadeUpVariants}
-            initial="hidden"
-            animate="visible"
-            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.03] border border-white/[0.08] mb-8 md:mb-12"
+          {/* Name */}
+          <h1
+            className="text-6xl sm:text-7xl md:text-8xl font-bold mb-4 tracking-tight text-white"
+            style={{ lineHeight: 1.1 }}
           >
-         
-          </motion.div>
-          <motion.div custom={1} variants={fadeUpVariants} initial="hidden" animate="visible">
-            <h1 className="text-4xl sm:text-6xl md:text-8xl font-bold mb-6 md:mb-8 tracking-tight">
-              <span 
-                className="text-white bg-clip-text bg-gradient-to-b from-white to-white/80"
-                style={{
-                  WebkitTextFillColor: 'transparent',
-                  WebkitBackgroundClip: 'text',
-                  backgroundClip: 'text',
-                  color: 'white', // Fallback for Dark Reader
-                }}
-              >
-                Ali Shahid
-              </span>
-              <br />
-              <span
-                className={cn(
-                  "text-white bg-clip-text bg-gradient-to-r from-cyan-400 via-white/90 to-blue-400",
-                  pacifico.className,
-                )}
-                style={{
-                  WebkitTextFillColor: 'transparent',
-                  WebkitBackgroundClip: 'text',
-                  backgroundClip: 'text',
-                  color: '#67e8f9', // Fallback cyan color for Dark Reader
-                }}
-              >
-                Full Stack Developer
-              </span>
-            </h1>
-          </motion.div>
-          <motion.div custom={2} variants={fadeUpVariants} initial="hidden" animate="visible">
-            <p className="text-base sm:text-lg md:text-xl text-white/40 mb-8 leading-relaxed font-light tracking-wide max-w-xl mx-auto px-4">
-              Crafting innovative solutions at the intersection of web development and design.
-            </p>
-          </motion.div>
+            Ali Shahid
+          </h1>
+
+          {/* Animated gradient subtitle */}
+          <p
+            className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-6"
+            style={{
+              background: 'linear-gradient(90deg, #6366f1, #8b5cf6, #06b6d4, #6366f1)',
+              backgroundSize: '300% 100%',
+              WebkitBackgroundClip: 'text',
+              backgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              animation: 'gradientTextShift 4s ease infinite',
+            }}
+          >
+            Full Stack Developer
+          </p>
+
+          {/* Typing effect */}
+          <div className="h-8 mb-10 flex items-center justify-center">
+            <span className="text-lg sm:text-xl text-zinc-400 font-light typing-cursor">
+              {phrases[phraseIndex].substring(0, charIndex)}
+            </span>
+          </div>
+
+          {/* CTA buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <button
+              onClick={() => {
+                const el = document.getElementById('projects')
+                if (el) window.scrollTo({ top: el.offsetTop, behavior: 'smooth' })
+              }}
+              className="shimmer-btn px-8 py-3.5 rounded-full bg-indigo-500 text-white font-medium
+                hover:bg-indigo-400 transition-colors duration-200 shadow-lg shadow-indigo-500/20"
+            >
+              View Projects
+            </button>
+            <button
+              onClick={() => {
+                const el = document.getElementById('contact')
+                if (el) window.scrollTo({ top: el.offsetTop, behavior: 'smooth' })
+              }}
+              className="shimmer-btn px-8 py-3.5 rounded-full border border-indigo-500/30 text-indigo-300
+                hover:bg-indigo-500/10 hover:border-indigo-500/50 transition-all duration-200 font-medium"
+            >
+              Get In Touch
+            </button>
+          </div>
         </div>
       </div>
-      <div className="absolute inset-0 bg-gradient-to-t from-[#1a1f2e] via-transparent to-[#1a1f2e]/80 pointer-events-none" />
-      
-      {/* Bottom gradient fade to next section */}
-      <div className={`absolute bottom-0 left-0 right-0 h-32 z-20 pointer-events-none ${
-        theme === 'dark' 
-          ? 'bg-gradient-to-t from-[#1a1f2e] to-transparent' 
-          : 'bg-gradient-to-t from-gray-100 to-transparent'
-      }`} />
-    </div>
+
+      {/* Bottom fade */}
+      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#0a0a0f] to-transparent pointer-events-none" />
+    </section>
   )
 }

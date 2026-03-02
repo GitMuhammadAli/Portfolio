@@ -1,210 +1,140 @@
-"use client"
+'use client'
 
-import { motion } from "framer-motion"
-import Image from "next/image"
-import { useState } from "react"
+import Image from 'next/image'
+import { useEffect, useRef, useState } from 'react'
 
-const technologies = [
-  {
-    name: "MongoDB",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
-    category: "Database",
-  },
-  {
-    name: "Express",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
-    category: "Backend",
-  },
-  {
-    name: "React",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
-    category: "Frontend",
-  },
-  {
-    name: "Node.js",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
-    category: "Backend",
-  },
-  {
-    name: "Next.js",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg",
-    category: "Frontend",
-  },
-  {
-    name: "JavaScript",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
-    category: "Language",
-  },
-  {
-    name: "PostgreSQL",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
-    category: "Database",
-  },
-  {
-    name: "NestJS",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nestjs/nestjs-original.svg",
-    category: "Backend",
-  },
-  {
-    name: "Docker",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg",
-    category: "DevOps",
-  },
+const categoryColors: Record<string, string> = {
+  Frontend: 'category-frontend',
+  Backend: 'category-backend',
+  Database: 'category-database',
+  DevOps: 'category-devops',
+}
+
+const categoryAccents: Record<string, string> = {
+  Frontend: '#6366f1',
+  Backend: '#8b5cf6',
+  Database: '#06b6d4',
+  DevOps: '#f59e0b',
+}
+
+interface Skill {
+  name: string
+  icon: string
+  category: string
+  proficiency: number
+}
+
+const skills: Skill[] = [
+  { name: 'React', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg', category: 'Frontend', proficiency: 90 },
+  { name: 'Next.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg', category: 'Frontend', proficiency: 88 },
+  { name: 'TypeScript', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg', category: 'Frontend', proficiency: 85 },
+  { name: 'Tailwind CSS', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg', category: 'Frontend', proficiency: 92 },
+  { name: 'Node.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg', category: 'Backend', proficiency: 88 },
+  { name: 'NestJS', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nestjs/nestjs-original.svg', category: 'Backend', proficiency: 85 },
+  { name: 'Express', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg', category: 'Backend', proficiency: 87 },
+  { name: 'MongoDB', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg', category: 'Database', proficiency: 85 },
+  { name: 'PostgreSQL', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg', category: 'Database', proficiency: 80 },
+  { name: 'Docker', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg', category: 'DevOps', proficiency: 78 },
+  { name: 'Git', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg', category: 'DevOps', proficiency: 90 },
 ]
 
-export default function SkillsSection({ theme }: { theme: string }) {
-  const [hoveredTech, setHoveredTech] = useState<string | null>(null)
+const categories = ['Frontend', 'Backend', 'Database', 'DevOps']
+
+export default function SkillsSection() {
+  const [visible, setVisible] = useState(false)
+  const sectionRef = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    const el = sectionRef.current
+    if (!el) return
+
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true)
+          obs.disconnect()
+        }
+      },
+      { threshold: 0.2 }
+    )
+
+    obs.observe(el)
+    return () => obs.disconnect()
+  }, [])
 
   return (
-    <section id="skills" className="relative min-h-screen py-20">
-      {/* Top gradient fade from previous section */}
-      <div className={`absolute top-0 left-0 right-0 h-32 z-20 pointer-events-none ${
-        theme === 'dark' 
-          ? 'bg-gradient-to-b from-[#1a1f2e] to-transparent' 
-          : 'bg-gradient-to-b from-gray-100 to-transparent'
-      }`} />
-      
-      <div className={`absolute inset-0 ${theme === "dark" ? "bg-[#1a1f2e]" : "bg-gray-50"}`}>
-        <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/[0.08] via-transparent to-blue-500/[0.08] blur-3xl" />
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
-        <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl" />
-      </div>
-      
-      {/* Bottom gradient fade to next section */}
-      <div className={`absolute bottom-0 left-0 right-0 h-32 z-20 pointer-events-none ${
-        theme === 'dark' 
-          ? 'bg-gradient-to-t from-[#1a1f2e] to-transparent' 
-          : 'bg-gradient-to-t from-gray-50 to-transparent'
-      }`} />
-
-      <div className="relative z-10 container mx-auto px-4 pt-28">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.3 }}
-          className="max-w-6xl mx-auto"
-        >
-          <div className="text-center mb-16">
-            <motion.h2
-              className="text-5xl md:text-6xl font-bold"
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.3 }}
-            >
-              Tech Wizardry
-            </motion.h2>
-            <div className="h-1 w-20 bg-gradient-to-r from-cyan-500 to-blue-500 mx-auto mt-4 rounded-full" />
+    <section id="skills" ref={sectionRef} className="relative py-28">
+      <div className="relative z-10 container mx-auto px-4">
+        <div className="max-w-5xl mx-auto">
+          {/* Heading */}
+          <div className="text-center mb-16 reveal-blur">
+            <h2 className="text-4xl md:text-5xl font-bold gradient-text">Skills & Tech</h2>
+            <div className="h-1 w-16 bg-gradient-to-r from-indigo-500 to-violet-500 mx-auto mt-4 rounded-full" />
           </div>
 
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={{
-              hidden: { opacity: 0 },
-              visible: {
-                opacity: 1,
-                transition: {
-                  staggerChildren: 0.05,
-                },
-              },
-            }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8"
-          >
-            {technologies.map((tech) => (
-              <motion.div
-                key={tech.name}
-                variants={{
-                  hidden: { y: 10, opacity: 0 },
-                  visible: { y: 0, opacity: 1 },
-                }}
-                whileHover={{ scale: 1.02 }}
-                transition={{ duration: 0.2 }}
-                className="group relative"
-                onMouseEnter={() => setHoveredTech(tech.name)}
-                onMouseLeave={() => setHoveredTech(null)}
-              >
+          {/* Categories */}
+          <div className="space-y-12">
+            {categories.map((cat, catIndex) => {
+              const catSkills = skills.filter((s) => s.category === cat)
+              return (
                 <div
-                  className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 rounded-2xl blur-xl 
-                  transition-opacity duration-300 opacity-0 group-hover:opacity-100"
-                />
-
-                <div
-                  className={`relative h-full p-6 rounded-2xl ${
-                    theme === "dark"
-                      ? "bg-gradient-to-b from-gray-800/50 to-gray-900/50 border-gray-700/50"
-                      : "bg-gradient-to-b from-white/50 to-gray-100/50 border-gray-200/50"
-                  } border backdrop-blur-sm hover:border-gray-600/50 transition-all duration-200`}
+                  key={cat}
+                  className="reveal"
+                  style={{ transitionDelay: `${catIndex * 100}ms` }}
                 >
-                  <div className="flex flex-col items-center space-y-4">
-                    <div className="relative w-16 h-16 flex items-center justify-center">
+                  <h3
+                    className="text-lg font-semibold mb-5 pl-3"
+                    style={{ color: categoryAccents[cat] }}
+                  >
+                    {cat}
+                  </h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {catSkills.map((skill, i) => (
                       <div
-                        className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-full 
-                        blur-md transition-opacity duration-300 opacity-0 group-hover:opacity-100"
-                      />
-                      <motion.div
-                        animate={hoveredTech === tech.name ? { rotate: 360 } : { rotate: 0 }}
-                        transition={{ duration: 0.3 }}
+                        key={skill.name}
+                        className={`${categoryColors[cat]} glass rounded-xl p-5
+                          hover:translate-y-[-2px] hover:shadow-lg hover:scale-[1.02]
+                          transition-all duration-200 group cursor-default`}
+                        style={{
+                          transitionDelay: `${(catIndex * 3 + i) * 50}ms`,
+                          willChange: 'transform',
+                        }}
                       >
-                        <Image
-                          src={tech.icon || "/placeholder.svg"}
-                          alt={tech.name}
-                          width={48}
-                          height={48}
-                          className="relative z-10 transition-transform duration-300 group-hover:scale-110"
-                        />
-                      </motion.div>
-                    </div>
-
-                    <h3
-                      className={`text-xl font-medium ${
-                        theme === "dark"
-                          ? "text-gray-200 group-hover:text-white"
-                          : "text-gray-800 group-hover:text-gray-900"
-                      } transition-colors duration-200`}
-                    >
-                      {tech.name}
-                    </h3>
-
-                    <motion.span
-                      className={`px-3 py-1 text-sm rounded-full ${
-                        theme === "dark"
-                          ? "bg-gradient-to-r from-cyan-500/10 to-blue-500/10 text-cyan-400 border-cyan-500/20"
-                          : "bg-gradient-to-r from-cyan-500/10 to-blue-500/10 text-cyan-600 border-cyan-500/20"
-                      } border`}
-                      whileHover={{
-                        scale: 1.02,
-                        transition: { duration: 0.2 },
-                      }}
-                    >
-                      {tech.category}
-                    </motion.span>
+                        <div className="flex items-center gap-4 mb-3">
+                          <div className="w-10 h-10 flex items-center justify-center shrink-0
+                            rounded-lg bg-white/[0.04] group-hover:bg-white/[0.08] transition-colors">
+                            <Image
+                              src={skill.icon}
+                              alt={skill.name}
+                              width={28}
+                              height={28}
+                              className="group-hover:scale-110 transition-transform duration-200"
+                            />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center justify-between mb-1.5">
+                              <span className="text-sm font-medium text-zinc-200">{skill.name}</span>
+                              <span className="text-xs text-zinc-500">{skill.proficiency}%</span>
+                            </div>
+                            <div className="skill-progress">
+                              <div
+                                className="skill-progress-fill"
+                                style={{
+                                  width: visible ? `${skill.proficiency}%` : '0%',
+                                  background: `linear-gradient(90deg, ${categoryAccents[cat]}, ${categoryAccents[cat]}88)`,
+                                }}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
-              </motion.div>
-            ))}
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.4, duration: 0.3 }}
-            className="mt-16 text-center"
-          >
-            <p className={`text-xl ${theme === "dark" ? "text-gray-300" : "text-gray-600"}`}>
-              Also wielding:{" "}
-              <motion.span
-                className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400"
-              >
-                TypeScript, Git, Docker, Tailwind CSS, Postman
-              </motion.span>
-            </p>
-          </motion.div>
-        </motion.div>
+              )
+            })}
+          </div>
+        </div>
       </div>
     </section>
   )

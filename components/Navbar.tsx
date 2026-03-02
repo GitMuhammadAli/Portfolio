@@ -1,180 +1,143 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Sun, Moon, Menu } from 'lucide-react'
-import { Button } from "@/components/ui/button"
+import { useState, useEffect, useRef } from 'react'
+import { Menu, X } from 'lucide-react'
 
-export default function Navbar({ theme, toggleTheme }: { theme: string; toggleTheme: () => void }) {
+const sections = ['home', 'about', 'experience', 'skills', 'projects', 'education', 'contact']
+
+export default function Navbar() {
   const [activeSection, setActiveSection] = useState('home')
   const [isOpen, setIsOpen] = useState(false)
+  const navRef = useRef<HTMLDivElement>(null)
+  const pillRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['home', 'about', 'experience', 'skills', 'projects', 'education', 'contact'];
-      let currentSection = '';
-      let minDistance = Infinity;
-
-      sections.forEach((section) => {
-        const sectionElement = document.getElementById(section);
-        if (sectionElement) {
-          const rect = sectionElement.getBoundingClientRect();
-          const distance = Math.abs(rect.top);
-          if (distance < minDistance) {
-            minDistance = distance;
-            currentSection = section;
+      let current = ''
+      let minDist = Infinity
+      for (const id of sections) {
+        const el = document.getElementById(id)
+        if (el) {
+          const dist = Math.abs(el.getBoundingClientRect().top)
+          if (dist < minDist) {
+            minDist = dist
+            current = id
           }
         }
-      });
-
-      if (currentSection) {
-        setActiveSection(currentSection);
       }
-    };
+      if (current) setActiveSection(current)
+    }
 
-    window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Initial check
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    handleScroll()
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
+  useEffect(() => {
+    if (!navRef.current || !pillRef.current) return
+    const activeBtn = navRef.current.querySelector(`[data-section="${activeSection}"]`) as HTMLElement | null
+    if (activeBtn) {
+      pillRef.current.style.left = `${activeBtn.offsetLeft}px`
+      pillRef.current.style.width = `${activeBtn.offsetWidth}px`
+    }
+  }, [activeSection])
 
-  const sections = ['home', 'about', 'experience', 'skills', 'projects', 'education', 'contact']
+  const scrollTo = (id: string) => {
+    const el = document.getElementById(id)
+    if (el) {
+      window.scrollTo({ top: el.offsetTop, behavior: 'smooth' })
+      setActiveSection(id)
+      setIsOpen(false)
+    }
+  }
 
   return (
-    <nav className="fixed top-4 left-0 right-0 z-50 flex justify-center items-center px-2">
-      <div className="relative w-full max-w-4xl">
-        <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-blue-500 opacity-65 blur rounded-full"></div>
-        <div className="relative bg-black/20 backdrop-filter backdrop-blur border border-white/5 rounded-full">
-          <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-6">
-            <div className="flex justify-between items-center py-1 sm:py-2">
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5 }}
-                className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-500 to-blue-600"
-              >
-                AS<span className="text-cyan-400">.</span>
-              </motion.div>
-              <div className="hidden md:flex space-x-1">
-                {sections.map((section) => (
-                  <motion.div
-                    key={section}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <Button
-                      onClick={() => {
-                        const sectionElement = document.getElementById(section);
-                        if (sectionElement) {
-                          const yPosition = sectionElement.offsetTop;
-                          setActiveSection(section);
-                          window.scrollTo({ top: yPosition, behavior: 'smooth' });
-                        }
-                      }}
-                      variant="ghost"
-                      className={`
-                        relative overflow-hidden text-base sm:text-sm font-medium transition-all duration-300 
-                        ${activeSection === section ? 'text-white' : 'text-gray-50/50 hover:text-white/75'} 
-                        rounded-full px-2 sm:px-4 py-1 sm:py-2 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-black
-                      `}
-                    >
-                      {activeSection === section && (
-                        <motion.div
-                          layoutId="activeSection"
-                          className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-blue-600 opacity-50"
-                          initial={false}
-                          transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                        />
-                      )}
-                      <span className="relative z-10">{section.charAt(0).toUpperCase() + section.slice(1)}</span>
-                    </Button>
-                  </motion.div>
-                ))}
-              </div>
-              <div className="flex items-center space-x-2">
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+    <nav className="fixed top-4 left-0 right-0 z-50 flex justify-center px-4">
+      <div className="w-full max-w-4xl">
+        <div
+          className="relative rounded-full px-3 py-2 sm:px-5 sm:py-2.5"
+          style={{
+            background: 'rgba(10, 10, 15, 0.7)',
+            backdropFilter: 'blur(16px)',
+            WebkitBackdropFilter: 'blur(16px)',
+            border: '1px solid rgba(255,255,255,0.06)',
+          }}
+        >
+          <div className="flex items-center justify-between">
+            {/* Logo */}
+            <button
+              onClick={() => scrollTo('home')}
+              className="text-xl font-bold relative"
+              style={{
+                textShadow: '0 0 20px rgba(99, 102, 241, 0.5), 0 0 40px rgba(99, 102, 241, 0.2)',
+              }}
+            >
+              <span className="bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent">
+                AS
+              </span>
+              <span className="text-amber-400">.</span>
+            </button>
+
+            {/* Desktop nav */}
+            <div ref={navRef} className="hidden md:flex items-center gap-0.5 relative">
+              <div
+                ref={pillRef}
+                className="absolute top-0 h-full rounded-full bg-indigo-500/20 border border-indigo-500/30 transition-all duration-300 ease-out"
+                style={{ willChange: 'left, width' }}
+              />
+              {sections.map((section) => (
+                <button
+                  key={section}
+                  data-section={section}
+                  onClick={() => scrollTo(section)}
+                  className={`relative z-10 px-3 py-1.5 text-sm font-medium rounded-full transition-colors duration-200
+                    ${activeSection === section ? 'text-white' : 'text-zinc-500 hover:text-zinc-300'}`}
                 >
-                  <Button
-                    onClick={toggleTheme}
-                    variant="outline"
-                    size="icon"
-                    className="rounded-full bg-white/5 border-white/10 text-white hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-black"
-                  >
-                    {theme === 'dark' ? <Sun className="w-5 h-5 sm:w-6 sm:h-6" /> : <Moon className="w-5 h-5 sm:w-6 sm:h-6" />}
-                  </Button>
-                </motion.div>
-                <div className="md:hidden">
-                  <motion.div
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <Button
-                      onClick={() => setIsOpen(!isOpen)}
-                      variant="outline"
-                      size="icon"
-                      className="rounded-full bg-white/5 border-white/10 text-white hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-black"
-                    >
-                      <motion.div
-                        animate={{ rotate: isOpen ? 90 : 0 }}
-                        transition={{ duration: 0.3 }}
-                      >
-                        <Menu className="w-5 h-5 sm:w-6 sm:h-6" />
-                      </motion.div>
-                    </Button>
-                  </motion.div>
-                </div>
-              </div>
+                  {section.charAt(0).toUpperCase() + section.slice(1)}
+                </button>
+              ))}
             </div>
+
+            {/* Mobile menu button */}
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="md:hidden p-2 rounded-full text-zinc-400 hover:text-white hover:bg-white/5 transition-colors"
+            >
+              {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile dropdown */}
+        <div
+          className={`md:hidden mt-2 rounded-2xl overflow-hidden transition-all duration-300 ease-out ${
+            isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+          }`}
+          style={{
+            background: 'rgba(10, 10, 15, 0.9)',
+            backdropFilter: 'blur(16px)',
+            WebkitBackdropFilter: 'blur(16px)',
+            border: isOpen ? '1px solid rgba(255,255,255,0.06)' : 'none',
+          }}
+        >
+          <div className="p-3 space-y-1">
+            {sections.map((section, i) => (
+              <button
+                key={section}
+                onClick={() => scrollTo(section)}
+                className={`w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-200
+                  ${activeSection === section
+                    ? 'text-white bg-indigo-500/15 border border-indigo-500/20'
+                    : 'text-zinc-500 hover:text-zinc-300 hover:bg-white/5'
+                  }`}
+                style={{ transitionDelay: isOpen ? `${i * 30}ms` : '0ms' }}
+              >
+                {section.charAt(0).toUpperCase() + section.slice(1)}
+              </button>
+            ))}
           </div>
         </div>
       </div>
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            className="absolute top-full left-0 right-0 md:hidden bg-black/80 backdrop-filter backdrop-blur-md overflow-hidden mt-2 rounded-2xl mx-4"
-          >
-            <div className="px-4 py-4 space-y-2">
-              {sections.map((section) => (
-                <motion.div
-                  key={section}
-                  initial={{ x: -20, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  transition={{ duration: 0.3, delay: sections.indexOf(section) * 0.1 }}
-                >
-                  <Button
-                    onClick={() => {
-                      const sectionElement = document.getElementById(section);
-                      if (sectionElement) {
-                        const yPosition = sectionElement.offsetTop;
-                        setActiveSection(section);
-                        window.scrollTo({ top: yPosition, behavior: 'smooth' });
-                      }
-                      setIsOpen(false);
-                    }}
-                    variant="ghost"
-                    className={`w-full text-left text-base font-medium transition-all duration-300 
-                      ${activeSection === section ? 'text-white bg-gradient-to-r from-cyan-600/50 to-blue-600/50' : 'text-gray-50/50 hover:text-white/75 hover:bg-white/5'} 
-                      rounded-full px-2 py-1 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-black
-                    `}
-                  >
-                    <span className="flex items-center">
-                      <span className="uppercase tracking-wider">{section.charAt(0).toUpperCase() + section.slice(1)}</span>
-                    </span>
-                  </Button>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </nav>
   )
 }
