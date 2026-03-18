@@ -111,8 +111,8 @@ export default function AboutSection() {
                 Node.js, Express, MongoDB, React.js, Next.js, NestJS, PostgreSQL, and Docker
               </span>
               . I&apos;ve developed{' '}
-              <span className="text-amber-400 font-medium">5+ end-to-end web applications</span>{' '}
-              spanning AI-powered platforms, authentication systems, and inventory management tools.
+              <span className="text-amber-400 font-medium">6+ end-to-end web applications</span>{' '}
+              spanning AI-powered platforms, job market intelligence, authentication systems, and inventory management tools.
             </p>
           </div>
 

@@ -16,6 +16,42 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    slug: "devradar",
+    title: "DevRadar",
+    subtitle: "AI-Powered Job Market Intelligence",
+    icon: "📡",
+    featured: true,
+    description:
+      "Full-stack SaaS platform that scrapes live job postings from Pakistan and global remote markets, extracts skills with AI, and delivers data-driven career insights. Features real-time skill trends, salary intelligence, resume gap analysis, and AI-powered interview prep.",
+    features: [
+      "Real-time skill trend tracking from 3 job boards (Rozee.pk, Arbeitnow, RemoteOK)",
+      "AI-powered skill extraction using Groq (Llama 3.1)",
+      "Resume gap analysis with semantic search (pgvector embeddings)",
+      "Salary intelligence with percentile bands in PKR and USD",
+      "AI interview prep with question generation and scoring",
+      "Personalized learning paths with skill ROI calculations",
+      "Public REST API with rate limiting and authentication",
+      "Email-based skill alerts with configurable thresholds",
+    ],
+    tags: ["Next.js", "tRPC", "PostgreSQL", "pgvector", "Groq AI", "Prisma", "Turborepo", "TypeScript"],
+    techDetails: [
+      { name: "Next.js 14", role: "Frontend framework with App Router" },
+      { name: "tRPC v11", role: "End-to-end type-safe API layer" },
+      { name: "PostgreSQL + pgvector", role: "Database with vector embeddings" },
+      { name: "Prisma 6", role: "Type-safe ORM with 17 models" },
+      { name: "Groq AI (Llama 3.1)", role: "Skill extraction & interview generation" },
+      { name: "Google Gemini", role: "768-dim embedding generation" },
+      { name: "Upstash QStash", role: "Serverless background job queue" },
+      { name: "NextAuth.js", role: "Google & GitHub OAuth" },
+      { name: "Turborepo", role: "Monorepo build orchestration" },
+    ],
+    architecture:
+      "Turborepo monorepo with apps/web (Next.js), apps/worker (QStash webhooks), and shared packages for AI, database, and validation. Data pipeline scrapes 3 job boards every 6 hours, extracts skills with Groq AI, generates Gemini embeddings, and computes weekly snapshots. tRPC provides end-to-end type safety from database to UI.",
+    github: "https://github.com/GitMuhammadAli/DevRadar",
+    demo: "https://dev-radar-web-j2jq.vercel.app/",
+    imageUrl: "/projects/devradar.png",
+  },
+  {
     slug: "carecircle",
     title: "CareCircle",
     subtitle: "AI-Powered Family Caregiving Platform",
