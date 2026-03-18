@@ -1,36 +1,87 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Ali Shahid — Developer Portfolio
 
-## Getting Started
+Personal portfolio website for Ali Shahid, a Full Stack Developer specializing in Next.js, NestJS, React, and TypeScript. Showcases professional experience, skills, and projects with smooth animations and a dark-themed UI.
 
-First, run the development server:
+Live site: [alishahid-dev.vercel.app](https://alishahid-dev.vercel.app)
+
+---
+
+## Tech Stack
+
+| Layer | Technologies |
+|---|---|
+| Framework | Next.js 14 (App Router) |
+| Language | TypeScript |
+| Styling | Tailwind CSS, custom CSS animations |
+| Animations | Framer Motion, GSAP |
+| Icons | Lucide React |
+| Font | Inter (Google Fonts) |
+| Image optimization | Sharp |
+| Linting | ESLint, TypeScript ESLint |
+| Testing | Playwright |
+
+---
+
+## Sections
+
+- **About** — Introduction and personal summary
+- **Experience** — Professional work history (NgXoft Solutions, Full-Stack Developer)
+- **Skills** — Categorized skill grid: Frontend, Backend, Databases, DevOps & Tools
+- **Projects** — Featured and full project showcase (9 projects including DevRadar, CareCircle, JobPilot, and more)
+- **Education** — Degree and certifications (Bahria University, BS Computer Science)
+- **Contact** — Contact form / links
+- **Footer** — Social links and credits
+
+Each project card links to a dedicated detail page at `/projects/[slug]` with architecture notes, tech stack breakdown, GitHub link, and live demo.
+
+---
+
+## Running Locally
+
+**Prerequisites:** Node.js 18+ and npm
 
 ```bash
+# Clone the repository
+git clone https://github.com/GitMuhammadAli/portfolio.git
+cd portfolio
+
+# Install dependencies
+npm install
+
+# Start the development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Other commands
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build   # Production build
+npm run start   # Start production server
+npm run lint    # Run ESLint
+```
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## Project Structure
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+app/              # Next.js App Router pages and layout
+  page.tsx        # Main single-page portfolio entry
+  projects/       # Dynamic project detail pages
+components/       # Section components (Navbar, About, Experience, Skills, Projects, etc.)
+data/             # Static data files (projects.ts, experience.ts, skills.ts)
+public/           # Static assets (images, favicon, OG image)
+tailwind.config.ts
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## Featured Projects
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Project | Description | Stack |
+|---|---|---|
+| [DevRadar](https://dev-radar-web-j2jq.vercel.app/) | AI-powered job market intelligence SaaS | Next.js, tRPC, PostgreSQL, pgvector, Groq AI |
+| [CareCircle](https://care-giving-web.vercel.app/) | AI-powered family caregiving platform | Next.js, NestJS, PostgreSQL, Gemini API |
+| [JobPilot](https://job-auto-applier-three.vercel.app/) | AI job application automation with Kanban board | Next.js, TypeScript, MongoDB |
