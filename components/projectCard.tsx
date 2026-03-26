@@ -2,6 +2,8 @@
 
 import Image from 'next/image'
 import { Github, ExternalLink } from 'lucide-react'
+import { motion, useReducedMotion } from 'framer-motion'
+import { hoverLift, buttonTap } from '@/lib/motion'
 
 type ProjectProps = {
   title: string
@@ -32,16 +34,23 @@ export default function ProjectCard({
   index,
   variant = 'compact',
 }: ProjectProps) {
+  const prefersReducedMotion = useReducedMotion()
+  const motionHover = prefersReducedMotion ? {} : hoverLift
+  const motionTap = prefersReducedMotion ? {} : buttonTap
 
   // ── Hero card: full-width horizontal layout ──
   if (variant === 'hero') {
     return (
-      <div className="reveal" style={{ transitionDelay: `${index * 100}ms` }}>
+      <motion.div
+        className="reveal"
+        style={{ transitionDelay: `${index * 100}ms` }}
+        {...motionHover}
+        {...motionTap}
+      >
         <div
           className="group relative rounded-2xl overflow-hidden
             bg-[#111114] border border-zinc-800/50 hover:border-zinc-700/60
-            hover:shadow-2xl hover:shadow-indigo-950/20
-            transition-all duration-500 ease-out"
+            transition-colors duration-300"
         >
           <div className="grid grid-cols-1 lg:grid-cols-2 lg:min-h-[420px]">
             {/* Image side with browser chrome */}
@@ -138,19 +147,23 @@ export default function ProjectCard({
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
     )
   }
 
   // ── Featured card: vertical with browser chrome ──
   if (variant === 'featured') {
     return (
-      <div className="reveal" style={{ transitionDelay: `${index * 120}ms` }}>
+      <motion.div
+        className="reveal"
+        style={{ transitionDelay: `${index * 120}ms` }}
+        {...motionHover}
+        {...motionTap}
+      >
         <div
           className="group relative rounded-2xl overflow-hidden h-full flex flex-col
             bg-[#111114] border border-zinc-800/50 hover:border-zinc-700/60
-            hover:-translate-y-1 hover:shadow-xl hover:shadow-zinc-950/50
-            transition-all duration-300 ease-out"
+            transition-colors duration-300"
         >
           {/* Browser chrome + image */}
           <div className="shrink-0">
@@ -230,18 +243,22 @@ export default function ProjectCard({
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
     )
   }
 
   // ── Compact card for other projects ──
   return (
-    <div className="reveal" style={{ transitionDelay: `${index * 80}ms` }}>
+    <motion.div
+      className="reveal"
+      style={{ transitionDelay: `${index * 80}ms` }}
+      {...motionHover}
+      {...motionTap}
+    >
       <div
         className="group relative rounded-xl overflow-hidden h-full flex flex-col
           bg-[#111114]/60 border border-zinc-800/40 hover:border-zinc-700/50
-          hover:-translate-y-1 hover:shadow-lg hover:shadow-zinc-950/40
-          transition-all duration-300 ease-out"
+          transition-colors duration-300"
       >
         {/* Image */}
         <div className="relative w-full aspect-[16/10] overflow-hidden shrink-0">
@@ -306,6 +323,6 @@ export default function ProjectCard({
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   )
 }

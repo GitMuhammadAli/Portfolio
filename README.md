@@ -85,3 +85,89 @@ tailwind.config.ts
 | [DevRadar](https://dev-radar-web-j2jq.vercel.app/) | AI-powered job market intelligence SaaS | Next.js, tRPC, PostgreSQL, pgvector, Groq AI |
 | [CareCircle](https://care-giving-web.vercel.app/) | AI-powered family caregiving platform | Next.js, NestJS, PostgreSQL, Gemini API |
 | [JobPilot](https://job-auto-applier-three.vercel.app/) | AI job application automation with Kanban board | Next.js, TypeScript, MongoDB |
+
+---
+
+## Page Structure
+
+| Route | Description |
+|-------|-------------|
+| `/` | Main single-page portfolio (all sections) |
+| `/projects/[slug]` | Individual project detail pages |
+
+### Sections (in scroll order)
+
+1. **Navbar** -- Fixed top navigation with smooth scroll links
+2. **Hero** -- Name, title, animated intro
+3. **About** -- Personal summary and background
+4. **Experience** -- Work history with timeline layout
+5. **Skills** -- Categorized grid (Frontend, Backend, Databases, DevOps)
+6. **Projects** -- Featured project cards with hover effects
+7. **Education** -- Degree and certifications
+8. **Contact** -- Contact info and links
+9. **Footer** -- Social links and credits
+
+---
+
+## Adding New Projects
+
+Project data lives in `data/projects.ts`. To add a new project:
+
+1. Add an entry to the projects array:
+
+```ts
+{
+  slug: "my-project",           // URL-friendly name
+  title: "My Project",
+  description: "What it does",
+  longDescription: "Detailed explanation for the detail page",
+  image: "/projects/my-project.png",
+  tags: ["Next.js", "TypeScript", "PostgreSQL"],
+  github: "https://github.com/user/repo",
+  live: "https://my-project.vercel.app",
+  featured: true,               // Show on main page
+}
+```
+
+2. Add the project image to `public/projects/`
+3. The detail page at `/projects/my-project` is auto-generated
+
+Other data files:
+- `data/experience.ts` -- work history entries
+- `data/skills.ts` -- skill categories and items
+
+---
+
+## Animations
+
+| Library | Usage |
+|---------|-------|
+| **Framer Motion** | Page transitions, scroll-triggered reveals, hover effects on cards |
+| **GSAP** | Complex timeline animations, text reveals |
+| **CSS** | Custom keyframe animations in `globals.css` and `tailwind.config.ts` |
+
+Shared motion variants are defined in `lib/motion.ts` for consistent animation across components.
+
+---
+
+## Deployment
+
+1. Push to GitHub
+2. Import in [Vercel](https://vercel.com)
+3. No environment variables needed
+4. Vercel auto-detects Next.js and builds
+
+**Custom domain:** Add in Vercel dashboard > Settings > Domains
+
+---
+
+## Customization
+
+| What to change | Where |
+|----------------|-------|
+| Personal info (name, bio, links) | `data/` directory + `components/hero.tsx` |
+| Colors / theme | `tailwind.config.ts` (extend colors) |
+| Social links | `components/footer.tsx` |
+| Projects | `data/projects.ts` + images in `public/projects/` |
+| Experience | `data/experience.ts` |
+| Skills | `data/skills.ts` |

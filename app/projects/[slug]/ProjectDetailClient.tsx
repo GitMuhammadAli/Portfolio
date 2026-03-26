@@ -4,10 +4,19 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowLeft, ExternalLink, Github, CheckCircle2, Layers } from 'lucide-react'
 import type { Project } from '@/data/projects'
+import { motion, useReducedMotion } from 'framer-motion'
+import { pageTransition } from '@/lib/motion'
 
 export default function ProjectDetailClient({ project }: { project: Project }) {
+  const prefersReducedMotion = useReducedMotion()
   return (
-    <div className="min-h-screen bg-radials text-zinc-200">
+    <motion.div
+      className="min-h-screen bg-radials text-zinc-200"
+      variants={prefersReducedMotion ? undefined : pageTransition}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+    >
       {/* Back navigation */}
       <div
         className="sticky top-0 z-40 border-b border-white/[0.04]"
@@ -176,6 +185,6 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   )
 }

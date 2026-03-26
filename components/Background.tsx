@@ -1,6 +1,8 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useReducedMotion } from 'framer-motion'
+import { CurtainButton } from '@/components/ui/curtain-button'
 
 const phrases = [
   'I build scalable web apps',
@@ -44,6 +46,7 @@ function FlowingSVG() {
 }
 
 export default function Background() {
+  const prefersReducedMotion = useReducedMotion()
   const [phraseIndex, setPhraseIndex] = useState(0)
   const [charIndex, setCharIndex] = useState(0)
   const [isDeleting, setIsDeleting] = useState(false)
@@ -163,26 +166,22 @@ export default function Background() {
 
           {/* CTA buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button
+            <CurtainButton
+              text="View Projects"
+              variant="default"
               onClick={() => {
                 const el = document.getElementById('projects')
                 if (el) window.scrollTo({ top: el.offsetTop, behavior: 'smooth' })
               }}
-              className="shimmer-btn px-8 py-3.5 rounded-full bg-indigo-500 text-white font-medium
-                hover:bg-indigo-400 transition-colors duration-200 shadow-lg shadow-indigo-500/20"
-            >
-              View Projects
-            </button>
-            <button
+            />
+            <CurtainButton
+              text="Get In Touch"
+              variant="outline"
               onClick={() => {
                 const el = document.getElementById('contact')
                 if (el) window.scrollTo({ top: el.offsetTop, behavior: 'smooth' })
               }}
-              className="shimmer-btn px-8 py-3.5 rounded-full border border-indigo-500/30 text-indigo-300
-                hover:bg-indigo-500/10 hover:border-indigo-500/50 transition-all duration-200 font-medium"
-            >
-              Get In Touch
-            </button>
+            />
           </div>
         </div>
       </div>

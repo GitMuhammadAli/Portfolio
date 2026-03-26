@@ -2,8 +2,11 @@
 
 import { GraduationCap, Award } from 'lucide-react'
 import { education } from '@/data/experience'
+import { motion, useReducedMotion } from 'framer-motion'
+import { staggerContainer, staggerItem, viewportConfig } from '@/lib/motion'
 
 export default function EducationSection() {
+  const prefersReducedMotion = useReducedMotion()
   return (
     <section id="education" className="relative py-28">
       <div className="relative z-10 container mx-auto px-4">
@@ -14,9 +17,15 @@ export default function EducationSection() {
             <div className="h-1 w-16 bg-gradient-to-r from-indigo-500 to-violet-500 mx-auto mt-4 rounded-full" />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-2 gap-6"
+            variants={prefersReducedMotion ? undefined : staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportConfig}
+          >
             {/* Degree card */}
-            <div className="reveal-flip">
+            <motion.div className="reveal-flip" variants={prefersReducedMotion ? undefined : staggerItem}>
               <div className="glass rounded-2xl p-8 h-full hover:bg-white/[0.05] transition-all duration-300">
                 <div className="flex items-start gap-4 mb-4">
                   <div className="p-3 rounded-xl bg-indigo-500/10 shrink-0">
@@ -33,10 +42,10 @@ export default function EducationSection() {
                 </div>
                 <p className="text-sm text-zinc-500 ml-[52px]">{education.period}</p>
               </div>
-            </div>
+            </motion.div>
 
             {/* Certifications card */}
-            <div className="reveal-flip" style={{ transitionDelay: '100ms' }}>
+            <motion.div className="reveal-flip" style={{ transitionDelay: '100ms' }} variants={prefersReducedMotion ? undefined : staggerItem}>
               <div className="glass rounded-2xl p-8 h-full hover:bg-white/[0.05] transition-all duration-300">
                 <div className="flex items-center gap-4 mb-6">
                   <div className="p-3 rounded-xl bg-amber-500/10 shrink-0">
@@ -61,8 +70,8 @@ export default function EducationSection() {
                   ))}
                 </div>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </div>
     </section>

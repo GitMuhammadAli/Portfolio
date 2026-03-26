@@ -2,8 +2,11 @@
 
 import { Briefcase, Calendar } from 'lucide-react'
 import { experience } from '@/data/experience'
+import { motion, useReducedMotion } from 'framer-motion'
+import { staggerContainer, staggerItem, viewportConfig } from '@/lib/motion'
 
 export default function ExperienceSection() {
+  const prefersReducedMotion = useReducedMotion()
   return (
     <section id="experience" className="relative py-28">
       <div className="relative z-10 container mx-auto px-4">
@@ -24,12 +27,19 @@ export default function ExperienceSection() {
               }}
             />
 
-            <div className="space-y-14">
+            <motion.div
+              className="space-y-14"
+              variants={prefersReducedMotion ? undefined : staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportConfig}
+            >
               {experience.map((exp, index) => (
-                <div
+                <motion.div
                   key={exp.company}
                   className={`relative pl-16 md:pl-20 reveal ${index % 2 === 0 ? '' : ''}`}
                   style={{ transitionDelay: `${index * 150}ms` }}
+                  variants={prefersReducedMotion ? undefined : staggerItem}
                 >
                   {/* Timeline node with glow halo */}
                   <div className="absolute left-[14px] md:left-[22px] top-2">
@@ -93,9 +103,9 @@ export default function ExperienceSection() {
                       ))}
                     </div>
                   </div>
-                </div>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>

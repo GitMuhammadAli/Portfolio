@@ -4,6 +4,8 @@ import { useRef, useCallback } from 'react'
 import { GraduationCap, Code2, Briefcase } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import Image from 'next/image'
+import { motion, useReducedMotion } from 'framer-motion'
+import { staggerContainer, staggerItem, viewportConfig } from '@/lib/motion'
 
 function TiltCard({
   icon: Icon,
@@ -75,6 +77,7 @@ function TiltCard({
 }
 
 export default function AboutSection() {
+  const prefersReducedMotion = useReducedMotion()
   const cards = [
     { icon: Code2, title: 'Full-Stack Development' },
     { icon: Briefcase, title: 'Backend Specialist' },
@@ -83,10 +86,16 @@ export default function AboutSection() {
 
   return (
     <section id="about" className="relative py-28">
-      <div className="relative z-10 container mx-auto px-4">
+      <motion.div
+        className="relative z-10 container mx-auto px-4"
+        variants={prefersReducedMotion ? undefined : staggerContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={viewportConfig}
+      >
         <div className="max-w-4xl mx-auto">
           {/* Profile + heading */}
-          <div className="flex flex-col items-center mb-12 reveal-blur">
+          <motion.div variants={prefersReducedMotion ? undefined : staggerItem} className="flex flex-col items-center mb-12 reveal-blur">
             <Image
               src="/images/me.png"
               alt="Ali Shahid"
@@ -98,10 +107,10 @@ export default function AboutSection() {
             />
             <h2 className="text-4xl md:text-5xl font-bold gradient-text">About Me</h2>
             <div className="h-1 w-16 bg-gradient-to-r from-indigo-500 to-violet-500 mt-4 rounded-full" />
-          </div>
+          </motion.div>
 
           {/* Bio */}
-          <div className="text-center mb-16 reveal-blur" style={{ transitionDelay: '100ms' }}>
+          <motion.div variants={prefersReducedMotion ? undefined : staggerItem} className="text-center mb-16 reveal-blur" style={{ transitionDelay: '100ms' }}>
             <p className="text-lg leading-relaxed text-zinc-400">
               I&apos;m a Full-Stack Developer with a BS in Computer Science from{' '}
               <span className="text-indigo-400 font-medium">Bahria University</span>.
@@ -114,17 +123,17 @@ export default function AboutSection() {
               <span className="text-amber-400 font-medium">6+ end-to-end web applications</span>{' '}
               spanning AI-powered platforms, job market intelligence, authentication systems, and inventory management tools.
             </p>
-          </div>
+          </motion.div>
 
           {/* 3D Tilt cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+          <motion.div variants={prefersReducedMotion ? undefined : staggerItem} className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
             {cards.map((item, i) => (
               <TiltCard key={item.title} icon={item.icon} title={item.title} index={i} />
             ))}
-          </div>
+          </motion.div>
 
           {/* Additional info */}
-          <div className="reveal text-center" style={{ transitionDelay: '400ms' }}>
+          <motion.div variants={prefersReducedMotion ? undefined : staggerItem} className="reveal text-center" style={{ transitionDelay: '400ms' }}>
             <p className="text-lg text-zinc-400">
               Skilled in designing <span className="text-indigo-400">RESTful APIs</span>,
               integrating third-party services, and automating deployments with{' '}
@@ -132,9 +141,9 @@ export default function AboutSection() {
               I&apos;m open to opportunities where I can work on interesting projects and
               learn from experienced teams.
             </p>
-          </div>
+          </motion.div>
         </div>
-      </div>
+      </motion.div>
     </section>
   )
 }

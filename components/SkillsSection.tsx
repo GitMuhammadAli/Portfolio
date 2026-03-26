@@ -2,6 +2,8 @@
 
 import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
+import { motion, useReducedMotion } from 'framer-motion'
+import { staggerContainer, staggerItem, viewportConfig } from '@/lib/motion'
 
 const categoryColors: Record<string, string> = {
   Frontend: 'category-frontend',
@@ -41,6 +43,7 @@ const skills: Skill[] = [
 const categories = ['Frontend', 'Backend', 'Database', 'DevOps']
 
 export default function SkillsSection() {
+  const prefersReducedMotion = useReducedMotion()
   const [visible, setVisible] = useState(false)
   const sectionRef = useRef<HTMLElement>(null)
 
@@ -73,14 +76,21 @@ export default function SkillsSection() {
           </div>
 
           {/* Categories */}
-          <div className="space-y-12">
+          <motion.div
+            className="space-y-12"
+            variants={prefersReducedMotion ? undefined : staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportConfig}
+          >
             {categories.map((cat, catIndex) => {
               const catSkills = skills.filter((s) => s.category === cat)
               return (
-                <div
+                <motion.div
                   key={cat}
                   className="reveal"
                   style={{ transitionDelay: `${catIndex * 100}ms` }}
+                  variants={prefersReducedMotion ? undefined : staggerItem}
                 >
                   <h3
                     className="text-lg font-semibold mb-5 pl-3"
@@ -130,10 +140,10 @@ export default function SkillsSection() {
                       </div>
                     ))}
                   </div>
-                </div>
+                </motion.div>
               )
             })}
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

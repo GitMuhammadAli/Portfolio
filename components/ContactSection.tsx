@@ -2,6 +2,9 @@
 
 import { Github, Linkedin, Mail, Copy, Check } from 'lucide-react'
 import { useState } from 'react'
+import { motion, useReducedMotion } from 'framer-motion'
+import { staggerContainer, staggerItem, viewportConfig } from '@/lib/motion'
+import { GlassCard } from '@/components/ui/glass-card'
 
 const contactLinks = [
   {
@@ -68,6 +71,7 @@ function FlowingSVGContact() {
 }
 
 export default function ContactSection() {
+  const prefersReducedMotion = useReducedMotion()
   const [copied, setCopied] = useState(false)
   const email = 'alishahid.dev@gmail.com'
 
@@ -83,10 +87,16 @@ export default function ContactSection() {
     <section id="contact" className="relative py-28 min-h-screen flex items-center">
       <FlowingSVGContact />
 
-      <div className="relative z-10 container mx-auto px-4 w-full">
+      <motion.div
+        className="relative z-10 container mx-auto px-4 w-full"
+        variants={prefersReducedMotion ? undefined : staggerContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={viewportConfig}
+      >
         <div className="max-w-4xl mx-auto">
           {/* Headline */}
-          <div className="text-center mb-16 reveal-blur">
+          <motion.div variants={prefersReducedMotion ? undefined : staggerItem} className="text-center mb-16 reveal-blur">
             <h2
               className="text-4xl md:text-6xl font-bold mb-4"
               style={{
@@ -104,10 +114,10 @@ export default function ContactSection() {
               I&apos;m always open to discussing new projects, creative ideas, or opportunities
               to be part of your vision.
             </p>
-          </div>
+          </motion.div>
 
           {/* Contact cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+          <motion.div variants={prefersReducedMotion ? undefined : staggerItem} className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
             {contactLinks.map((link, i) => (
               <a
                 key={link.label}
@@ -117,9 +127,10 @@ export default function ContactSection() {
                 className="reveal-flip block group"
                 style={{ transitionDelay: `${i * 100}ms` }}
               >
-                <div
-                  className="glass rounded-2xl p-8 text-center h-full
-                    hover:bg-white/[0.05] transition-all duration-300 relative overflow-hidden"
+                <GlassCard
+                  glow
+                  className="p-6 rounded-2xl text-center h-full
+                    relative overflow-hidden"
                 >
                   {/* Glow on hover */}
                   <div
@@ -141,13 +152,13 @@ export default function ContactSection() {
                       {link.value}
                     </p>
                   </div>
-                </div>
+                </GlassCard>
               </a>
             ))}
-          </div>
+          </motion.div>
 
           {/* Copy email bar */}
-          <div className="reveal max-w-lg mx-auto" style={{ transitionDelay: '300ms' }}>
+          <motion.div variants={prefersReducedMotion ? undefined : staggerItem} className="reveal max-w-lg mx-auto" style={{ transitionDelay: '300ms' }}>
             <div className="glass rounded-xl p-4 flex items-center justify-between gap-4">
               <div className="flex items-center gap-3 min-w-0">
                 <Mail className="w-4 h-4 text-indigo-400 shrink-0" />
@@ -166,9 +177,9 @@ export default function ContactSection() {
                 {copied ? 'Copied!' : 'Copy'}
               </button>
             </div>
-          </div>
+          </motion.div>
         </div>
-      </div>
+      </motion.div>
     </section>
   )
 }
