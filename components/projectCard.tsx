@@ -178,7 +178,7 @@ export default function ProjectCard({
             bg-[#111114] border border-zinc-800/50 hover:border-zinc-700/60
             transition-colors duration-300"
         >
-          {/* Browser chrome + image */}
+          {/* Browser chrome + image — fixed height for alignment */}
           <div className="shrink-0">
             <div className="flex items-center gap-1.5 px-4 py-2 bg-[#0c0c0e] border-b border-zinc-800/30">
               <div className="flex gap-1.5">
@@ -192,7 +192,7 @@ export default function ProjectCard({
                 </span>
               </div>
             </div>
-            <div className="relative w-full aspect-[16/10] overflow-hidden">
+            <div className="relative w-full h-[220px] overflow-hidden">
               <Image
                 src={imageUrl}
                 alt={title}
@@ -204,29 +204,31 @@ export default function ProjectCard({
             </div>
           </div>
 
-          {/* Content */}
+          {/* Content — flex-col with justify-between for consistent bottom alignment */}
           <div className="p-6 flex flex-col flex-1">
-            <div className="flex items-center gap-2.5 mb-1">
-              {projectSlugMap[icon] ? <SkeuIcon icon={projectSlugMap[icon]} size={28} /> : <span className="text-lg">{icon}</span>}
-              <h3 className="text-lg font-semibold text-white tracking-tight">{title}</h3>
-            </div>
+            <div>
+              <div className="flex items-center gap-2.5 mb-1">
+                {projectSlugMap[icon] ? <SkeuIcon icon={projectSlugMap[icon]} size={28} /> : <span className="text-lg">{icon}</span>}
+                <h3 className="text-lg font-semibold text-white tracking-tight">{title}</h3>
+              </div>
 
-            <p className="text-xs text-zinc-500 font-medium mb-3">{subtitle}</p>
+              <p className="text-xs text-zinc-500 font-medium mb-3">{subtitle}</p>
 
-            <p className="text-[0.8rem] text-zinc-400 leading-relaxed mb-4 line-clamp-3 flex-1">
-              {description}
-            </p>
+              <p className="text-[0.8rem] text-zinc-400 leading-relaxed mb-4 line-clamp-3">
+                {description}
+              </p>
 
-            <div className="flex flex-wrap gap-1.5 mb-5">
-              {tags.slice(0, 5).map((tag) => (
-                <span
-                  key={tag}
-                  className="px-2 py-0.5 rounded-md text-[0.6rem] font-medium
-                    bg-zinc-800/80 text-zinc-400 border border-zinc-700/40"
-                >
-                  {tag}
-                </span>
-              ))}
+              <div className="flex flex-wrap gap-1.5 mb-5">
+                {tags.slice(0, 5).map((tag) => (
+                  <span
+                    key={tag}
+                    className="px-2 py-0.5 rounded-md text-[0.6rem] font-medium
+                      bg-zinc-800/80 text-zinc-400 border border-zinc-700/40"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
             </div>
 
             <div className="flex gap-2.5 mt-auto">
@@ -273,8 +275,8 @@ export default function ProjectCard({
           bg-[#111114]/60 border border-zinc-800/40 hover:border-zinc-700/50
           transition-colors duration-300"
       >
-        {/* Image */}
-        <div className="relative w-full aspect-[16/10] overflow-hidden shrink-0">
+        {/* Image — fixed height for consistent alignment across grid */}
+        <div className="relative w-full h-[160px] overflow-hidden shrink-0">
           <Image
             src={imageUrl}
             alt={title}
@@ -287,25 +289,27 @@ export default function ProjectCard({
 
         {/* Content */}
         <div className="p-5 flex flex-col flex-1">
-          <div className="flex items-center gap-2 mb-2">
-            {projectSlugMap[icon] ? <SkeuIcon icon={projectSlugMap[icon]} size={24} /> : <span className="text-base">{icon}</span>}
-            <h3 className="text-[0.95rem] font-semibold text-white">{title}</h3>
-          </div>
+          <div>
+            <div className="flex items-center gap-2 mb-2">
+              {projectSlugMap[icon] ? <SkeuIcon icon={projectSlugMap[icon]} size={24} /> : <span className="text-base">{icon}</span>}
+              <h3 className="text-[0.95rem] font-semibold text-white">{title}</h3>
+            </div>
 
-          <p className="text-xs text-zinc-500 leading-relaxed mb-3 line-clamp-2 flex-1">
-            {description}
-          </p>
+            <p className="text-xs text-zinc-500 leading-relaxed mb-3 line-clamp-2">
+              {description}
+            </p>
 
-          <div className="flex flex-wrap gap-1 mb-4">
-            {tags.slice(0, 4).map((tag) => (
-              <span
-                key={tag}
-                className="px-2 py-0.5 rounded text-[0.6rem] font-medium
-                  bg-zinc-800/60 text-zinc-500 border border-zinc-700/30"
-              >
-                {tag}
-              </span>
-            ))}
+            <div className="flex flex-wrap gap-1 mb-4">
+              {tags.slice(0, 4).map((tag) => (
+                <span
+                  key={tag}
+                  className="px-2 py-0.5 rounded text-[0.6rem] font-medium
+                    bg-zinc-800/60 text-zinc-500 border border-zinc-700/30"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
           </div>
 
           <div className="flex gap-2 mt-auto">
