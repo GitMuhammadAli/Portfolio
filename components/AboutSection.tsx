@@ -1,18 +1,17 @@
 'use client'
 
 import { useRef, useCallback } from 'react'
-import { GraduationCap, Code2, Briefcase } from 'lucide-react'
-import type { LucideIcon } from 'lucide-react'
 import Image from 'next/image'
+import { SkeuIcon, type SkeuIconName } from '@/components/ui/skeu-icon'
 import { motion, useReducedMotion } from 'framer-motion'
 import { staggerContainer, staggerItem, viewportConfig } from '@/lib/motion'
 
 function TiltCard({
-  icon: Icon,
+  icon,
   title,
   index,
 }: {
-  icon: LucideIcon
+  icon: SkeuIconName
   title: string
   index: number
 }) {
@@ -66,8 +65,8 @@ function TiltCard({
       >
         <div ref={glareRef} className="tilt-glare" />
         <div className="relative z-10 flex flex-col items-center text-center">
-          <div className="p-4 rounded-xl bg-indigo-500/10 mb-5">
-            <Icon className="w-8 h-8 text-indigo-400" />
+          <div className="mb-5">
+            <SkeuIcon icon={icon} size={56} />
           </div>
           <h3 className="text-lg font-semibold text-zinc-100">{title}</h3>
         </div>
@@ -79,10 +78,10 @@ function TiltCard({
 export default function AboutSection() {
   const prefersReducedMotion = useReducedMotion()
   const cards = [
-    { icon: Code2, title: 'Full-Stack Development' },
-    { icon: Briefcase, title: 'Backend Specialist' },
-    { icon: GraduationCap, title: 'Continuous Learner' },
-  ] as const
+    { icon: 'full-stack' as SkeuIconName, title: 'Full-Stack Development' },
+    { icon: 'backend' as SkeuIconName, title: 'Backend Specialist' },
+    { icon: 'learner' as SkeuIconName, title: 'Continuous Learner' },
+  ]
 
   return (
     <section id="about" className="relative py-28">

@@ -4,6 +4,19 @@ import Image from 'next/image'
 import { Github, ExternalLink } from 'lucide-react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { hoverLift, buttonTap } from '@/lib/motion'
+import { SkeuIcon, type SkeuIconName } from '@/components/ui/skeu-icon'
+
+const projectSlugMap: Record<string, SkeuIconName> = {
+  '📡': 'devradar',
+  '💚': 'carecircle',
+  '🚀': 'jobpilot',
+  '🏠': 'rentwise',
+  '📊': 'stockpilot',
+  '🔐': 'authkit',
+  '💪': 'fitness-planner',
+  '🌌': 'apod-react',
+  '⚡': 'nova-plus',
+}
 
 type ProjectProps = {
   title: string
@@ -97,7 +110,7 @@ export default function ProjectCard({
               )}
 
               <div className="flex items-center gap-3 mb-1">
-                <span className="text-2xl">{icon}</span>
+                {projectSlugMap[icon] ? <SkeuIcon icon={projectSlugMap[icon]} size={36} /> : <span className="text-2xl">{icon}</span>}
                 <h3 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">{title}</h3>
               </div>
 
@@ -194,7 +207,7 @@ export default function ProjectCard({
           {/* Content */}
           <div className="p-6 flex flex-col flex-1">
             <div className="flex items-center gap-2.5 mb-1">
-              <span className="text-lg">{icon}</span>
+              {projectSlugMap[icon] ? <SkeuIcon icon={projectSlugMap[icon]} size={28} /> : <span className="text-lg">{icon}</span>}
               <h3 className="text-lg font-semibold text-white tracking-tight">{title}</h3>
             </div>
 
@@ -275,7 +288,7 @@ export default function ProjectCard({
         {/* Content */}
         <div className="p-5 flex flex-col flex-1">
           <div className="flex items-center gap-2 mb-2">
-            <span className="text-base">{icon}</span>
+            {projectSlugMap[icon] ? <SkeuIcon icon={projectSlugMap[icon]} size={24} /> : <span className="text-base">{icon}</span>}
             <h3 className="text-[0.95rem] font-semibold text-white">{title}</h3>
           </div>
 

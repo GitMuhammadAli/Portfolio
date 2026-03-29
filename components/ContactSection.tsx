@@ -1,28 +1,29 @@
 'use client'
 
-import { Github, Linkedin, Mail, Copy, Check } from 'lucide-react'
+import { Copy, Check, Mail } from 'lucide-react'
 import { useState } from 'react'
+import { SkeuIcon, type SkeuIconName } from '@/components/ui/skeu-icon'
 import { motion, useReducedMotion } from 'framer-motion'
 import { staggerContainer, staggerItem, viewportConfig } from '@/lib/motion'
 import { GlassCard } from '@/components/ui/glass-card'
 
 const contactLinks = [
   {
-    icon: Mail,
+    skeuIcon: 'email' as SkeuIconName,
     label: 'Email',
     value: 'alishahid.dev@gmail.com',
     href: 'mailto:alishahid.dev@gmail.com',
     accent: '#6366f1',
   },
   {
-    icon: Linkedin,
+    skeuIcon: 'linkedin' as SkeuIconName,
     label: 'LinkedIn',
     value: 'alishahid-fswebdev',
     href: 'https://www.linkedin.com/in/alishahid-fswebdev/',
     accent: '#8b5cf6',
   },
   {
-    icon: Github,
+    skeuIcon: 'github' as SkeuIconName,
     label: 'GitHub',
     value: 'GitMuhammadAli',
     href: 'https://github.com/GitMuhammadAli',
@@ -141,12 +142,7 @@ export default function ContactSection() {
                   />
 
                   <div className="relative z-10 flex flex-col items-center gap-4">
-                    <div
-                      className="p-4 rounded-xl transition-colors duration-300"
-                      style={{ backgroundColor: `${link.accent}15` }}
-                    >
-                      <link.icon className="w-8 h-8" style={{ color: link.accent }} />
-                    </div>
+                    <SkeuIcon icon={link.skeuIcon} size={56} />
                     <h3 className="text-xl font-semibold text-white">{link.label}</h3>
                     <p className="text-sm text-zinc-400 break-all group-hover:text-zinc-300 transition-colors">
                       {link.value}

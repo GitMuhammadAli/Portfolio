@@ -1,6 +1,6 @@
 'use client'
 
-import { GraduationCap, Award } from 'lucide-react'
+import { SkeuIcon } from '@/components/ui/skeu-icon'
 import { education } from '@/data/experience'
 import { motion, useReducedMotion } from 'framer-motion'
 import { staggerContainer, staggerItem, viewportConfig } from '@/lib/motion'
@@ -28,9 +28,7 @@ export default function EducationSection() {
             <motion.div className="reveal-flip" variants={prefersReducedMotion ? undefined : staggerItem}>
               <div className="glass rounded-2xl p-8 h-full hover:bg-white/[0.05] transition-all duration-300">
                 <div className="flex items-start gap-4 mb-4">
-                  <div className="p-3 rounded-xl bg-indigo-500/10 shrink-0">
-                    <GraduationCap className="w-6 h-6 text-indigo-400" />
-                  </div>
+                  <SkeuIcon icon="degree" size={48} />
                   <div>
                     <h3 className="text-xl font-bold text-white mb-1">
                       {education.institution}
@@ -48,9 +46,7 @@ export default function EducationSection() {
             <motion.div className="reveal-flip" style={{ transitionDelay: '100ms' }} variants={prefersReducedMotion ? undefined : staggerItem}>
               <div className="glass rounded-2xl p-8 h-full hover:bg-white/[0.05] transition-all duration-300">
                 <div className="flex items-center gap-4 mb-6">
-                  <div className="p-3 rounded-xl bg-amber-500/10 shrink-0">
-                    <Award className="w-6 h-6 text-amber-400" />
-                  </div>
+                  <SkeuIcon icon="certifications" size={48} />
                   <h3 className="text-xl font-bold text-white">Certifications</h3>
                 </div>
                 <div className="flex flex-wrap gap-3 ml-[52px]">
