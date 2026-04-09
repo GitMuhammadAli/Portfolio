@@ -16,6 +16,43 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    slug: "relo",
+    title: "Relo (SkillFlow)",
+    subtitle: "AI Learning Companion for Social Media Content",
+    icon: "🧠",
+    featured: true,
+    description:
+      "Turns any social media URL — Instagram reels, YouTube videos, TikToks, carousels, PDFs — into a structured spaced-repetition study plan. Built for senior devs who save 10+ reels a week but never revisit them. Extracts the actual content (transcript, OCR, AI takeaways), generates flashcards, and schedules them on a daily SM-2 cadence that fits your free time.",
+    features: [
+      "9 platform scrapers (YouTube, Instagram, TikTok, Twitter, Facebook, LinkedIn, generic web, PDF, DOCX)",
+      "Reel audio transcription via Puppeteer mp4 interception → Groq Whisper Large v3",
+      "Instagram carousel rendering: scrolls all slides, OCRs each with Tesseract locally",
+      "Cascading AI router: regex pre-parser → Groq Llama 3.3 70B → Gemini 2.0 Flash → Gemini Vision",
+      "Dual-key SHA-256 cache (URL hash + content hash) — cross-URL dedup for re-pasted captions",
+      "SM-2 spaced repetition with depth-aware bin-packing (skim → deep → hands-on)",
+      "Stored cookie auth for private Instagram/TikTok content (AES-256-GCM encrypted)",
+      "Admin panel with cron run telemetry, URL feedback aggregation, and cache management",
+      "100% free-tier — Groq + Gemini + Supabase + Render scraper",
+    ],
+    tags: ["Next.js 16", "React 19", "Tailwind v4", "Supabase", "Groq", "Gemini", "Whisper", "Puppeteer", "TypeScript"],
+    techDetails: [
+      { name: "Next.js 16", role: "App Router + Turbopack + server actions" },
+      { name: "Tailwind v4 + shadcn (Base UI)", role: "Design system without Radix" },
+      { name: "Supabase + RLS", role: "Auth + Postgres with row-level security on 8 tables" },
+      { name: "Groq Llama 3.3 70B", role: "Primary text extraction (free, ~0.5s response)" },
+      { name: "Gemini 2.0 Flash + Vision", role: "Fallback text + carousel image analysis" },
+      { name: "Groq Whisper Large v3", role: "Reel audio transcription" },
+      { name: "Tesseract.js", role: "Local OCR on carousel slides (free, no API)" },
+      { name: "Puppeteer microservice", role: "Render-hosted Chromium for JS-heavy scraping" },
+      { name: "Zod v4", role: "Runtime validation of AI structured output" },
+      { name: "Vercel after()", role: "Background work without blocking response" },
+    ],
+    architecture:
+      "Monorepo-style: main Next.js app on Vercel + standalone Puppeteer microservice on Render free tier. Extraction pipeline cascades: URL → cache check → URL classifier → platform scraper → local extractors (regex, OCR, file parsers) → cascading AI (Groq → Gemini → Vision) → cache + DB store. Reels intercept the .mp4 stream in browser context and forward base64 audio to Whisper. Spaced repetition uses SM-2 with bin-packing that respects user's available days and daily minute budget.",
+    github: "https://github.com/GitMuhammadAli/Relo",
+    imageUrl: "/projects/relo.png",
+  },
+  {
     slug: "devradar",
     title: "DevRadar",
     subtitle: "AI-Powered Job Market Intelligence",
