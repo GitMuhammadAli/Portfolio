@@ -50,6 +50,7 @@ export const projects: Project[] = [
     architecture:
       "Monorepo-style: main Next.js app on Vercel + standalone Puppeteer microservice on Render free tier. Extraction pipeline cascades: URL → cache check → URL classifier → platform scraper → local extractors (regex, OCR, file parsers) → cascading AI (Groq → Gemini → Vision) → cache + DB store. Reels intercept the .mp4 stream in browser context and forward base64 audio to Whisper. Spaced repetition uses SM-2 with bin-packing that respects user's available days and daily minute budget.",
     github: "https://github.com/GitMuhammadAli/Relo",
+    demo: "https://relo-iota.vercel.app/",
     imageUrl: "/projects/relo.png",
   },
   {
