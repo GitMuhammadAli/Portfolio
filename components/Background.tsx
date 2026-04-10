@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useReducedMotion } from 'framer-motion'
 import { CurtainButton } from '@/components/ui/curtain-button'
 
@@ -42,6 +42,60 @@ function FlowingSVG() {
         fill="none"
       />
     </svg>
+  )
+}
+
+function MorphingBlobs() {
+  const ref = useRef<HTMLDivElement>(null)
+  const [isVisible, setIsVisible] = useState(false)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsVisible(entry.isIntersecting),
+      { threshold: 0 }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
+  const paused = !isVisible
+    ? { animationPlayState: 'paused' as const, willChange: 'auto' as const }
+    : { willChange: 'border-radius' as const }
+
+  return (
+    <div ref={ref} className="absolute inset-0 pointer-events-none">
+      <div
+        className="absolute w-[500px] h-[500px] animate-morph-slow opacity-[0.07]"
+        style={{
+          background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+          top: '10%',
+          left: '-5%',
+          ...paused,
+        }}
+      />
+      <div
+        className="absolute w-[400px] h-[400px] animate-morph-slow-2 opacity-[0.06]"
+        style={{
+          background: 'linear-gradient(135deg, #8b5cf6, #06b6d4)',
+          bottom: '5%',
+          right: '-3%',
+          ...paused,
+        }}
+      />
+      <div
+        className="absolute w-[300px] h-[300px] animate-morph-slow-3 opacity-[0.05]"
+        style={{
+          background: 'linear-gradient(135deg, #06b6d4, #6366f1)',
+          top: '50%',
+          left: '60%',
+          transform: 'translate(-50%, -50%)',
+          ...paused,
+        }}
+      />
+    </div>
   )
 }
 
@@ -101,35 +155,8 @@ export default function Background() {
       {/* Flowing SVG curves */}
       <FlowingSVG />
 
-      {/* Morphing blobs */}
-      <div
-        className="absolute w-[500px] h-[500px] animate-morph-slow opacity-[0.07]"
-        style={{
-          background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
-          top: '10%',
-          left: '-5%',
-          willChange: 'border-radius',
-        }}
-      />
-      <div
-        className="absolute w-[400px] h-[400px] animate-morph-slow-2 opacity-[0.06]"
-        style={{
-          background: 'linear-gradient(135deg, #8b5cf6, #06b6d4)',
-          bottom: '5%',
-          right: '-3%',
-          willChange: 'border-radius',
-        }}
-      />
-      <div
-        className="absolute w-[300px] h-[300px] animate-morph-slow-3 opacity-[0.05]"
-        style={{
-          background: 'linear-gradient(135deg, #06b6d4, #6366f1)',
-          top: '50%',
-          left: '60%',
-          transform: 'translate(-50%, -50%)',
-          willChange: 'border-radius',
-        }}
-      />
+      {/* Morphing blobs — paused when out of viewport */}
+      <MorphingBlobs />
 
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 md:px-6">
