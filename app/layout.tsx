@@ -63,6 +63,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={inter.className}>
+      <head>
+        <script
+          type="speculationrules"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              prerender: [{ where: { href_matches: "/*" }, eagerness: "moderate" }],
+            }),
+          }}
+        />
+      </head>
       <body>
         <LazyMotionProvider>
           {children}
