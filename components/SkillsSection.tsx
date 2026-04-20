@@ -118,6 +118,8 @@ export default function SkillsSection() {
                               alt={skill.name}
                               width={28}
                               height={28}
+                              sizes="28px"
+                              loading="lazy"
                               className="group-hover:scale-110 transition-transform duration-200"
                             />
                           </div>

@@ -2,6 +2,7 @@ import './globals.css'
 import type { Metadata } from 'next'
 import React from 'react'
 import { Inter } from 'next/font/google'
+import { LazyMotionProvider } from '@/components/LazyMotionProvider'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -63,7 +64,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.className}>
       <body>
-        {children}
+        <LazyMotionProvider>
+          {children}
+        </LazyMotionProvider>
       </body>
     </html>
   )
