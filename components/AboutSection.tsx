@@ -103,6 +103,8 @@ export default function AboutSection() {
               className="rounded-full border-2 border-indigo-500/30 object-cover mb-6
                 shadow-lg shadow-indigo-500/10"
               priority
+              fetchPriority="high"
+              sizes="128px"
             />
             <h2 className="text-4xl md:text-5xl font-bold gradient-text">About Me</h2>
             <div className="h-1 w-16 bg-gradient-to-r from-indigo-500 to-violet-500 mt-4 rounded-full" />
