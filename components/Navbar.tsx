@@ -133,43 +133,36 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Mobile dropdown */}
-        <AnimatePresence>
-          {isOpen && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ type: 'spring', stiffness: 400, damping: 35 }}
-              className="md:hidden mt-2 rounded-2xl overflow-hidden"
-              style={{
-                background: 'rgba(10, 10, 15, 0.9)',
-                backdropFilter: 'blur(16px)',
-                WebkitBackdropFilter: 'blur(16px)',
-                border: '1px solid rgba(255,255,255,0.06)',
-              }}
-            >
-              <div className="p-3 space-y-1">
-                {sections.map((section, i) => (
-                  <motion.button
-                    key={section}
-                    onClick={() => scrollTo(section)}
-                    initial={{ opacity: 0, x: -12 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.04, duration: 0.25 }}
-                    className={`w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium transition-colors duration-200
-                      ${activeSection === section
-                        ? 'text-white bg-indigo-500/15 border border-indigo-500/20'
-                        : 'text-zinc-500 hover:text-zinc-300 hover:bg-white/5'
-                      }`}
-                  >
-                    {section.charAt(0).toUpperCase() + section.slice(1)}
-                  </motion.button>
-                ))}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {/* Mobile dropdown — CSS transitions (interruptible on rapid toggle,
+            no layered entry stagger on items). */}
+        <div
+          aria-hidden={!isOpen}
+          className={`md:hidden mt-2 rounded-2xl overflow-hidden transition-[max-height,opacity] duration-300 ease-out ${
+            isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0 pointer-events-none'
+          }`}
+          style={{
+            background: 'rgba(10, 10, 15, 0.9)',
+            backdropFilter: 'blur(16px)',
+            WebkitBackdropFilter: 'blur(16px)',
+            border: '1px solid rgba(255,255,255,0.06)',
+          }}
+        >
+          <div className="p-3 space-y-1">
+            {sections.map((section) => (
+              <button
+                key={section}
+                onClick={() => scrollTo(section)}
+                className={`w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium transition-colors duration-200
+                  ${activeSection === section
+                    ? 'text-white bg-indigo-500/15 border border-indigo-500/20'
+                    : 'text-zinc-500 hover:text-zinc-300 hover:bg-white/5'
+                  }`}
+              >
+                {section.charAt(0).toUpperCase() + section.slice(1)}
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
     </nav>
   )

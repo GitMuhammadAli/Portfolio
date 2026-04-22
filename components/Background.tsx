@@ -10,10 +10,10 @@ const phrases = [
   'I ship production code',
 ]
 
-function FlowingSVG() {
+function StaticCurves() {
   return (
     <svg
-      className="absolute inset-0 w-full h-full pointer-events-none opacity-20 svg-flow"
+      className="absolute inset-0 w-full h-full pointer-events-none opacity-20"
       viewBox="0 0 1200 800"
       fill="none"
       preserveAspectRatio="none"
@@ -45,14 +45,13 @@ function FlowingSVG() {
   )
 }
 
-function MorphingBlobs() {
+function DriftingBlobs() {
   const ref = useRef<HTMLDivElement>(null)
-  const [isVisible, setIsVisible] = useState(false)
+  const [isVisible, setIsVisible] = useState(true)
 
   useEffect(() => {
     const el = ref.current
     if (!el) return
-
     const observer = new IntersectionObserver(
       ([entry]) => setIsVisible(entry.isIntersecting),
       { threshold: 0 }
@@ -61,38 +60,37 @@ function MorphingBlobs() {
     return () => observer.disconnect()
   }, [])
 
-  const paused = !isVisible
-    ? { animationPlayState: 'paused' as const, willChange: 'auto' as const }
-    : { willChange: 'border-radius' as const }
+  const pauseStyle = isVisible
+    ? undefined
+    : { animationPlayState: 'paused' as const }
 
   return (
     <div ref={ref} className="absolute inset-0 pointer-events-none">
       <div
-        className="absolute w-[500px] h-[500px] animate-morph-slow opacity-[0.07]"
+        className="absolute w-[500px] h-[500px] rounded-full blur-3xl opacity-[0.08] animate-blob-drift"
         style={{
           background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
           top: '10%',
           left: '-5%',
-          ...paused,
+          ...pauseStyle,
         }}
       />
       <div
-        className="absolute w-[400px] h-[400px] animate-morph-slow-2 opacity-[0.06]"
+        className="absolute w-[400px] h-[400px] rounded-full blur-3xl opacity-[0.07] animate-blob-drift-2"
         style={{
           background: 'linear-gradient(135deg, #8b5cf6, #06b6d4)',
           bottom: '5%',
           right: '-3%',
-          ...paused,
+          ...pauseStyle,
         }}
       />
       <div
-        className="absolute w-[300px] h-[300px] animate-morph-slow-3 opacity-[0.05]"
+        className="absolute w-[300px] h-[300px] rounded-full blur-3xl opacity-[0.06] animate-blob-drift-3"
         style={{
           background: 'linear-gradient(135deg, #06b6d4, #6366f1)',
           top: '50%',
           left: '60%',
-          transform: 'translate(-50%, -50%)',
-          ...paused,
+          ...pauseStyle,
         }}
       />
     </div>
@@ -152,11 +150,11 @@ export default function Background() {
         />
       </div>
 
-      {/* Flowing SVG curves */}
-      <FlowingSVG />
+      {/* Static SVG curves (was animated — paint-bound, too costly) */}
+      <StaticCurves />
 
-      {/* Morphing blobs — paused when out of viewport */}
-      <MorphingBlobs />
+      {/* Drifting blobs — transform+opacity only, paused when out of viewport */}
+      <DriftingBlobs />
 
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 md:px-6">
@@ -169,16 +167,14 @@ export default function Background() {
             Ali Shahid
           </h1>
 
-          {/* Animated gradient subtitle */}
+          {/* Gradient subtitle (was animated; static gradient is indistinguishable at rest) */}
           <p
             className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-6"
             style={{
-              background: 'linear-gradient(90deg, #6366f1, #8b5cf6, #06b6d4, #6366f1)',
-              backgroundSize: '300% 100%',
+              background: 'linear-gradient(90deg, #6366f1, #8b5cf6, #06b6d4)',
               WebkitBackgroundClip: 'text',
               backgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
-              animation: 'gradientTextShift 4s ease infinite',
             }}
           >
             Full Stack Developer

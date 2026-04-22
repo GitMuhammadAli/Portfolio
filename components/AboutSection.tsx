@@ -17,51 +17,76 @@ function TiltCard({
 }) {
   const cardRef = useRef<HTMLDivElement>(null)
   const glareRef = useRef<HTMLDivElement>(null)
+  const rafRef = useRef<number | null>(null)
+  const pending = useRef<{ x: number; y: number; rect: DOMRect } | null>(null)
 
-  const handleMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+  const flush = useCallback(() => {
+    rafRef.current = null
+    const data = pending.current
     const card = cardRef.current
     const glare = glareRef.current
-    if (!card) return
+    if (!data || !card) return
 
-    const rect = card.getBoundingClientRect()
-    const x = e.clientX - rect.left
-    const y = e.clientY - rect.top
+    const { x, y, rect } = data
     const centerX = rect.width / 2
     const centerY = rect.height / 2
-
     const rotateX = ((y - centerY) / centerY) * -8
     const rotateY = ((x - centerX) / centerX) * 8
 
     card.style.transform = `perspective(600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`
 
     if (glare) {
-      const px = (x / rect.width) * 100
-      const py = (y / rect.height) * 100
-      glare.style.setProperty('--glare-x', `${px}%`)
-      glare.style.setProperty('--glare-y', `${py}%`)
+      glare.style.setProperty('--glare-x', `${(x / rect.width) * 100}%`)
+      glare.style.setProperty('--glare-y', `${(y / rect.height) * 100}%`)
       glare.style.opacity = '1'
     }
   }, [])
 
+  const handleMove = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      const card = cardRef.current
+      if (!card) return
+      const rect = card.getBoundingClientRect()
+      pending.current = { x: e.clientX - rect.left, y: e.clientY - rect.top, rect }
+      if (rafRef.current == null) {
+        rafRef.current = requestAnimationFrame(flush)
+      }
+    },
+    [flush],
+  )
+
+  const handleEnter = useCallback(() => {
+    const card = cardRef.current
+    if (card) card.style.willChange = 'transform'
+  }, [])
+
   const handleLeave = useCallback(() => {
+    if (rafRef.current != null) {
+      cancelAnimationFrame(rafRef.current)
+      rafRef.current = null
+    }
+    pending.current = null
     const card = cardRef.current
     const glare = glareRef.current
-    if (card) card.style.transform = 'perspective(600px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)'
+    if (card) {
+      card.style.transform = 'perspective(600px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)'
+      card.style.willChange = 'auto'
+    }
     if (glare) glare.style.opacity = '0'
   }, [])
 
   return (
     <div
       className="reveal-flip"
-      style={{ transitionDelay: `${index * 100}ms` }}
+      style={{ transitionDelay: `${[0, 60, 140][index] ?? index * 80}ms` }}
     >
       <div
         ref={cardRef}
+        onMouseEnter={handleEnter}
         onMouseMove={handleMove}
         onMouseLeave={handleLeave}
-        className="pulse-border-card relative p-8 rounded-2xl bg-white/[0.02] backdrop-blur-sm
+        className="pulse-border-card relative p-8 rounded-2xl bg-white/[0.02]
           transition-transform duration-200 ease-out cursor-default"
-        style={{ willChange: 'transform' }}
       >
         <div ref={glareRef} className="tilt-glare" />
         <div className="relative z-10 flex flex-col items-center text-center">
@@ -111,7 +136,7 @@ export default function AboutSection() {
           </motion.div>
 
           {/* Bio */}
-          <motion.div variants={prefersReducedMotion ? undefined : staggerItem} className="text-center mb-16 reveal-blur" style={{ transitionDelay: '100ms' }}>
+          <motion.div variants={prefersReducedMotion ? undefined : staggerItem} className="text-center mb-16 reveal-blur" style={{ transitionDelay: '80ms' }}>
             <p className="text-lg leading-relaxed text-zinc-400">
               I&apos;m a Full-Stack Developer with a BS in Computer Science from{' '}
               <span className="text-indigo-400 font-medium">Bahria University</span>.
@@ -134,7 +159,7 @@ export default function AboutSection() {
           </motion.div>
 
           {/* Additional info */}
-          <motion.div variants={prefersReducedMotion ? undefined : staggerItem} className="reveal text-center" style={{ transitionDelay: '400ms' }}>
+          <motion.div variants={prefersReducedMotion ? undefined : staggerItem} className="reveal text-center" style={{ transitionDelay: '420ms' }}>
             <p className="text-lg text-zinc-400">
               Skilled in designing <span className="text-indigo-400">RESTful APIs</span>,
               integrating third-party services, and automating deployments with{' '}

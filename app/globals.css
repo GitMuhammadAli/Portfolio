@@ -26,9 +26,11 @@ body {
   transform: translateY(0);
 }
 
+/* reveal-blur used to animate filter:blur — that's paint-bound and made
+   section transitions jank on mid-tier GPUs. Falls back to the same
+   opacity+translate as .reveal, which is composite-only and visually close. */
 .reveal-blur {
   opacity: 0;
-  filter: blur(8px);
   transform: translateY(30px);
   transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
     transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -37,15 +39,14 @@ body {
 
 .reveal-blur.visible {
   opacity: 1;
-  filter: blur(0);
   transform: translateY(0);
 }
 
 .reveal-flip {
   opacity: 0;
   transform: perspective(600px) rotateX(15deg) translateY(30px);
-  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform, opacity;
 }
 
@@ -54,19 +55,13 @@ body {
   transform: perspective(600px) rotateX(0deg) translateY(0);
 }
 
-/* ── Gradient text helper ── */
+/* ── Gradient text helper (static; the infinite background-position
+   animation it used to run was paint-bound and added ~3-5% CPU at idle) ── */
 .gradient-text {
   background: linear-gradient(135deg, #6366f1, #8b5cf6, #06b6d4);
-  background-size: 200% 200%;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: gradientTextShift 4s ease infinite;
-}
-
-@keyframes gradientTextShift {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
 }
 
 /* ── Shimmer sweep for buttons ── */
@@ -115,19 +110,11 @@ body {
   );
 }
 
-/* ── SVG flowing curves ── */
-.svg-flow path {
-  stroke-dasharray: 1000;
-  stroke-dashoffset: 1000;
-  animation: svgFlowDraw 10s ease-in-out infinite alternate;
-}
+/* ── SVG curves (animation removed — stroke-dashoffset is paint-bound) ── */
 
-@keyframes svgFlowDraw {
-  0% { stroke-dashoffset: 1000; }
-  100% { stroke-dashoffset: 0; }
-}
-
-/* ── Pulsing gradient border ── */
+/* ── Gradient border card (static; mask-composite with an infinite opacity
+   keyframe was forcing a repaint every frame on three cards). Opacity
+   shifts to hover so the effect is still interactive without the idle cost. */
 .pulse-border-card {
   position: relative;
 }
@@ -147,12 +134,13 @@ body {
     linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
-  animation: pulseBorderAnim 3s ease-in-out infinite;
+  opacity: 0.35;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
 }
 
-@keyframes pulseBorderAnim {
-  0%, 100% { opacity: 0.3; }
-  50% { opacity: 0.7; }
+.pulse-border-card:hover::before {
+  opacity: 0.75;
 }
 
 /* ── Typing cursor ── */
