@@ -14,16 +14,15 @@
 const { chromium } = require("playwright");
 const path = require("path");
 
-// To recapture whatsapp-saas: run `pnpm --filter @whatsapp-saas/web dev` on
-// PORT=3010 in /Users/alishahid/Mine/project/whatsapp-saas, then run this
-// script with `node capture-screenshot.js whatsapp-saas`. No public deploy
-// yet — the screenshot is captured against the local marketing landing.
+// Sahara: live deploy at sahara-pk.vercel.app (alias sahara-wa.vercel.app).
+// If the public deploy is mid-rebuild and 404ing, fall back to local dev:
+//   pnpm --filter @whatsapp-saas/web dev   # in /Users/alishahid/Mine/project/whatsapp-saas
+//   PORT=3010 (then point `url` here at http://localhost:3010 for the run)
 const targets = [
   {
     slug: "whatsapp-saas",
-    url: "http://localhost:3010",
+    url: "https://sahara-pk.vercel.app/",
     waitMs: 3500,
-    timeoutMs: 30000,
   },
   {
     slug: "relo",

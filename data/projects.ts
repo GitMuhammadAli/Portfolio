@@ -48,6 +48,7 @@ export const projects: Project[] = [
     architecture:
       "Turborepo with apps/web (Next.js dashboard + marketing) and apps/worker (background processor) sharing packages/db (Prisma schema) and packages/shared (types + utilities). Inbound WhatsApp messages hit a webhook, get queued in BullMQ, and the worker runs them through a tenant-scoped knowledge retrieval + LLM reply pipeline. Owner dashboard surfaces conversations, orders, customers, and knowledge gaps so the AI gets smarter the more it's used.",
     github: "https://github.com/GitMuhammadAli/whatsapp-saas",
+    demo: "https://sahara-pk.vercel.app/",
     imageUrl: "/projects/whatsapp-saas.png",
   },
   {
