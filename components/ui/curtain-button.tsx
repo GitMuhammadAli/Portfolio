@@ -21,13 +21,13 @@ const CurtainButton = React.forwardRef<HTMLButtonElement, CurtainButtonProps>(
 
     const styles = {
       default: {
-        base: 'bg-indigo-500 text-white shadow-lg shadow-indigo-500/20',
+        base: 'bg-white text-white shadow-lg shadow-white/10',
         curtain: 'bg-white',
-        hoverText: 'text-indigo-600',
+        hoverText: 'text-zinc-100',
       },
       outline: {
-        base: 'border border-indigo-500/30 text-indigo-300',
-        curtain: 'bg-indigo-500/20',
+        base: 'border border-white/15 text-zinc-200',
+        curtain: 'bg-white/10',
         hoverText: 'text-white',
       },
     }
@@ -38,7 +38,7 @@ const CurtainButton = React.forwardRef<HTMLButtonElement, CurtainButtonProps>(
         ref={ref}
         className={cn(
           'relative overflow-hidden rounded-full px-8 py-3.5 font-medium',
-          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500',
+          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white',
           'transition-shadow duration-300',
           s.base,
           className

@@ -75,13 +75,13 @@ export default function Navbar() {
               onClick={() => scrollTo('home')}
               className="text-xl font-bold relative"
               style={{
-                textShadow: '0 0 20px rgba(99, 102, 241, 0.5), 0 0 40px rgba(99, 102, 241, 0.2)',
+                textShadow: '0 0 20px rgba(255, 255, 255, 0.5), 0 0 40px rgba(255, 255, 255, 0.2)',
               }}
             >
-              <span className="bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-zinc-100 to-zinc-300 bg-clip-text text-transparent">
                 AS
               </span>
-              <span className="text-amber-400">.</span>
+              <span className="text-zinc-100">.</span>
             </button>
 
             {/* Desktop nav */}
@@ -105,7 +105,7 @@ export default function Navbar() {
                   {activeSection === section && (
                     <motion.div
                       layoutId="nav-indicator"
-                      className="absolute inset-0 rounded-full bg-indigo-500/20 border border-indigo-500/30"
+                      className="absolute inset-0 rounded-full bg-white/10 border border-white/15"
                       transition={prefersReducedMotion ? { duration: 0 } : gentleSpring}
                     />
                   )}
@@ -154,7 +154,7 @@ export default function Navbar() {
                 onClick={() => scrollTo(section)}
                 className={`w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium transition-colors duration-200
                   ${activeSection === section
-                    ? 'text-white bg-indigo-500/15 border border-indigo-500/20'
+                    ? 'text-white bg-white/8 border border-white/10'
                     : 'text-zinc-500 hover:text-zinc-300 hover:bg-white/5'
                   }`}
               >

@@ -66,7 +66,7 @@ export function SlidingTabs({ items, defaultIndex = 0, onChange, className }: Sl
             >
               <div
                 className="absolute inset-0 rounded-lg blur-2xl opacity-30"
-                style={{ background: "linear-gradient(90deg, #6366f1, #8b5cf6, #a78bfa)" }}
+                style={{ background: "linear-gradient(90deg, #fafafa, #a1a1aa, #d4d4d8)" }}
               />
             </motion.div>
             <motion.div
@@ -78,7 +78,7 @@ export function SlidingTabs({ items, defaultIndex = 0, onChange, className }: Sl
               style={{
                 top: 8,
                 height: "calc(100% - 16px)",
-                background: "linear-gradient(90deg, #6366f1, #8b5cf6, #a78bfa)",
+                background: "linear-gradient(90deg, #fafafa, #a1a1aa, #d4d4d8)",
                 mixBlendMode: "screen",
               }}
             />

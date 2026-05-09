@@ -8,7 +8,7 @@ const spinnerVariants = cva("flex-col items-center justify-center", {
   defaultVariants: { show: true },
 })
 
-const loaderVariants = cva("animate-spin text-indigo-400", {
+const loaderVariants = cva("animate-spin text-zinc-100", {
   variants: { size: { small: "size-6", medium: "size-8", large: "size-12" } },
   defaultVariants: { size: "medium" },
 })

@@ -12,13 +12,13 @@ const config: Config = {
         sans: ["Inter", "system-ui", "sans-serif"],
       },
       colors: {
-        base: "#0a0a0f",
+        base: "#09090b",
         primary: {
-          DEFAULT: "#6366f1",
-          foreground: "#ffffff",
+          DEFAULT: "#fafafa",
+          foreground: "#09090b",
         },
-        secondary: "#8b5cf6",
-        accent: "#f59e0b",
+        secondary: "#a1a1aa",
+        accent: "#fafafa",
       },
       animation: {
         "blob-drift": "blobDrift 40s linear infinite",

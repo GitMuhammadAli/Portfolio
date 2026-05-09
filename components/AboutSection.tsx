@@ -125,28 +125,28 @@ export default function AboutSection() {
               alt="Ali Shahid"
               width={128}
               height={128}
-              className="rounded-full border-2 border-indigo-500/30 object-cover mb-6
-                shadow-lg shadow-indigo-500/10"
+              className="rounded-full border-2 border-white/15 object-cover mb-6
+                shadow-lg shadow-white/5"
               priority
               fetchPriority="high"
               sizes="128px"
             />
             <h2 className="text-4xl md:text-5xl font-bold gradient-text">About Me</h2>
-            <div className="h-1 w-16 bg-gradient-to-r from-indigo-500 to-violet-500 mt-4 rounded-full" />
+            <div className="h-1 w-16 bg-gradient-to-r from-white to-zinc-300 mt-4 rounded-full" />
           </motion.div>
 
           {/* Bio */}
           <motion.div variants={prefersReducedMotion ? undefined : staggerItem} className="text-center mb-16 reveal-blur" style={{ transitionDelay: '80ms' }}>
             <p className="text-lg leading-relaxed text-zinc-400">
               I&apos;m a Full-Stack Developer with a BS in Computer Science from{' '}
-              <span className="text-indigo-400 font-medium">Bahria University</span>.
+              <span className="text-zinc-100 font-medium">Bahria University</span>.
               Currently at NgXoft Solutions, I build and ship production-grade web applications.
               I work with{' '}
-              <span className="text-violet-400 font-medium">
+              <span className="text-zinc-300 font-medium">
                 Node.js, Express, MongoDB, React.js, Next.js, NestJS, PostgreSQL, and Docker
               </span>
               . I&apos;ve developed{' '}
-              <span className="text-amber-400 font-medium">6+ end-to-end web applications</span>{' '}
+              <span className="text-zinc-100 font-medium">6+ end-to-end web applications</span>{' '}
               spanning AI-powered platforms, job market intelligence, authentication systems, and inventory management tools.
             </p>
           </motion.div>
@@ -161,9 +161,9 @@ export default function AboutSection() {
           {/* Additional info */}
           <motion.div variants={prefersReducedMotion ? undefined : staggerItem} className="reveal text-center" style={{ transitionDelay: '420ms' }}>
             <p className="text-lg text-zinc-400">
-              Skilled in designing <span className="text-indigo-400">RESTful APIs</span>,
+              Skilled in designing <span className="text-zinc-100">RESTful APIs</span>,
               integrating third-party services, and automating deployments with{' '}
-              <span className="text-violet-400">Docker, Vercel, and VPS hosting</span>.
+              <span className="text-zinc-300">Docker, Vercel, and VPS hosting</span>.
               I&apos;m open to opportunities where I can work on interesting projects and
               learn from experienced teams.
             </p>

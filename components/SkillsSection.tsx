@@ -13,10 +13,10 @@ const categoryColors: Record<string, string> = {
 }
 
 const categoryAccents: Record<string, string> = {
-  Frontend: '#6366f1',
-  Backend: '#8b5cf6',
-  Database: '#06b6d4',
-  DevOps: '#f59e0b',
+  Frontend: '#fafafa',
+  Backend: '#a1a1aa',
+  Database: '#71717a',
+  DevOps: '#fafafa',
 }
 
 interface Skill {
@@ -72,7 +72,7 @@ export default function SkillsSection() {
           {/* Heading */}
           <div className="text-center mb-16 reveal-blur">
             <h2 className="text-4xl md:text-5xl font-bold gradient-text">Skills & Tech</h2>
-            <div className="h-1 w-16 bg-gradient-to-r from-indigo-500 to-violet-500 mx-auto mt-4 rounded-full" />
+            <div className="h-1 w-16 bg-gradient-to-r from-white to-zinc-300 mx-auto mt-4 rounded-full" />
           </div>
 
           {/* Categories */}

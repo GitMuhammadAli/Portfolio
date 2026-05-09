@@ -20,13 +20,13 @@ function StaticCurves() {
     >
       <defs>
         <linearGradient id="heroGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#6366f1" stopOpacity="0.4" />
-          <stop offset="50%" stopColor="#8b5cf6" stopOpacity="0.2" />
-          <stop offset="100%" stopColor="#06b6d4" stopOpacity="0.1" />
+          <stop offset="0%" stopColor="#fafafa" stopOpacity="0.4" />
+          <stop offset="50%" stopColor="#a1a1aa" stopOpacity="0.2" />
+          <stop offset="100%" stopColor="#71717a" stopOpacity="0.1" />
         </linearGradient>
         <linearGradient id="heroGrad2" x1="100%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor="#8b5cf6" stopOpacity="0.3" />
-          <stop offset="100%" stopColor="#6366f1" stopOpacity="0.1" />
+          <stop offset="0%" stopColor="#a1a1aa" stopOpacity="0.3" />
+          <stop offset="100%" stopColor="#fafafa" stopOpacity="0.1" />
         </linearGradient>
       </defs>
       <path
@@ -69,7 +69,7 @@ function DriftingBlobs() {
       <div
         className="absolute w-[500px] h-[500px] rounded-full blur-3xl opacity-[0.08] animate-blob-drift"
         style={{
-          background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+          background: 'linear-gradient(135deg, #fafafa, #a1a1aa)',
           top: '10%',
           left: '-5%',
           ...pauseStyle,
@@ -78,7 +78,7 @@ function DriftingBlobs() {
       <div
         className="absolute w-[400px] h-[400px] rounded-full blur-3xl opacity-[0.07] animate-blob-drift-2"
         style={{
-          background: 'linear-gradient(135deg, #8b5cf6, #06b6d4)',
+          background: 'linear-gradient(135deg, #a1a1aa, #71717a)',
           bottom: '5%',
           right: '-3%',
           ...pauseStyle,
@@ -87,7 +87,7 @@ function DriftingBlobs() {
       <div
         className="absolute w-[300px] h-[300px] rounded-full blur-3xl opacity-[0.06] animate-blob-drift-3"
         style={{
-          background: 'linear-gradient(135deg, #06b6d4, #6366f1)',
+          background: 'linear-gradient(135deg, #71717a, #fafafa)',
           top: '50%',
           left: '60%',
           ...pauseStyle,
@@ -142,9 +142,9 @@ export default function Background() {
           className="absolute inset-0"
           style={{
             background: `
-              radial-gradient(ellipse 80% 60% at 30% 30%, rgba(99, 102, 241, 0.1) 0%, transparent 60%),
-              radial-gradient(ellipse 60% 50% at 70% 60%, rgba(139, 92, 246, 0.07) 0%, transparent 50%),
-              radial-gradient(ellipse 50% 40% at 50% 90%, rgba(6, 182, 212, 0.06) 0%, transparent 50%)
+              radial-gradient(ellipse 80% 60% at 30% 30%, rgba(255, 255, 255, 0.1) 0%, transparent 60%),
+              radial-gradient(ellipse 60% 50% at 70% 60%, rgba(255, 255, 255, 0.07) 0%, transparent 50%),
+              radial-gradient(ellipse 50% 40% at 50% 90%, rgba(255, 255, 255, 0.06) 0%, transparent 50%)
             `,
           }}
         />
@@ -171,7 +171,7 @@ export default function Background() {
           <p
             className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-6"
             style={{
-              background: 'linear-gradient(90deg, #6366f1, #8b5cf6, #06b6d4)',
+              background: 'linear-gradient(90deg, #fafafa, #a1a1aa, #71717a)',
               WebkitBackgroundClip: 'text',
               backgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
@@ -210,7 +210,7 @@ export default function Background() {
       </div>
 
       {/* Bottom fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#0a0a0f] to-transparent pointer-events-none" />
+      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#09090b] to-transparent pointer-events-none" />
     </section>
   )
 }

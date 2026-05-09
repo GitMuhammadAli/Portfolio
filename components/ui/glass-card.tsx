@@ -18,7 +18,7 @@ function GlassCard({ className, children, hover = true, glow = false }: GlassCar
         'rounded-xl border border-white/[0.08] bg-white/[0.04] backdrop-blur-sm',
         'transition-colors duration-300',
         hover && 'hover:border-white/[0.12] hover:bg-white/[0.06]',
-        glow && 'hover:shadow-[0_0_30px_rgba(99,102,241,0.08)]',
+        glow && 'hover:shadow-[0_0_30px_rgba(255,255,255,0.08)]',
         className
       )}
       whileHover={hover && !prefersReducedMotion ? { y: -2 } : undefined}

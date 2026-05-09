@@ -13,21 +13,21 @@ const contactLinks = [
     label: 'Email',
     value: 'alishahid.dev@gmail.com',
     href: 'mailto:alishahid.dev@gmail.com',
-    accent: '#6366f1',
+    accent: '#fafafa',
   },
   {
     skeuIcon: 'linkedin' as SkeuIconName,
     label: 'LinkedIn',
     value: 'alishahid-fswebdev',
     href: 'https://www.linkedin.com/in/alishahid-fswebdev/',
-    accent: '#8b5cf6',
+    accent: '#a1a1aa',
   },
   {
     skeuIcon: 'github' as SkeuIconName,
     label: 'GitHub',
     value: 'GitMuhammadAli',
     href: 'https://github.com/GitMuhammadAli',
-    accent: '#06b6d4',
+    accent: '#71717a',
   },
 ]
 
@@ -41,12 +41,12 @@ function FlowingSVGContact() {
     >
       <defs>
         <linearGradient id="contactGrad1" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#6366f1" stopOpacity="0.5" />
-          <stop offset="100%" stopColor="#8b5cf6" stopOpacity="0.1" />
+          <stop offset="0%" stopColor="#fafafa" stopOpacity="0.5" />
+          <stop offset="100%" stopColor="#a1a1aa" stopOpacity="0.1" />
         </linearGradient>
         <linearGradient id="contactGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#8b5cf6" stopOpacity="0.3" />
-          <stop offset="100%" stopColor="#06b6d4" stopOpacity="0.1" />
+          <stop offset="0%" stopColor="#a1a1aa" stopOpacity="0.3" />
+          <stop offset="100%" stopColor="#71717a" stopOpacity="0.1" />
         </linearGradient>
       </defs>
       <path
@@ -101,7 +101,7 @@ export default function ContactSection() {
             <h2
               className="text-4xl md:text-6xl font-bold mb-4"
               style={{
-                background: 'linear-gradient(90deg, #6366f1, #8b5cf6, #06b6d4, #6366f1)',
+                background: 'linear-gradient(90deg, #fafafa, #a1a1aa, #71717a, #fafafa)',
                 backgroundSize: '300% 100%',
                 WebkitBackgroundClip: 'text',
                 backgroundClip: 'text',
@@ -157,7 +157,7 @@ export default function ContactSection() {
           <motion.div variants={prefersReducedMotion ? undefined : staggerItem} className="reveal max-w-lg mx-auto" style={{ transitionDelay: '300ms' }}>
             <div className="glass rounded-xl p-4 flex items-center justify-between gap-4">
               <div className="flex items-center gap-3 min-w-0">
-                <Mail className="w-4 h-4 text-indigo-400 shrink-0" />
+                <Mail className="w-4 h-4 text-zinc-100 shrink-0" />
                 <span className="text-sm text-zinc-300 font-mono truncate">{email}</span>
               </div>
               <button
@@ -166,7 +166,7 @@ export default function ContactSection() {
                   transition-all duration-200 shrink-0
                   ${copied
                     ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
-                    : 'bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 hover:bg-indigo-500/30'
+                    : 'bg-white/10 text-zinc-200 border border-white/15 hover:bg-white/15'
                   }`}
               >
                 {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}

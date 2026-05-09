@@ -14,7 +14,7 @@ export default function EducationSection() {
           {/* Heading */}
           <div className="text-center mb-16 reveal-blur">
             <h2 className="text-4xl md:text-5xl font-bold gradient-text">Education</h2>
-            <div className="h-1 w-16 bg-gradient-to-r from-indigo-500 to-violet-500 mx-auto mt-4 rounded-full" />
+            <div className="h-1 w-16 bg-gradient-to-r from-white to-zinc-300 mx-auto mt-4 rounded-full" />
           </div>
 
           <motion.div
@@ -59,7 +59,7 @@ export default function EducationSection() {
                     >
                       <span className="text-sm text-zinc-300">{cert.name}</span>
                       <span className="text-[0.65rem] px-2 py-0.5 rounded-full
-                        bg-amber-500/10 text-amber-400 border border-amber-500/20 font-medium">
+                        bg-white/5 text-zinc-100 border border-white/10 font-medium">
                         {cert.year}
                       </span>
                     </div>

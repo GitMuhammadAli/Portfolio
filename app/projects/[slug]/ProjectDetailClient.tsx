@@ -29,7 +29,7 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
         <div className="container mx-auto flex items-center px-4 py-3">
           <Link
             href="/#projects"
-            className="flex items-center gap-2 text-sm text-zinc-400 hover:text-indigo-400 transition-colors"
+            className="flex items-center gap-2 text-sm text-zinc-400 hover:text-zinc-100 transition-colors"
           >
             <ArrowLeft size={16} />
             Back to Projects
@@ -43,7 +43,7 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
           className="absolute inset-0"
           style={{
             background:
-              'radial-gradient(ellipse 60% 50% at 30% 40%, rgba(99, 102, 241, 0.08) 0%, transparent 60%)',
+              'radial-gradient(ellipse 60% 50% at 30% 40%, rgba(255, 255, 255, 0.08) 0%, transparent 60%)',
           }}
         />
         <div className="relative container mx-auto px-4 py-16 md:py-24">
@@ -51,7 +51,7 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
             <div className="flex items-center gap-3 mb-4">
               <span className="text-3xl">{project.icon}</span>
               {project.featured && (
-                <span className="px-2.5 py-0.5 text-xs font-medium rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                <span className="px-2.5 py-0.5 text-xs font-medium rounded-full bg-white/5 text-zinc-100 border border-white/10">
                   ★ Featured
                 </span>
               )}
@@ -60,13 +60,13 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold gradient-text">
               {project.title}
             </h1>
-            <p className="mt-2 text-lg text-indigo-300/70">{project.subtitle}</p>
+            <p className="mt-2 text-lg text-zinc-300/80">{project.subtitle}</p>
 
             <div className="mt-6 flex flex-wrap gap-2">
               {project.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="px-3 py-1 rounded-full text-xs bg-indigo-500/10 text-indigo-300 border border-indigo-500/15"
+                  className="px-3 py-1 rounded-full text-xs bg-white/5 text-zinc-200 border border-white/8"
                 >
                   {tag}
                 </span>
@@ -80,7 +80,7 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="shimmer-btn inline-flex items-center gap-2 px-6 py-2.5 text-sm font-semibold rounded-full
-                    bg-indigo-500 text-white shadow-lg shadow-indigo-500/20 hover:bg-indigo-400 transition-colors"
+                    bg-white text-white shadow-lg shadow-white/10 hover:bg-zinc-100 transition-colors"
                 >
                   <ExternalLink size={14} />
                   Live Demo
@@ -91,7 +91,7 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="shimmer-btn inline-flex items-center gap-2 px-6 py-2.5 text-sm font-medium rounded-full
-                  border border-zinc-700 text-zinc-300 hover:border-indigo-500/40 hover:text-white transition-all"
+                  border border-zinc-700 text-zinc-300 hover:border-white/20 hover:text-white transition-all"
               >
                 <Github size={14} />
                 View Code
@@ -151,7 +151,7 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
               <ul className="space-y-3">
                 {project.features.map((feature) => (
                   <li key={feature} className="flex gap-3 text-zinc-400">
-                    <CheckCircle2 size={18} className="mt-0.5 shrink-0 text-indigo-400" />
+                    <CheckCircle2 size={18} className="mt-0.5 shrink-0 text-zinc-100" />
                     <span className="text-sm leading-relaxed">{feature}</span>
                   </li>
                 ))}
@@ -161,7 +161,7 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
             {project.architecture && (
               <div className="reveal" style={{ transitionDelay: '200ms' }}>
                 <div className="flex items-center gap-2 mb-4">
-                  <Layers size={20} className="text-violet-400" />
+                  <Layers size={20} className="text-zinc-300" />
                   <h2 className="text-2xl font-bold text-white">Architecture</h2>
                 </div>
                 <p className="leading-relaxed text-zinc-400">{project.architecture}</p>

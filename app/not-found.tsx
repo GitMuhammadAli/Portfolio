@@ -7,7 +7,7 @@ import { fadeInUp } from "@/lib/motion";
 export default function NotFound() {
   const prefersReducedMotion = useReducedMotion();
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-[#0a0a0f] text-white px-4">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-[#09090b] text-white px-4">
       <motion.div
         variants={prefersReducedMotion ? undefined : fadeInUp}
         initial="hidden"
@@ -23,7 +23,7 @@ export default function NotFound() {
         </p>
         <Link
           href="/"
-          className="px-6 py-2.5 rounded-full bg-indigo-500 text-white font-semibold shadow-lg shadow-indigo-500/20 hover:bg-indigo-400 transition-colors"
+          className="px-6 py-2.5 rounded-full bg-white text-white font-semibold shadow-lg shadow-white/10 hover:bg-zinc-100 transition-colors"
         >
           Go Home
         </Link>

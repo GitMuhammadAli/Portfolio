@@ -25,7 +25,7 @@ export default function ProjectsSection() {
           {/* Section heading */}
           <motion.div variants={prefersReducedMotion ? undefined : staggerItem} className="text-center mb-16 reveal-blur">
             <h2 className="text-4xl md:text-5xl font-bold gradient-text">Projects</h2>
-            <div className="h-1 w-16 bg-gradient-to-r from-indigo-500 to-violet-500 mx-auto mt-4 rounded-full" />
+            <div className="h-1 w-16 bg-gradient-to-r from-white to-zinc-300 mx-auto mt-4 rounded-full" />
           </motion.div>
 
           {/* Hero project — full-width horizontal card */}

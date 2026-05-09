@@ -14,7 +14,7 @@ export default function ExperienceSection() {
           {/* Heading */}
           <div className="text-center mb-16 reveal-blur">
             <h2 className="text-4xl md:text-5xl font-bold gradient-text">Experience</h2>
-            <div className="h-1 w-16 bg-gradient-to-r from-indigo-500 to-violet-500 mx-auto mt-4 rounded-full" />
+            <div className="h-1 w-16 bg-gradient-to-r from-white to-zinc-300 mx-auto mt-4 rounded-full" />
           </div>
 
           {/* Timeline */}
@@ -23,7 +23,7 @@ export default function ExperienceSection() {
             <div
               className="absolute left-6 md:left-8 top-0 bottom-0 w-px"
               style={{
-                background: 'linear-gradient(to bottom, #6366f1, #8b5cf6, #f59e0b)',
+                background: 'linear-gradient(to bottom, #fafafa, #a1a1aa, #fafafa)',
               }}
             />
 
@@ -44,11 +44,11 @@ export default function ExperienceSection() {
                   {/* Timeline node with glow halo */}
                   <div className="absolute left-[14px] md:left-[22px] top-2">
                     <div
-                      className="w-5 h-5 rounded-full bg-gradient-to-r from-indigo-500 to-violet-500
-                        shadow-[0_0_20px_rgba(99,102,241,0.5)]"
+                      className="w-5 h-5 rounded-full bg-gradient-to-r from-white to-zinc-300
+                        shadow-[0_0_20px_rgba(255,255,255,0.5)]"
                     />
                     <div
-                      className="absolute inset-0 w-5 h-5 rounded-full bg-indigo-500/20 animate-ping"
+                      className="absolute inset-0 w-5 h-5 rounded-full bg-white/10 animate-ping"
                       style={{ animationDuration: '3s' }}
                     />
                   </div>
@@ -62,13 +62,13 @@ export default function ExperienceSection() {
                     <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-4">
                       <div>
                         <div className="flex items-center gap-2 mb-1">
-                          <Briefcase className="w-5 h-5 text-indigo-400" />
+                          <Briefcase className="w-5 h-5 text-zinc-100" />
                           <h3 className="text-xl font-bold text-white">{exp.role}</h3>
                         </div>
                         <p className="gradient-text font-medium">{exp.company}</p>
                       </div>
                       <div className="flex items-center gap-1.5 px-3 py-1 rounded-full text-sm shrink-0
-                        bg-indigo-500/10 text-indigo-300 border border-indigo-500/20">
+                        bg-white/5 text-zinc-200 border border-white/10">
                         <Calendar className="w-3.5 h-3.5" />
                         {exp.period}
                       </div>
@@ -84,7 +84,7 @@ export default function ExperienceSection() {
                           key={i}
                           className="flex gap-3 text-sm leading-relaxed text-zinc-300"
                         >
-                          <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-gradient-to-r from-indigo-500 to-violet-500" />
+                          <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-gradient-to-r from-white to-zinc-300" />
                           {achievement}
                         </li>
                       ))}
@@ -96,7 +96,7 @@ export default function ExperienceSection() {
                         <span
                           key={tech}
                           className="px-3 py-1 rounded-full text-[0.7rem] uppercase tracking-wider
-                            bg-indigo-500/10 text-indigo-300 border border-indigo-500/15"
+                            bg-white/5 text-zinc-200 border border-white/8"
                         >
                           {tech}
                         </span>
