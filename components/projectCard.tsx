@@ -150,7 +150,7 @@ export default function ProjectCard({
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium rounded-lg
-                      bg-white text-white hover:bg-zinc-100 transition-colors duration-200"
+                      bg-white text-zinc-900 hover:bg-zinc-100 transition-colors duration-200"
                   >
                     <ExternalLink className="w-4 h-4" />
                     Live Demo
@@ -250,7 +250,7 @@ export default function ProjectCard({
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-medium rounded-lg
-                    bg-white text-white hover:bg-zinc-100 transition-colors duration-200"
+                    bg-white text-zinc-900 hover:bg-zinc-100 transition-colors duration-200"
                 >
                   <ExternalLink className="w-3.5 h-3.5" />
                   Demo

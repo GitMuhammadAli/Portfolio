@@ -82,7 +82,7 @@ tailwind.config.ts
 
 | Project | Description | Stack |
 |---|---|---|
-| [DevRadar](https://dev-radar-web-j2jq.vercel.app/) | AI-powered job market intelligence SaaS | Next.js, tRPC, PostgreSQL, pgvector, Groq AI |
+| [DevRadar](https://dev-radar-web.vercel.app/) | AI-powered job market intelligence SaaS | Next.js, tRPC, PostgreSQL, pgvector, Groq AI |
 | [CareCircle](https://care-giving-web.vercel.app/) | AI-powered family caregiving platform | Next.js, NestJS, PostgreSQL, Gemini API |
 | [JobPilot](https://job-auto-applier-three.vercel.app/) | AI job application automation with Kanban board | Next.js, TypeScript, MongoDB |
 

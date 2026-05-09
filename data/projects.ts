@@ -16,6 +16,41 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    slug: "whatsapp-saas",
+    title: "Sahara",
+    subtitle: "WhatsApp AI for Pakistani SMBs",
+    icon: "💬",
+    featured: true,
+    description:
+      "WhatsApp automation platform for Pakistani small businesses. An AI agent replies to customers in Urdu, Roman Urdu, and English — takes orders, answers prices, hands off the hard ones to the shop owner. Five-minute setup, no code. Built so a kiryana store, biryani spot, or boutique tailor can stop losing late-night WhatsApp orders.",
+    features: [
+      "Multi-language replies in Urdu, Roman Urdu, and English using a shared knowledge base",
+      "Order capture: customer messages → structured orders with items, prices, delivery details",
+      "Price + menu Q&A grounded in the shop's catalog (RAG over per-business documents)",
+      "Hard-handoff: AI escalates ambiguous queries to the owner with full conversation context",
+      "Owner dashboard with conversations, orders, customer profiles, knowledge gaps",
+      "Knowledge-gap surfacing: tracks questions the AI couldn't answer so owners can teach it",
+      "Clerk auth + Stripe billing + onboarding flow tuned for non-technical shop owners",
+      "Background worker (BullMQ + Redis) for message processing and outbound webhooks",
+    ],
+    tags: ["Next.js 15", "Tailwind v4", "Prisma", "Postgres", "OpenAI", "Clerk", "Turborepo", "TypeScript"],
+    techDetails: [
+      { name: "Next.js 15", role: "App Router web app + API routes" },
+      { name: "Tailwind v4", role: "Marketing + dashboard styling" },
+      { name: "Turborepo monorepo", role: "apps/web + apps/worker + packages/db + packages/shared" },
+      { name: "Prisma + Postgres", role: "Data layer with multi-tenant business isolation" },
+      { name: "OpenAI-compatible LLM", role: "Customer reply generation grounded in business knowledge" },
+      { name: "Clerk", role: "Auth + onboarding for non-technical shop owners" },
+      { name: "BullMQ + Redis", role: "Worker queue for inbound message processing" },
+      { name: "WhatsApp Cloud API", role: "Inbound + outbound message transport" },
+      { name: "Stripe", role: "Subscription billing + plan limits" },
+    ],
+    architecture:
+      "Turborepo with apps/web (Next.js dashboard + marketing) and apps/worker (background processor) sharing packages/db (Prisma schema) and packages/shared (types + utilities). Inbound WhatsApp messages hit a webhook, get queued in BullMQ, and the worker runs them through a tenant-scoped knowledge retrieval + LLM reply pipeline. Owner dashboard surfaces conversations, orders, customers, and knowledge gaps so the AI gets smarter the more it's used.",
+    github: "https://github.com/GitMuhammadAli/whatsapp-saas",
+    imageUrl: "/projects/whatsapp-saas.png",
+  },
+  {
     slug: "relo",
     title: "Relo (SkillFlow)",
     subtitle: "AI Learning Companion for Social Media Content",
@@ -86,7 +121,7 @@ export const projects: Project[] = [
     architecture:
       "Turborepo monorepo with apps/web (Next.js), apps/worker (QStash webhooks), and shared packages for AI, database, and validation. Data pipeline scrapes 3 job boards every 6 hours, extracts skills with Groq AI, generates Gemini embeddings, and computes weekly snapshots. tRPC provides end-to-end type safety from database to UI.",
     github: "https://github.com/GitMuhammadAli/DevRadar",
-    demo: "https://dev-radar-web-j2jq.vercel.app/",
+    demo: "https://dev-radar-web.vercel.app/",
     imageUrl: "/projects/devradar.png",
   },
   {
