@@ -140,14 +140,15 @@ export default function AboutSection() {
             <p className="text-lg leading-relaxed text-zinc-400">
               I&apos;m a Full-Stack Developer with a BS in Computer Science from{' '}
               <span className="text-zinc-100 font-medium">Bahria University</span>.
-              Currently at NgXoft Solutions, I build and ship production-grade web applications.
-              I work with{' '}
+              Currently at <span className="text-zinc-100 font-medium">Hubble42</span>; previously at{' '}
+              <span className="text-zinc-100 font-medium">NgXoft Solutions</span>. I build and ship
+              production-grade web applications. I work with{' '}
               <span className="text-zinc-300 font-medium">
                 Node.js, Express, MongoDB, React.js, Next.js, NestJS, PostgreSQL, and Docker
               </span>
               . I&apos;ve developed{' '}
-              <span className="text-zinc-100 font-medium">6+ end-to-end web applications</span>{' '}
-              spanning AI-powered platforms, job market intelligence, authentication systems, and inventory management tools.
+              <span className="text-zinc-100 font-medium">10+ end-to-end web applications</span>{' '}
+              spanning AI-powered platforms, job market intelligence, WhatsApp automation, authentication systems, and inventory management tools.
             </p>
           </motion.div>
 

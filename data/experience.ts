@@ -7,39 +7,47 @@ export interface Experience {
   technologies: string[];
 }
 
+// Reconciled with the resume: Hubble42 current, NgXoft prior. Descriptions
+// mirror the resume bullets verbatim; the achievements expand the resume
+// summary with a couple of supporting points so the portfolio section has
+// something to read past the headline.
 export const experience: Experience[] = [
   {
-    company: "NgXoft Solutions",
-    role: "Full-Stack Developer",
-    period: "Jan 2025 – Present",
+    company: "Hubble42",
+    role: "Software Engineer",
+    period: "August 2025 – Present",
     description:
-      "Building and shipping production-grade web applications using modern JavaScript/TypeScript stack.",
+      "Ship full-stack features for client platforms using Next.js, NestJS, and PostgreSQL with Prisma; design REST APIs with JWT/RBAC; integrate payment gateways, SMTP providers, and AI APIs.",
     achievements: [
-      "Developed and shipped 10+ responsive UI modules using React, Next.js, and Tailwind CSS, reducing frontend bug reports by 30%",
-      "Architected NestJS backend services with modular controllers, providers, and DTO-driven validation across 15+ API endpoints",
-      "Containerized application workflows using Docker and deployed to Render and Vercel, cutting environment setup time from 2 hours to under 10 minutes",
-      "Designed and integrated REST APIs for authentication, role-based dashboards, reporting, and admin interfaces serving 500+ daily requests",
-      "Deployed and maintained production applications on VPS and Vercel with SSL configuration, achieving 99.5% uptime",
+      "Designed REST APIs with JWT and role-based access control for multi-tenant client dashboards",
+      "Integrated payment gateways, SMTP providers, and AI APIs into production client products",
+      "Owned end-to-end delivery: schema, server, client, deploy, observability",
     ],
-    technologies: [
-      "React",
-      "Next.js",
-      "NestJS",
-      "TypeScript",
-      "PostgreSQL",
-      "Docker",
-      "Tailwind CSS",
-      "REST APIs",
+    technologies: ["Next.js", "NestJS", "PostgreSQL", "Prisma", "JWT", "RBAC", "Stripe", "TypeScript"],
+  },
+  {
+    company: "NgXoft Solutions",
+    role: "Software Engineer",
+    period: "October 2024 – August 2025",
+    description:
+      "Built React + Tailwind frontends and NestJS/PostgreSQL backends for production client projects; containerized services with Docker, deployed to Vercel and VPS, contributed to GitHub Actions CI/CD.",
+    achievements: [
+      "Shipped 10+ responsive UI modules with React, Next.js, and Tailwind — cut frontend bug reports by 30%",
+      "Architected NestJS services with modular controllers and DTO-driven validation across 15+ endpoints",
+      "Containerised services with Docker; deployed to Vercel and VPS — environment setup down from 2 hours to under 10 minutes",
+      "Maintained production apps with SSL on VPS and Vercel — 99.5% uptime",
+      "Contributed to GitHub Actions CI/CD pipelines",
     ],
+    technologies: ["React", "Next.js", "NestJS", "TypeScript", "PostgreSQL", "Docker", "Vercel", "GitHub Actions", "Tailwind CSS"],
   },
 ];
 
 export const education = {
-  degree: "Bachelors in Computer Science",
+  degree: "Bachelor of Science in Computer Science",
   institution: "Bahria University",
   period: "2021 – 2025",
   certifications: [
-    { name: "Web Developer Bootcamp", year: "2024" },
+    { name: "The Web Developer Bootcamp 2024", year: "2024" },
     { name: "Getting Started with Node.js", year: "2024" },
   ],
 };
