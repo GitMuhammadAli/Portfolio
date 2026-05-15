@@ -50,8 +50,8 @@ const STYLES = `
 .footer-bg-grid {
   background-size: 60px 60px;
   background-image:
-    linear-gradient(to right, rgba(255,255,255,0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255,255,255,0.04) 1px, transparent 1px);
+    linear-gradient(to right, color-mix(in srgb, var(--fg) 4%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--fg) 4%, transparent) 1px, transparent 1px);
   mask-image: linear-gradient(to bottom, transparent, black 30%, black 70%, transparent);
   -webkit-mask-image: linear-gradient(to bottom, transparent, black 30%, black 70%, transparent);
 }
@@ -59,32 +59,29 @@ const STYLES = `
 .footer-aurora {
   background: radial-gradient(
     circle at 50% 50%,
-    rgba(125, 211, 252, 0.10) 0%,
-    rgba(168, 162, 158, 0.08) 40%,
+    color-mix(in srgb, var(--accent) 12%, transparent) 0%,
+    color-mix(in srgb, var(--accent) 6%, transparent) 40%,
     transparent 70%
   );
 }
 
 .footer-glass-pill {
-  background: linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
+  background: linear-gradient(145deg, color-mix(in srgb, var(--fg) 5%, transparent) 0%, color-mix(in srgb, var(--fg) 2%, transparent) 100%);
   box-shadow:
-    0 10px 30px -10px rgba(0,0,0,0.5),
-    inset 0 1px 1px rgba(255,255,255,0.08),
-    inset 0 -1px 2px rgba(0,0,0,0.5);
-  border: 1px solid rgba(255,255,255,0.08);
-  /* Removed backdrop-filter blur(16px) — four glass-pills compositing a
-     16px backdrop blur on every paint was the heaviest hit in this footer.
-     Solid translucent gradient gives the same glass feel without the cost. */
+    0 10px 30px -10px var(--shadow),
+    inset 0 1px 1px color-mix(in srgb, var(--fg) 8%, transparent),
+    inset 0 -1px 2px var(--shadow);
+  border: 1px solid var(--border);
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .footer-glass-pill:hover {
-  background: linear-gradient(145deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.03) 100%);
-  border-color: rgba(255,255,255,0.20);
+  background: linear-gradient(145deg, color-mix(in srgb, var(--fg) 10%, transparent) 0%, color-mix(in srgb, var(--fg) 3%, transparent) 100%);
+  border-color: var(--border-strong);
   box-shadow:
-    0 20px 40px -10px rgba(0,0,0,0.7),
-    inset 0 1px 1px rgba(255,255,255,0.18);
-  color: #fafafa;
+    0 20px 40px -10px var(--shadow),
+    inset 0 1px 1px color-mix(in srgb, var(--fg) 18%, transparent);
+  color: var(--fg);
 }
 
 .footer-giant-bg-text {
@@ -93,18 +90,18 @@ const STYLES = `
   font-weight: 900;
   letter-spacing: -0.045em;
   color: transparent;
-  -webkit-text-stroke: 1px rgba(255,255,255,0.07);
-  background: linear-gradient(180deg, rgba(255,255,255,0.12) 0%, transparent 60%);
+  -webkit-text-stroke: 1px color-mix(in srgb, var(--fg) 7%, transparent);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--fg) 12%, transparent) 0%, transparent 60%);
   -webkit-background-clip: text;
   background-clip: text;
 }
 
 .footer-text-glow {
-  background: linear-gradient(180deg, #fafafa 0%, rgba(255,255,255,0.45) 100%);
+  background: linear-gradient(180deg, var(--fg) 0%, color-mix(in srgb, var(--fg) 45%, transparent) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  filter: drop-shadow(0px 0px 20px rgba(255,255,255,0.15));
+  filter: drop-shadow(0px 0px 20px color-mix(in srgb, var(--fg) 15%, transparent));
 }
 `
 
@@ -140,11 +137,11 @@ MagneticButton.displayName = 'MagneticButton'
 
 const MarqueeItem = () => (
   <div className="flex items-center space-x-12 px-6">
-    <span>Full-Stack MERN &amp; AI</span> <span className="text-sky-400/60">✦</span>
-    <span>NestJS · Next.js · Postgres</span> <span className="text-zinc-400/60">✦</span>
-    <span>Lahore, Pakistan</span> <span className="text-sky-400/60">✦</span>
-    <span>End-to-End Ownership</span> <span className="text-zinc-400/60">✦</span>
-    <span>Open To Ambitious Work</span> <span className="text-sky-400/60">✦</span>
+    <span>Full-Stack MERN &amp; AI</span> <span className="text-accent">✦</span>
+    <span>NestJS · Next.js · Postgres</span> <span className="text-fg-subtle">✦</span>
+    <span>Lahore, Pakistan</span> <span className="text-accent">✦</span>
+    <span>End-to-End Ownership</span> <span className="text-fg-subtle">✦</span>
+    <span>Open To Ambitious Work</span> <span className="text-accent">✦</span>
   </div>
 )
 
@@ -179,7 +176,7 @@ export function CinematicFooter() {
         className="relative h-screen w-full"
         style={{ clipPath: 'polygon(0% 0, 100% 0%, 100% 100%, 0 100%)' }}
       >
-        <footer className="fixed bottom-0 left-0 flex h-screen w-full flex-col justify-between overflow-hidden bg-[#09090b] text-zinc-100 cinematic-footer-wrapper">
+        <footer className="fixed bottom-0 left-0 flex h-screen w-full flex-col justify-between overflow-hidden bg-bg text-fg cinematic-footer-wrapper">
           {/* Ambient aurora glow + grid — blur dropped from 80px to 40px
               and the breathe animation removed. An 80px blurred radial that
               scales+opacity-pulses every 8s was the heaviest non-pill paint
@@ -194,9 +191,10 @@ export function CinematicFooter() {
 
           {/* Diagonal marquee strip — backdrop-blur removed for perf
               (was layering yet another backdrop-filter on top of the glass
-              pills). Solid bg-black/60 reads the same. */}
-          <div className="absolute top-12 left-0 w-full overflow-hidden border-y border-white/10 bg-black/60 py-4 z-10 -rotate-2 scale-110 shadow-2xl">
-            <div className="flex w-max animate-footer-scroll-marquee text-xs md:text-sm font-bold tracking-[0.3em] text-zinc-400 uppercase">
+              pills). Uses bg-elevated/70 + border tokens so the strip adapts
+              in light mode too. */}
+          <div className="absolute top-12 left-0 w-full overflow-hidden border-y border-border bg-bg-elevated/80 py-4 z-10 -rotate-2 scale-110 shadow-2xl">
+            <div className="flex w-max animate-footer-scroll-marquee text-xs md:text-sm font-bold tracking-[0.3em] text-fg-muted uppercase">
               <MarqueeItem />
               <MarqueeItem />
             </div>
@@ -204,7 +202,7 @@ export function CinematicFooter() {
 
           {/* Main center content */}
           <div className="relative z-10 flex flex-1 flex-col items-center justify-center px-6 mt-20 w-full max-w-5xl mx-auto">
-            <p className="text-[11px] md:text-xs font-semibold uppercase tracking-[0.4em] text-zinc-500 mb-4">
+            <p className="text-[11px] md:text-xs font-semibold uppercase tracking-[0.4em] text-fg-subtle mb-4">
               Get In Touch
             </p>
 
@@ -212,7 +210,7 @@ export function CinematicFooter() {
               Let&apos;s Work Together
             </h2>
 
-            <p className="max-w-2xl text-center text-base md:text-lg text-zinc-400 font-light mb-12">
+            <p className="max-w-2xl text-center text-base md:text-lg text-fg-muted font-light mb-12">
               I&apos;m always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
             </p>
 
@@ -222,14 +220,14 @@ export function CinematicFooter() {
                 <MagneticButton
                   as="a"
                   href="mailto:alishahid.dev@gmail.com"
-                  className="footer-glass-pill px-7 py-4 rounded-full text-zinc-100 font-semibold text-sm md:text-base inline-flex items-center gap-3 group"
+                  className="footer-glass-pill px-7 py-4 rounded-full text-fg font-semibold text-sm md:text-base inline-flex items-center gap-3 group"
                 >
-                  <Mail className="w-5 h-5 text-zinc-400 group-hover:text-white transition-colors" />
+                  <Mail className="w-5 h-5 text-fg-muted group-hover:text-fg transition-colors" />
                   <span className="flex flex-col items-start leading-tight">
-                    <span className="text-[10px] uppercase tracking-[0.25em] text-zinc-300 font-bold">Email</span>
-                    <span className="text-white">alishahid.dev@gmail.com</span>
+                    <span className="text-[10px] uppercase tracking-[0.25em] text-fg-muted font-bold">Email</span>
+                    <span className="text-fg">alishahid.dev@gmail.com</span>
                   </span>
-                  <ArrowUpRight className="w-4 h-4 text-zinc-500 group-hover:text-white group-hover:rotate-45 transition-all ml-1" />
+                  <ArrowUpRight className="w-4 h-4 text-fg-subtle group-hover:text-fg group-hover:rotate-45 transition-all ml-1" />
                 </MagneticButton>
 
                 <MagneticButton
@@ -237,14 +235,14 @@ export function CinematicFooter() {
                   href="https://www.linkedin.com/in/alishahid-fswebdev/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="footer-glass-pill px-7 py-4 rounded-full text-zinc-100 font-semibold text-sm md:text-base inline-flex items-center gap-3 group"
+                  className="footer-glass-pill px-7 py-4 rounded-full text-fg font-semibold text-sm md:text-base inline-flex items-center gap-3 group"
                 >
-                  <Linkedin className="w-5 h-5 text-zinc-400 group-hover:text-white transition-colors" />
+                  <Linkedin className="w-5 h-5 text-fg-muted group-hover:text-fg transition-colors" />
                   <span className="flex flex-col items-start leading-tight">
-                    <span className="text-[10px] uppercase tracking-[0.25em] text-zinc-300 font-bold">LinkedIn</span>
-                    <span className="text-white">alishahid-fswebdev</span>
+                    <span className="text-[10px] uppercase tracking-[0.25em] text-fg-muted font-bold">LinkedIn</span>
+                    <span className="text-fg">alishahid-fswebdev</span>
                   </span>
-                  <ArrowUpRight className="w-4 h-4 text-zinc-500 group-hover:text-white group-hover:rotate-45 transition-all ml-1" />
+                  <ArrowUpRight className="w-4 h-4 text-fg-subtle group-hover:text-fg group-hover:rotate-45 transition-all ml-1" />
                 </MagneticButton>
 
                 <MagneticButton
@@ -252,25 +250,25 @@ export function CinematicFooter() {
                   href="https://github.com/GitMuhammadAli"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="footer-glass-pill px-7 py-4 rounded-full text-zinc-100 font-semibold text-sm md:text-base inline-flex items-center gap-3 group"
+                  className="footer-glass-pill px-7 py-4 rounded-full text-fg font-semibold text-sm md:text-base inline-flex items-center gap-3 group"
                 >
-                  <Github className="w-5 h-5 text-zinc-400 group-hover:text-white transition-colors" />
+                  <Github className="w-5 h-5 text-fg-muted group-hover:text-fg transition-colors" />
                   <span className="flex flex-col items-start leading-tight">
-                    <span className="text-[10px] uppercase tracking-[0.25em] text-zinc-300 font-bold">GitHub</span>
-                    <span className="text-white">GitMuhammadAli</span>
+                    <span className="text-[10px] uppercase tracking-[0.25em] text-fg-muted font-bold">GitHub</span>
+                    <span className="text-fg">GitMuhammadAli</span>
                   </span>
-                  <ArrowUpRight className="w-4 h-4 text-zinc-500 group-hover:text-white group-hover:rotate-45 transition-all ml-1" />
+                  <ArrowUpRight className="w-4 h-4 text-fg-subtle group-hover:text-fg group-hover:rotate-45 transition-all ml-1" />
                 </MagneticButton>
               </div>
 
               {/* Copy-email pill */}
               <button
                 onClick={handleCopyEmail}
-                className="footer-glass-pill px-5 py-2.5 rounded-full inline-flex items-center gap-2.5 text-xs md:text-sm text-zinc-300 hover:text-white"
+                className="footer-glass-pill px-5 py-2.5 rounded-full inline-flex items-center gap-2.5 text-xs md:text-sm text-fg-muted hover:text-fg"
               >
                 <span className="font-mono">alishahid.dev@gmail.com</span>
                 {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-                <span className="text-[10px] uppercase tracking-[0.2em] text-zinc-500">
+                <span className="text-[10px] uppercase tracking-[0.2em] text-fg-subtle">
                   {copied ? 'Copied' : 'Copy'}
                 </span>
               </button>
@@ -279,21 +277,21 @@ export function CinematicFooter() {
 
           {/* Bottom bar — copyright + crafted-with + back-to-top */}
           <div className="relative z-20 w-full pb-8 px-6 md:px-12 flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="text-zinc-500 text-[10px] md:text-xs font-semibold tracking-widest uppercase order-2 md:order-1">
+            <div className="text-fg-subtle text-[10px] md:text-xs font-semibold tracking-widest uppercase order-2 md:order-1">
               © 2026 Ali Shahid. All rights reserved.
             </div>
 
             <div className="footer-glass-pill px-6 py-3 rounded-full flex items-center gap-2 order-1 md:order-2 cursor-default">
-              <span className="text-zinc-500 text-[10px] md:text-xs font-bold uppercase tracking-widest">Crafted with</span>
+              <span className="text-fg-subtle text-[10px] md:text-xs font-bold uppercase tracking-widest">Crafted with</span>
               <span className="animate-footer-heartbeat text-sm md:text-base text-red-500">❤</span>
-              <span className="text-zinc-500 text-[10px] md:text-xs font-bold uppercase tracking-widest">by</span>
-              <span className="text-zinc-100 font-black text-xs md:text-sm tracking-normal ml-1">Ali</span>
+              <span className="text-fg-subtle text-[10px] md:text-xs font-bold uppercase tracking-widest">by</span>
+              <span className="text-fg font-black text-xs md:text-sm tracking-normal ml-1">Ali</span>
             </div>
 
             <MagneticButton
               as="button"
               onClick={scrollToTop}
-              className="w-12 h-12 rounded-full footer-glass-pill flex items-center justify-center text-zinc-400 hover:text-white group order-3"
+              className="w-12 h-12 rounded-full footer-glass-pill flex items-center justify-center text-fg-muted hover:text-fg group order-3"
               aria-label="Back to top"
             >
               <ArrowUp className="w-5 h-5 transform group-hover:-translate-y-1.5 transition-transform duration-300" />

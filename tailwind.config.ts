@@ -1,6 +1,7 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
+  darkMode: "class",
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -12,13 +13,27 @@ const config: Config = {
         sans: ["Plus Jakarta Sans", "Inter", "system-ui", "sans-serif"],
       },
       colors: {
+        // Theme-aware semantic tokens. Components use `bg-bg`, `text-fg`,
+        // `border-border` etc. and they auto-flip with the .dark class.
+        bg: "var(--bg)",
+        "bg-elevated": "var(--bg-elevated)",
+        "bg-muted": "var(--bg-muted)",
+        fg: "var(--fg)",
+        "fg-muted": "var(--fg-muted)",
+        "fg-subtle": "var(--fg-subtle)",
+        border: "var(--border)",
+        "border-strong": "var(--border-strong)",
+        accent: {
+          DEFAULT: "var(--accent)",
+          foreground: "var(--accent-foreground)",
+        },
+        // Legacy aliases preserved so any unconverted callers don't crash
         base: "#09090b",
         primary: {
           DEFAULT: "#fafafa",
           foreground: "#09090b",
         },
         secondary: "#a1a1aa",
-        accent: "#fafafa",
       },
       animation: {
         "blob-drift": "blobDrift 40s linear infinite",

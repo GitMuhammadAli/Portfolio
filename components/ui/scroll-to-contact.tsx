@@ -12,23 +12,19 @@
 export function ScrollToContact({ label = 'Scroll to contact' }: { label?: string }) {
   return (
     <div className="relative w-full flex flex-col items-center justify-center py-24 md:py-32 select-none">
-      {/* Label */}
-      <span className="text-[10px] md:text-xs font-semibold uppercase tracking-[0.4em] text-zinc-500 mb-8">
+      <span className="text-[10px] md:text-xs font-semibold uppercase tracking-[0.4em] text-fg-subtle mb-8">
         {label}
       </span>
 
-      {/* Vertical line container */}
-      <div className="relative h-40 md:h-56 w-px overflow-hidden bg-white/[0.06] rounded-full">
-        {/* Animated "drip" — a short bright segment travels from top to
-            bottom on a loop, giving the line a downward sense of motion */}
+      <div className="relative h-40 md:h-56 w-px overflow-hidden bg-border rounded-full">
         <span
           aria-hidden
-          className="absolute left-0 top-0 w-px h-12 bg-gradient-to-b from-transparent via-sky-400/90 to-transparent animate-scroll-drip"
+          className="absolute left-0 top-0 w-px h-12 animate-scroll-drip"
+          style={{ background: 'linear-gradient(to bottom, transparent, color-mix(in srgb, var(--accent) 90%, transparent), transparent)' }}
         />
       </div>
 
-      {/* Tiny dot at the end of the line */}
-      <span className="mt-2 h-1.5 w-1.5 rounded-full bg-sky-400/70" />
+      <span className="mt-2 h-1.5 w-1.5 rounded-full bg-accent" />
 
       <style jsx>{`
         @keyframes scroll-drip {

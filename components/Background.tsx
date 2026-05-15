@@ -99,7 +99,7 @@ export default function Background() {
       <div className="relative z-10 w-full px-4 md:px-6">
         <div className="max-w-5xl mx-auto text-center flex flex-col items-center">
           <h1
-            className="font-bold tracking-tight text-white"
+            className="font-bold tracking-tight text-fg"
             style={{
               fontSize: 'clamp(2.75rem, 12vw, 8.5rem)',
               lineHeight: 0.95,
@@ -109,7 +109,7 @@ export default function Background() {
             Ali Shahid
           </h1>
 
-          <p className="mt-3 text-xs sm:text-sm text-zinc-400 font-light tracking-[0.3em] uppercase">
+          <p className="mt-3 text-xs sm:text-sm text-fg-muted font-light tracking-[0.3em] uppercase">
             Full Stack Developer
           </p>
 
@@ -149,7 +149,7 @@ export default function Background() {
 
           <div className="h-14 sm:h-16 mt-2 mb-10 flex items-center justify-center">
             {prefersReducedMotion ? (
-              <span className="text-2xl sm:text-3xl text-zinc-200 font-medium tracking-tight">
+              <span className="text-2xl sm:text-3xl text-fg font-medium tracking-tight">
                 {identities[0]}
               </span>
             ) : (
@@ -184,7 +184,7 @@ export default function Background() {
         </div>
       </div>
 
-      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#09090b] to-transparent pointer-events-none" />
+      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-bg to-transparent pointer-events-none" />
     </section>
   )
 }

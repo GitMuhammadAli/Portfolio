@@ -18,9 +18,9 @@ export default function ProjectsSection() {
       <div className="relative z-10 container mx-auto px-4 pt-16 pb-4">
         <div className="max-w-6xl mx-auto">
           <div className="text-center reveal-blur">
-            <h2 className="text-4xl md:text-5xl font-bold text-white">Projects</h2>
-            <div className="h-1 w-16 bg-gradient-to-r from-white to-zinc-400 mx-auto mt-3 rounded-full" />
-            <p className="text-zinc-500 mt-3 text-xs uppercase tracking-[0.25em]">
+            <h2 className="text-4xl md:text-5xl font-bold text-fg">Projects</h2>
+            <div className="h-1 w-16 bg-accent mx-auto mt-3 rounded-full" />
+            <p className="text-fg-subtle mt-3 text-xs uppercase tracking-[0.25em]">
               Scroll through the work
             </p>
           </div>
@@ -46,16 +46,16 @@ export default function ProjectsSection() {
               {/* Section heading — magazine-style with index count */}
               <div className="text-center mb-14">
                 <div className="flex items-center justify-center gap-3 mb-4">
-                  <div className="h-px w-12 bg-zinc-700" />
-                  <p className="text-[10px] uppercase tracking-[0.4em] text-zinc-500 font-semibold">
+                  <div className="h-px w-12 bg-border-strong" />
+                  <p className="text-[10px] uppercase tracking-[0.4em] text-fg-subtle font-semibold">
                     The Archive
                   </p>
-                  <div className="h-px w-12 bg-zinc-700" />
+                  <div className="h-px w-12 bg-border-strong" />
                 </div>
-                <h3 className="text-3xl md:text-4xl font-bold text-white tracking-tight">
+                <h3 className="text-3xl md:text-4xl font-bold text-fg tracking-tight">
                   Selected side work
                 </h3>
-                <p className="mt-3 text-sm text-zinc-500 font-light max-w-md mx-auto">
+                <p className="mt-3 text-sm text-fg-muted font-light max-w-md mx-auto">
                   Smaller experiments, learning projects, and tools I built along the way.
                 </p>
               </div>

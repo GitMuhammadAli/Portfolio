@@ -30,13 +30,16 @@ export function SectionBlend({
   className = '',
   direction = 'down',
 }: SectionBlendProps) {
-  // Three-stop S-curve so the transition feels smooth instead of linear —
-  // most of the darkening happens in the middle 50% of the strip, leaving
-  // the edges nearly transparent so the surrounding sections bleed through.
-  const gradient =
-    direction === 'down'
-      ? 'linear-gradient(to bottom, rgba(9,9,11,0) 0%, rgba(9,9,11,0.35) 25%, rgba(9,9,11,0.7) 50%, rgba(9,9,11,0.92) 75%, rgba(9,9,11,1) 100%)'
-      : 'linear-gradient(to top, rgba(9,9,11,0) 0%, rgba(9,9,11,0.35) 25%, rgba(9,9,11,0.7) 50%, rgba(9,9,11,0.92) 75%, rgba(9,9,11,1) 100%)'
+  // Five-stop S-curve so the transition feels smooth instead of linear.
+  // Uses bg token (color-mix for the opacity stops) so the partition tints
+  // toward the page bg in whatever theme is active.
+  const stops = (dir: 'top' | 'bottom') => `linear-gradient(to ${dir},
+    color-mix(in srgb, var(--bg) 0%, transparent) 0%,
+    color-mix(in srgb, var(--bg) 35%, transparent) 25%,
+    color-mix(in srgb, var(--bg) 70%, transparent) 50%,
+    color-mix(in srgb, var(--bg) 92%, transparent) 75%,
+    var(--bg) 100%)`
+  const gradient = direction === 'down' ? stops('bottom') : stops('top')
 
   return (
     <div
@@ -74,14 +77,14 @@ export function SectionBlend({
             className="absolute left-1/2 top-1/2 h-px w-1/2 -translate-x-1/2 -translate-y-1/2"
             style={{
               background:
-                'linear-gradient(90deg, transparent, rgba(250,250,250,0.4), transparent)',
+                'linear-gradient(90deg, transparent, color-mix(in srgb, var(--fg) 40%, transparent), transparent)',
             }}
           />
           <div
             className="absolute left-1/2 top-1/2 h-24 w-3/5 -translate-x-1/2 -translate-y-1/2 rounded-full blur-2xl opacity-30"
             style={{
               background:
-                'radial-gradient(ellipse at center, rgba(250,250,250,0.18), transparent 70%)',
+                'radial-gradient(ellipse at center, color-mix(in srgb, var(--fg) 18%, transparent), transparent 70%)',
             }}
           />
         </>

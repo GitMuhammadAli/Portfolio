@@ -1,21 +1,20 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
-  <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#09090b"/>
-      <stop offset="100%" stop-color="#18181b"/>
-    </linearGradient>
-    <linearGradient id="text" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#fafafa"/>
-      <stop offset="50%" stop-color="#d4d4d8"/>
-      <stop offset="100%" stop-color="#fafafa"/>
-    </linearGradient>
-    <linearGradient id="border" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#fafafa" stop-opacity="0.4"/>
-      <stop offset="100%" stop-color="#a1a1aa" stop-opacity="0.15"/>
-    </linearGradient>
-  </defs>
-  <rect width="64" height="64" rx="16" fill="url(#bg)"/>
-  <rect x="1" y="1" width="62" height="62" rx="15" fill="none" stroke="url(#border)" stroke-width="1.5"/>
-  <text x="30" y="44" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-weight="800" font-size="28" letter-spacing="-1" fill="url(#text)">AS</text>
-  <circle cx="53" cy="42" r="3.5" fill="#fafafa"/>
+  <style>
+    /* Browser will auto-flip the favicon based on OS appearance.
+       Chrome, Safari, and Firefox all honor @media inside SVG favicons. */
+    .bg-fill { fill: #fafafa; }
+    .bg-stroke { stroke: rgba(0, 0, 0, 0.10); }
+    .fg { fill: #09090b; }
+    .accent { fill: #0ea5e9; }
+    @media (prefers-color-scheme: dark) {
+      .bg-fill { fill: #09090b; }
+      .bg-stroke { stroke: rgba(255, 255, 255, 0.18); }
+      .fg { fill: #fafafa; }
+      .accent { fill: #38bdf8; }
+    }
+  </style>
+  <rect class="bg-fill" width="64" height="64" rx="16" />
+  <rect class="bg-stroke" x="1" y="1" width="62" height="62" rx="15" fill="none" stroke-width="1.5" />
+  <text class="fg" x="30" y="44" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-weight="800" font-size="28" letter-spacing="-1">AS</text>
+  <circle class="accent" cx="53" cy="42" r="3.5" />
 </svg>

@@ -2,14 +2,50 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── Theme tokens ─────────────────────────────────────────────────────
+   Every component reads colors via these CSS variables instead of
+   hardcoded zinc tones, so flipping the .dark class on <html>
+   (managed by next-themes) swaps the whole palette instantly.
+
+   Light defaults sit on :root; dark overrides sit under .dark.
+   Accent stays the same in both modes for brand consistency. */
+:root {
+  --bg: #fafafa;                    /* page background */
+  --bg-elevated: #ffffff;           /* cards, glass surfaces */
+  --bg-muted: rgba(0, 0, 0, 0.04);  /* tile fills, subtle wells */
+  --fg: #09090b;                    /* primary text */
+  --fg-muted: #71717a;              /* secondary text (zinc-500) */
+  --fg-subtle: #a1a1aa;             /* tertiary text (zinc-400) */
+  --border: rgba(0, 0, 0, 0.10);    /* card borders, dividers */
+  --border-strong: rgba(0, 0, 0, 0.18);
+  --accent: #0ea5e9;                /* sky-500, slightly darker for contrast on light bg */
+  --accent-foreground: #ffffff;
+  --shadow: rgba(0, 0, 0, 0.08);
+}
+
+.dark {
+  --bg: #09090b;
+  --bg-elevated: #111114;
+  --bg-muted: rgba(255, 255, 255, 0.04);
+  --fg: #fafafa;
+  --fg-muted: #a1a1aa;              /* zinc-400 */
+  --fg-subtle: #71717a;             /* zinc-500 */
+  --border: rgba(255, 255, 255, 0.10);
+  --border-strong: rgba(255, 255, 255, 0.20);
+  --accent: #38bdf8;                /* sky-400, brighter on dark */
+  --accent-foreground: #09090b;
+  --shadow: rgba(0, 0, 0, 0.5);
+}
+
 html {
   scroll-behavior: smooth;
 }
 
 body {
-  background-color: #09090b;
-  color: #e4e4e7;
+  background-color: var(--bg);
+  color: var(--fg);
   overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* ── Film-grain noise overlay. Inline SVG <feTurbulence> baked into a

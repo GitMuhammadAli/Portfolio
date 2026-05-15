@@ -12,7 +12,7 @@ import { ScrollToContact } from '@/components/ui/scroll-to-contact'
 
 export default function Portfolio() {
   return (
-    <div className="min-h-screen bg-radials text-zinc-200 relative">
+    <div className="min-h-screen bg-bg text-fg relative">
       <RevealObserver />
       <Navbar />
       <Background />

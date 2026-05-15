@@ -55,7 +55,7 @@ export default function TeamMemberCard({
       >
         <p
           className={cn(
-            'mb-4 text-xs font-medium tracking-[0.3em] text-zinc-500 uppercase',
+            'mb-4 text-xs font-medium tracking-[0.3em] text-fg-subtle uppercase',
             isPositionRight && 'text-right'
           )}
         >
@@ -71,12 +71,14 @@ export default function TeamMemberCard({
           viewport={{ once: true }}
           transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
           className={cn(
-            'relative h-[500px] w-[360px] shrink-0 overflow-hidden rounded-2xl ring-1 ring-white/10 shadow-2xl shadow-black/40',
+            'relative h-[500px] w-[360px] shrink-0 overflow-hidden rounded-2xl ring-1 ring-border shadow-2xl',
             isPositionRight && 'order-1'
           )}
+          style={{ boxShadow: '0 25px 50px -12px var(--shadow)' }}
         >
-          {/* Subtle gradient overlay for texture */}
-          <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+          {/* Subtle gradient overlay for texture (uses bg token so it
+              tints toward the page background in either theme). */}
+          <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-t from-bg/30 via-transparent to-transparent" />
           <Image
             src={imageUrl}
             alt={fullName}
@@ -100,7 +102,7 @@ export default function TeamMemberCard({
         >
           {/* Display name — large editorial type */}
           <div>
-            <p className="text-5xl md:text-6xl leading-[1.1] font-extralight tracking-tight text-white">
+            <p className="text-5xl md:text-6xl leading-[1.1] font-extralight tracking-tight text-fg">
               {firstName}
               <br />
               <span className="font-normal">{lastName}</span>
@@ -114,7 +116,7 @@ export default function TeamMemberCard({
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
               className={cn(
-                'group flex h-20 w-20 shrink-0 cursor-pointer items-center justify-center rounded-full border border-white/20 transition-colors duration-300 hover:border-white/60 hover:bg-white/10',
+                'group flex h-20 w-20 shrink-0 cursor-pointer items-center justify-center rounded-full border border-border transition-colors duration-300 hover:border-border-strong hover:bg-bg-muted',
                 isPositionRight && 'order-1'
               )}
               aria-label="Get in touch"
@@ -122,7 +124,7 @@ export default function TeamMemberCard({
               <ArrowRight
                 size={22}
                 className={cn(
-                  'text-zinc-400 transition-all duration-300 group-hover:-rotate-45 group-hover:text-white',
+                  'text-fg-subtle transition-all duration-300 group-hover:-rotate-45 group-hover:text-fg',
                   isPositionRight && 'rotate-180 group-hover:rotate-[225deg]'
                 )}
               />
@@ -135,7 +137,7 @@ export default function TeamMemberCard({
             <div className="w-full md:w-[70%] lg:w-[75%] max-w-[62ch]">
               <p
                 className={cn(
-                  'text-[15px] md:text-base font-light text-white',
+                  'text-[15px] md:text-base font-normal text-fg',
                   isPositionRight && 'text-right'
                 )}
                 style={{

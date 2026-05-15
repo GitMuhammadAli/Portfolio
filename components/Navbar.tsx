@@ -2,10 +2,13 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { Menu, X } from 'lucide-react'
-import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import { gentleSpring } from '@/lib/motion'
+import { ThemeToggle } from '@/components/ui/theme-toggle'
 
-const sections = ['home', 'about', 'experience', 'skills', 'projects', 'education', 'contact']
+// 'contact' removed — ContactSection was deleted in favor of the
+// CinematicFooter (which has its own scroll-to-contact cue).
+const sections = ['home', 'about', 'experience', 'skills', 'projects', 'education']
 
 export default function Navbar() {
   const prefersReducedMotion = useReducedMotion()
@@ -60,28 +63,15 @@ export default function Navbar() {
   return (
     <nav className="fixed top-4 left-0 right-0 z-50 flex justify-center px-4">
       <div className="w-full max-w-4xl">
-        <div
-          className="relative rounded-full px-3 py-2 sm:px-5 sm:py-2.5"
-          style={{
-            background: 'rgba(10, 10, 15, 0.7)',
-            backdropFilter: 'blur(16px)',
-            WebkitBackdropFilter: 'blur(16px)',
-            border: '1px solid rgba(255,255,255,0.06)',
-          }}
-        >
-          <div className="flex items-center justify-between">
+        <div className="relative rounded-full px-3 py-2 sm:px-5 sm:py-2.5 bg-bg-elevated/70 backdrop-blur-xl border border-border">
+          <div className="flex items-center justify-between gap-3">
             {/* Logo */}
             <button
               onClick={() => scrollTo('home')}
-              className="text-xl font-bold relative"
-              style={{
-                textShadow: '0 0 20px rgba(255, 255, 255, 0.5), 0 0 40px rgba(255, 255, 255, 0.2)',
-              }}
+              className="text-xl font-bold relative text-fg"
             >
-              <span className="bg-gradient-to-r from-zinc-100 to-zinc-300 bg-clip-text text-transparent">
-                AS
-              </span>
-              <span className="text-zinc-100">.</span>
+              <span className="text-fg">AS</span>
+              <span className="text-accent">.</span>
             </button>
 
             {/* Desktop nav */}
@@ -100,19 +90,19 @@ export default function Navbar() {
                   onClick={() => scrollTo(section)}
                   onMouseEnter={() => setHoveredSection(section)}
                   className={`relative z-10 px-3 py-1.5 text-sm font-medium rounded-full transition-colors duration-200
-                    ${activeSection === section ? 'text-white' : 'text-zinc-500 hover:text-zinc-300'}`}
+                    ${activeSection === section ? 'text-fg' : 'text-fg-subtle hover:text-fg'}`}
                 >
                   {activeSection === section && (
                     <motion.div
                       layoutId="nav-indicator"
-                      className="absolute inset-0 rounded-full bg-white/10 border border-white/15"
+                      className="absolute inset-0 rounded-full bg-bg-muted border border-border-strong"
                       transition={prefersReducedMotion ? { duration: 0 } : gentleSpring}
                     />
                   )}
                   {hoveredSection === section && activeSection !== section && !prefersReducedMotion && (
                     <motion.div
                       layoutId="nav-hover"
-                      className="absolute inset-0 rounded-full bg-white/[0.04]"
+                      className="absolute inset-0 rounded-full bg-bg-muted"
                       transition={{ type: 'spring', stiffness: 200, damping: 28 }}
                     />
                   )}
@@ -123,29 +113,28 @@ export default function Navbar() {
               ))}
             </div>
 
-            {/* Mobile menu button */}
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden p-2 rounded-full text-zinc-400 hover:text-white hover:bg-white/5 transition-colors"
-            >
-              {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-            </button>
+            <div className="flex items-center gap-2">
+              {/* Theme toggle — visible at all breakpoints */}
+              <ThemeToggle />
+
+              {/* Mobile menu button */}
+              <button
+                onClick={() => setIsOpen(!isOpen)}
+                className="md:hidden p-2 rounded-full text-fg-muted hover:text-fg hover:bg-bg-muted transition-colors"
+                aria-label="Open menu"
+              >
+                {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* Mobile dropdown — CSS transitions (interruptible on rapid toggle,
-            no layered entry stagger on items). */}
+        {/* Mobile dropdown */}
         <div
           aria-hidden={!isOpen}
-          className={`md:hidden mt-2 rounded-2xl overflow-hidden transition-[max-height,opacity] duration-300 ease-out ${
+          className={`md:hidden mt-2 rounded-2xl overflow-hidden transition-[max-height,opacity] duration-300 ease-out bg-bg-elevated/90 backdrop-blur-xl border border-border ${
             isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0 pointer-events-none'
           }`}
-          style={{
-            background: 'rgba(10, 10, 15, 0.9)',
-            backdropFilter: 'blur(16px)',
-            WebkitBackdropFilter: 'blur(16px)',
-            border: '1px solid rgba(255,255,255,0.06)',
-          }}
         >
           <div className="p-3 space-y-1">
             {sections.map((section) => (
@@ -154,8 +143,8 @@ export default function Navbar() {
                 onClick={() => scrollTo(section)}
                 className={`w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium transition-colors duration-200
                   ${activeSection === section
-                    ? 'text-white bg-white/8 border border-white/10'
-                    : 'text-zinc-500 hover:text-zinc-300 hover:bg-white/5'
+                    ? 'text-fg bg-bg-muted border border-border-strong'
+                    : 'text-fg-subtle hover:text-fg hover:bg-bg-muted'
                   }`}
               >
                 {section.charAt(0).toUpperCase() + section.slice(1)}

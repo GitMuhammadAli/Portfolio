@@ -25,7 +25,7 @@ export function FeaturedProjectsFlow({ projects }: FeaturedProjectsFlowProps) {
         <FlowSection
           key={p.slug}
           aria-label={p.title}
-          style={{ backgroundColor: '#09090b', color: '#fafafa' }}
+          style={{ backgroundColor: 'var(--bg)', color: 'var(--fg)' }}
         >
           {/* Backdrop: project screenshot. Vignette lightened so the image
               actually reads — was 55→95% black, now 25→60%. Foreground text
@@ -41,22 +41,26 @@ export function FeaturedProjectsFlow({ projects }: FeaturedProjectsFlowProps) {
               priority={i === 0}
               className="object-cover"
             />
-            {/* Top fade — only on the first card; the rest pin under it */}
+            {/* Top fade — only on the first card; the rest pin under it.
+                Uses bg token so the fade matches the page background in both
+                themes. */}
             {i === 0 && (
               <div
                 className="absolute inset-x-0 top-0 h-32 pointer-events-none"
                 style={{
                   background:
-                    'linear-gradient(to bottom, #09090b 0%, transparent 100%)',
+                    'linear-gradient(to bottom, var(--bg) 0%, transparent 100%)',
                 }}
               />
             )}
-            {/* Side darken so the long descriptive paragraph stays legible */}
+            {/* Side darken so the long descriptive paragraph stays legible.
+                Uses bg with progressive opacity so the image tints toward the
+                page bg, working in both light and dark. */}
             <div
               className="absolute inset-0"
               style={{
                 background:
-                  'linear-gradient(105deg, rgba(9,9,11,0.78) 0%, rgba(9,9,11,0.50) 50%, rgba(9,9,11,0.25) 100%)',
+                  'linear-gradient(105deg, color-mix(in srgb, var(--bg) 78%, transparent) 0%, color-mix(in srgb, var(--bg) 50%, transparent) 50%, color-mix(in srgb, var(--bg) 25%, transparent) 100%)',
               }}
             />
             {/* Soft bottom darken so the next section's blend isn't abrupt */}
@@ -64,7 +68,7 @@ export function FeaturedProjectsFlow({ projects }: FeaturedProjectsFlowProps) {
               className="absolute inset-x-0 bottom-0 h-40 pointer-events-none"
               style={{
                 background:
-                  'linear-gradient(to top, rgba(9,9,11,0.85) 0%, transparent 100%)',
+                  'linear-gradient(to top, color-mix(in srgb, var(--bg) 85%, transparent) 0%, transparent 100%)',
               }}
             />
           </div>
@@ -76,13 +80,13 @@ export function FeaturedProjectsFlow({ projects }: FeaturedProjectsFlowProps) {
             {/* Top meta line */}
             <div className="flex items-center gap-5">
               <span
-                className="font-extralight tracking-tighter text-white/70 leading-none"
+                className="font-extralight tracking-tighter text-fg/70 leading-none"
                 style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)' }}
               >
                 {String(i + 1).padStart(2, '0')}
               </span>
-              <div className="h-px flex-1 max-w-[6rem] bg-white/20" />
-              <p className="text-[10px] sm:text-xs font-medium uppercase tracking-[0.4em] text-zinc-400">
+              <div className="h-px flex-1 max-w-[6rem] bg-fg/20" />
+              <p className="text-[10px] sm:text-xs font-medium uppercase tracking-[0.4em] text-fg-muted">
                 Featured Work
               </p>
             </div>
@@ -90,15 +94,15 @@ export function FeaturedProjectsFlow({ projects }: FeaturedProjectsFlowProps) {
             {/* Headline + subtitle */}
             <div className="space-y-6 md:space-y-8">
               <h3
-                className="font-extrabold leading-[0.88] tracking-[-0.045em] text-white"
+                className="font-extrabold leading-[0.88] tracking-[-0.045em] text-fg"
                 style={{ fontSize: 'clamp(2.75rem, 10vw, 10rem)' }}
               >
                 {p.title}
               </h3>
               <div className="flex items-center gap-4">
-                <div className="h-[2px] w-10 bg-white/60" />
+                <div className="h-[2px] w-10 bg-accent" />
                 <p
-                  className="font-light text-zinc-200 leading-tight tracking-tight"
+                  className="font-light text-fg leading-tight tracking-tight"
                   style={{ fontSize: 'clamp(1.05rem, 2vw, 1.6rem)' }}
                 >
                   {p.subtitle}
@@ -109,36 +113,34 @@ export function FeaturedProjectsFlow({ projects }: FeaturedProjectsFlowProps) {
             {/* Description + tags + actions */}
             <div className="max-w-[60ch] space-y-7">
               <p
-                className="leading-[1.7] text-zinc-300/90 font-light"
+                className="leading-[1.7] text-fg font-light"
                 style={{ fontSize: 'clamp(0.95rem, 1.15vw, 1.05rem)' }}
               >
                 {p.description}
               </p>
 
-              {/* Tags — small caps tracking-wide, brighter fill */}
               <div className="flex flex-wrap gap-2">
                 {p.tags.slice(0, 6).map((t) => (
                   <span
                     key={t}
-                    className="text-[10px] font-semibold uppercase tracking-[0.18em] text-zinc-50 px-3 py-1.5 rounded-full border border-white/20 bg-white/[0.08] backdrop-blur-sm"
+                    className="text-[10px] font-semibold uppercase tracking-[0.18em] text-fg px-3 py-1.5 rounded-full border border-border-strong bg-bg-muted backdrop-blur-sm"
                   >
                     {t}
                   </span>
                 ))}
               </div>
 
-              {/* Actions */}
               <div className="flex flex-wrap gap-3 pt-2">
                 {p.demo && (
                   <a
                     href={p.demo}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group inline-flex items-center gap-3 pl-6 pr-2 py-2 rounded-full bg-white text-zinc-900 text-sm font-semibold hover:bg-zinc-100 transition-all hover:gap-4"
+                    className="group inline-flex items-center gap-3 pl-6 pr-2 py-2 rounded-full bg-fg text-bg text-sm font-semibold hover:opacity-90 transition-all hover:gap-4"
                   >
                     Visit live
-                    <span className="flex h-8 w-8 items-center justify-center rounded-full bg-zinc-900 group-hover:rotate-12 transition-transform">
-                      <ExternalLink className="h-3.5 w-3.5 text-white" />
+                    <span className="flex h-8 w-8 items-center justify-center rounded-full bg-bg group-hover:rotate-12 transition-transform">
+                      <ExternalLink className="h-3.5 w-3.5 text-fg" />
                     </span>
                   </a>
                 )}
@@ -147,7 +149,7 @@ export function FeaturedProjectsFlow({ projects }: FeaturedProjectsFlowProps) {
                     href={p.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/25 text-sm font-medium text-white/90 hover:bg-white/10 hover:text-white hover:border-white/40 transition-colors"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-border-strong text-sm font-medium text-fg hover:bg-bg-muted hover:border-border-strong transition-colors"
                   >
                     <Github className="h-4 w-4" />
                     Code

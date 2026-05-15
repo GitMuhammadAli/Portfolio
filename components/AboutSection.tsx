@@ -85,15 +85,14 @@ function TiltCard({
         onMouseEnter={handleEnter}
         onMouseMove={handleMove}
         onMouseLeave={handleLeave}
-        className="pulse-border-card relative p-8 rounded-2xl bg-white/[0.02]
-          transition-transform duration-200 ease-out cursor-default"
+        className="pulse-border-card relative p-8 rounded-2xl bg-bg-elevated border border-border transition-transform duration-200 ease-out cursor-default"
       >
         <div ref={glareRef} className="tilt-glare" />
         <div className="relative z-10 flex flex-col items-center text-center">
           <div className="mb-5">
             <SkeuIcon icon={icon} size={56} />
           </div>
-          <h3 className="text-lg font-semibold text-zinc-100">{title}</h3>
+          <h3 className="text-lg font-semibold text-fg">{title}</h3>
         </div>
       </div>
     </div>
@@ -120,8 +119,8 @@ export default function AboutSection() {
         <div className="max-w-6xl mx-auto">
           {/* Section heading */}
           <motion.div variants={prefersReducedMotion ? undefined : staggerItem} className="text-center mb-16 reveal-blur">
-            <h2 className="text-4xl md:text-5xl font-bold gradient-text">About Me</h2>
-            <div className="h-1 w-16 bg-gradient-to-r from-white to-zinc-300 mt-4 rounded-full mx-auto" />
+            <h2 className="text-4xl md:text-5xl font-bold text-fg">About Me</h2>
+            <div className="h-1 w-16 bg-accent mt-4 rounded-full mx-auto" />
           </motion.div>
 
           {/* Editorial portrait card — replaces the previous avatar + bio block */}
@@ -146,10 +145,10 @@ export default function AboutSection() {
 
           {/* Additional info */}
           <motion.div variants={prefersReducedMotion ? undefined : staggerItem} className="reveal text-center max-w-3xl mx-auto" style={{ transitionDelay: '420ms' }}>
-            <p className="text-lg text-zinc-400">
-              Skilled in designing <span className="text-zinc-100">RESTful APIs</span>,
+            <p className="text-lg text-fg-muted">
+              Skilled in designing <span className="text-fg">RESTful APIs</span>,
               integrating third-party services, and automating deployments with{' '}
-              <span className="text-zinc-300">Docker, Vercel, and VPS hosting</span>.
+              <span className="text-fg">Docker, Vercel, and VPS hosting</span>.
               I&apos;m open to opportunities where I can work on interesting projects and
               learn from experienced teams.
             </p>

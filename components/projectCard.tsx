@@ -271,13 +271,8 @@ export default function ProjectCard({
       {...motionHover}
       {...motionTap}
     >
-      <div
-        className="group relative rounded-2xl overflow-hidden h-full flex flex-col
-          bg-[#0f0f12] border border-white/[0.06] hover:border-white/[0.12]
-          transition-all duration-300 hover:bg-[#131316]"
-      >
-        {/* Image — taller, with subtle bottom blend so text reads */}
-        <div className="relative w-full aspect-[16/10] overflow-hidden shrink-0 bg-zinc-900">
+      <div className="group relative rounded-2xl overflow-hidden h-full flex flex-col bg-bg-elevated border border-border hover:border-border-strong transition-all duration-300 hover:bg-bg-muted">
+        <div className="relative w-full aspect-[16/10] overflow-hidden shrink-0 bg-bg-muted">
           <Image
             src={imageUrl}
             alt={title}
@@ -286,32 +281,28 @@ export default function ProjectCard({
             className="object-cover object-top transition-transform duration-700 group-hover:scale-[1.06]"
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0f0f12] via-[#0f0f12]/20 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-bg-elevated via-bg-elevated/20 to-transparent" />
         </div>
 
-        {/* Content — airy with Jakarta hierarchy */}
         <div className="p-7 flex flex-col flex-1 gap-5">
           <div>
             <div className="flex items-start justify-between gap-3 mb-2">
-              <h3 className="text-xl font-bold text-white tracking-tight leading-tight">
+              <h3 className="text-xl font-bold text-fg tracking-tight leading-tight">
                 {title}
               </h3>
               {demo && (
-                <span
-                  className="inline-flex items-center gap-1 shrink-0 px-2 py-0.5 text-[9px] font-semibold
-                    tracking-wider uppercase rounded-full bg-emerald-500/10 text-emerald-300 border border-emerald-500/20"
-                >
-                  <span className="w-1 h-1 rounded-full bg-emerald-400 animate-pulse" />
+                <span className="inline-flex items-center gap-1 shrink-0 px-2 py-0.5 text-[9px] font-semibold tracking-wider uppercase rounded-full bg-emerald-500/15 text-emerald-500 border border-emerald-500/30">
+                  <span className="w-1 h-1 rounded-full bg-emerald-500 animate-pulse" />
                   Live
                 </span>
               )}
             </div>
-            <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-zinc-500">
+            <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-fg-subtle">
               {subtitle}
             </p>
           </div>
 
-          <p className="text-[0.85rem] text-zinc-400 leading-relaxed font-light line-clamp-3">
+          <p className="text-[0.85rem] text-fg-muted leading-relaxed font-light line-clamp-3">
             {description}
           </p>
 
@@ -319,8 +310,7 @@ export default function ProjectCard({
             {tags.slice(0, 4).map((tag) => (
               <span
                 key={tag}
-                className="px-2.5 py-1 rounded-full text-[10px] font-semibold uppercase tracking-[0.12em]
-                  bg-white/[0.04] text-zinc-300 border border-white/10"
+                className="px-2.5 py-1 rounded-full text-[10px] font-semibold uppercase tracking-[0.12em] bg-bg-muted text-fg-muted border border-border"
               >
                 {tag}
               </span>
@@ -332,9 +322,7 @@ export default function ProjectCard({
               href={github}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 text-xs font-semibold rounded-full
-                border border-white/15 text-zinc-200 hover:text-white hover:border-white/30 hover:bg-white/5
-                transition-all duration-200"
+              className="inline-flex items-center gap-2 px-4 py-2 text-xs font-semibold rounded-full border border-border text-fg hover:border-border-strong hover:bg-bg-muted transition-all duration-200"
             >
               <Github className="w-3.5 h-3.5" />
               Code
@@ -344,13 +332,11 @@ export default function ProjectCard({
                 href={demo}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group/btn inline-flex items-center gap-2 pl-4 pr-1.5 py-1.5 text-xs font-semibold rounded-full
-                  bg-white text-zinc-900 hover:bg-zinc-100
-                  transition-all duration-200 hover:gap-3"
+                className="group/btn inline-flex items-center gap-2 pl-4 pr-1.5 py-1.5 text-xs font-semibold rounded-full bg-fg text-bg hover:opacity-90 transition-all duration-200 hover:gap-3"
               >
                 Visit
-                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-zinc-900">
-                  <ExternalLink className="w-3 h-3 text-white" />
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-bg">
+                  <ExternalLink className="w-3 h-3 text-fg" />
                 </span>
               </a>
             )}

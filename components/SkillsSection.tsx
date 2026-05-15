@@ -57,21 +57,21 @@ export default function SkillsSection() {
             'linear-gradient(to bottom, transparent 0%, black 18%, black 82%, transparent 100%)',
         }}
       >
-        {/* Ambient glows — two large blurred radial fills, low opacity */}
+        {/* Ambient glows — sky + indigo radial fills */}
         <div
           className="absolute top-1/3 -left-40 w-[700px] h-[700px] rounded-full blur-[120px]"
-          style={{ background: 'radial-gradient(circle, rgba(125,211,252,0.10), transparent 65%)' }}
+          style={{ background: 'radial-gradient(circle, color-mix(in srgb, var(--accent) 18%, transparent), transparent 65%)' }}
         />
         <div
           className="absolute bottom-1/4 -right-40 w-[600px] h-[600px] rounded-full blur-[110px]"
-          style={{ background: 'radial-gradient(circle, rgba(165,180,252,0.08), transparent 65%)' }}
+          style={{ background: 'radial-gradient(circle, color-mix(in srgb, var(--accent) 12%, transparent), transparent 65%)' }}
         />
-        {/* Dot grid — pure CSS, ~2px dots on a 32px grid, very dim */}
+        {/* Dot grid — uses fg-token so dots invert per theme */}
         <div
           className="absolute inset-0 opacity-50"
           style={{
             backgroundImage:
-              'radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px)',
+              'radial-gradient(circle, color-mix(in srgb, var(--fg) 8%, transparent) 1px, transparent 1px)',
             backgroundSize: '32px 32px',
             backgroundPosition: '0 0',
           }}
@@ -79,13 +79,12 @@ export default function SkillsSection() {
       </div>
       <div className="relative z-20 container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
-          {/* Heading — explicit zinc tones for legibility over the box grid. */}
           <div className="text-center mb-20 reveal-blur">
-            <h2 className="text-4xl md:text-5xl font-bold text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.6)]">
-              Skills <span className="text-zinc-400">&amp;</span> Tech
+            <h2 className="text-4xl md:text-5xl font-bold text-fg">
+              Skills <span className="text-fg-muted">&amp;</span> Tech
             </h2>
-            <div className="h-1 w-16 bg-gradient-to-r from-white to-zinc-400 mx-auto mt-4 rounded-full" />
-            <p className="mt-5 text-sm text-zinc-500 tracking-wide">Hover any row to reveal proficiency</p>
+            <div className="h-1 w-16 bg-accent mx-auto mt-4 rounded-full" />
+            <p className="mt-5 text-sm text-fg-subtle tracking-wide">Hover any row to reveal proficiency</p>
           </div>
 
           {/* 4 hover-reveal skill lists in a 2-column grid (single col on mobile) */}

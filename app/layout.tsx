@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import React from 'react'
 import { Plus_Jakarta_Sans } from 'next/font/google'
 import { LazyMotionProvider } from '@/components/LazyMotionProvider'
+import { ThemeProvider } from '@/components/ThemeProvider'
 
 // Plus Jakarta Sans — modern geometric sans with personality. Replaced Inter
 // (too generic / AI-portfolio default).
@@ -65,7 +66,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={jakarta.className}>
+    <html lang="en" className={jakarta.className} suppressHydrationWarning>
       <head>
         <script
           type="speculationrules"
@@ -78,9 +79,11 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <LazyMotionProvider>
-          {children}
-        </LazyMotionProvider>
+        <ThemeProvider>
+          <LazyMotionProvider>
+            {children}
+          </LazyMotionProvider>
+        </ThemeProvider>
       </body>
     </html>
   )

@@ -13,8 +13,8 @@ export default function EducationSection() {
         <div className="max-w-4xl mx-auto">
           {/* Heading */}
           <div className="text-center mb-16 reveal-blur">
-            <h2 className="text-4xl md:text-5xl font-bold gradient-text">Education</h2>
-            <div className="h-1 w-16 bg-gradient-to-r from-white to-zinc-300 mx-auto mt-4 rounded-full" />
+            <h2 className="text-4xl md:text-5xl font-bold text-fg">Education</h2>
+            <div className="h-1 w-16 bg-accent mx-auto mt-4 rounded-full" />
           </div>
 
           <motion.div
@@ -28,44 +28,41 @@ export default function EducationSection() {
                 colorful indigo/amber skeumorphic icon which clashed with the
                 rest of the page. */}
             <motion.div className="reveal-flip" variants={prefersReducedMotion ? undefined : staggerItem}>
-              <div className="glass rounded-2xl p-8 h-full hover:bg-white/[0.05] transition-all duration-300">
+              <div className="rounded-2xl p-8 h-full bg-bg-elevated border border-border hover:bg-bg-muted transition-all duration-300">
                 <div className="flex items-start gap-4 mb-4">
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-white/[0.04] border border-white/10">
-                    <GraduationCap className="h-6 w-6 text-zinc-100" strokeWidth={1.5} />
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-bg-muted border border-border">
+                    <GraduationCap className="h-6 w-6 text-fg" strokeWidth={1.5} />
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-white mb-1">
+                    <h3 className="text-xl font-bold text-fg mb-1">
                       {education.institution}
                     </h3>
-                    <p className="text-sm text-zinc-300 font-medium">
+                    <p className="text-sm text-fg-muted font-medium">
                       {education.degree}
                     </p>
                   </div>
                 </div>
-                <p className="text-sm text-zinc-500 ml-[64px]">{education.period}</p>
+                <p className="text-sm text-fg-subtle ml-[64px]">{education.period}</p>
               </div>
             </motion.div>
 
             {/* Certifications card */}
             <motion.div className="reveal-flip" style={{ transitionDelay: '100ms' }} variants={prefersReducedMotion ? undefined : staggerItem}>
-              <div className="glass rounded-2xl p-8 h-full hover:bg-white/[0.05] transition-all duration-300">
+              <div className="rounded-2xl p-8 h-full bg-bg-elevated border border-border hover:bg-bg-muted transition-all duration-300">
                 <div className="flex items-center gap-4 mb-6">
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-white/[0.04] border border-white/10">
-                    <Award className="h-6 w-6 text-zinc-100" strokeWidth={1.5} />
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-bg-muted border border-border">
+                    <Award className="h-6 w-6 text-fg" strokeWidth={1.5} />
                   </div>
-                  <h3 className="text-xl font-bold text-white">Certifications</h3>
+                  <h3 className="text-xl font-bold text-fg">Certifications</h3>
                 </div>
                 <div className="flex flex-wrap gap-3 ml-[64px]">
                   {education.certifications.map((cert) => (
                     <div
                       key={cert.name}
-                      className="flex items-center gap-2 px-4 py-2 rounded-xl
-                        bg-white/[0.03] border border-white/[0.06]
-                        hover:bg-white/[0.06] transition-colors duration-200"
+                      className="flex items-center gap-2 px-4 py-2 rounded-xl bg-bg-muted border border-border hover:border-border-strong transition-colors duration-200"
                     >
-                      <span className="text-sm text-zinc-200">{cert.name}</span>
-                      <span className="text-[0.65rem] px-2 py-0.5 rounded-full
-                        bg-white/5 text-zinc-100 border border-white/10 font-medium">
+                      <span className="text-sm text-fg">{cert.name}</span>
+                      <span className="text-[0.65rem] px-2 py-0.5 rounded-full bg-bg-elevated text-fg-muted border border-border font-medium">
                         {cert.year}
                       </span>
                     </div>
