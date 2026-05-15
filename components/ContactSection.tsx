@@ -1,7 +1,7 @@
 'use client'
 
 import { Copy, Check, Mail } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { SkeuIcon, type SkeuIconName } from '@/components/ui/skeu-icon'
 import { motion, useReducedMotion } from 'framer-motion'
 import { staggerContainer, staggerItem, viewportConfig } from '@/lib/motion'
@@ -30,6 +30,44 @@ const contactLinks = [
     accent: '#71717a',
   },
 ]
+
+function ShaderAccent({ prefersReducedMotion }: { prefersReducedMotion: boolean | null }) {
+  const ref = useRef<HTMLDivElement>(null)
+  const [enabled, setEnabled] = useState(false)
+
+  useEffect(() => {
+    // Skip on mobile and for reduced-motion users — the WebGL loop drains
+    // battery and the visual payoff doesn't justify the cost.
+    if (prefersReducedMotion) return
+    if (typeof window === 'undefined') return
+    if (window.matchMedia('(max-width: 768px)').matches) return
+
+    const el = ref.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => setEnabled(entry.isIntersecting),
+      { threshold: 0.15 },
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [prefersReducedMotion])
+
+  return (
+    <div
+      ref={ref}
+      aria-hidden
+      className="absolute inset-0 pointer-events-none opacity-25 mix-blend-screen"
+      style={{
+        maskImage:
+          'radial-gradient(ellipse 60% 70% at 50% 50%, black 25%, transparent 85%)',
+        WebkitMaskImage:
+          'radial-gradient(ellipse 60% 70% at 50% 50%, black 25%, transparent 85%)',
+      }}
+    >
+      {enabled && <ShaderAnimation />}
+    </div>
+  )
+}
 
 function FlowingSVGContact() {
   return (
@@ -85,8 +123,14 @@ export default function ContactSection() {
   }
 
   return (
-    <section id="contact" className="relative py-28 min-h-screen flex items-center">
+    <section id="contact" className="relative py-28 min-h-screen flex items-center overflow-hidden">
       <FlowingSVGContact />
+
+      {/* Shader accent disabled — the colored WebGL loop was too GPU-heavy
+          alongside the other animated sections, and the visual payoff didn't
+          justify the lag. The existing FlowingSVGContact handles the accent.
+          To re-enable: uncomment the line below.
+          <ShaderAccent prefersReducedMotion={prefersReducedMotion} /> */}
 
       <motion.div
         className="relative z-10 container mx-auto px-4 w-full"

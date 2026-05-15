@@ -263,67 +263,80 @@ export default function ProjectCard({
     )
   }
 
-  // ── Compact card for other projects ──
+  // ── Compact card for other projects — editorial / airy ──
   return (
     <motion.div
-      className="reveal"
+      className="reveal h-full"
       style={{ transitionDelay: `${index * 80}ms` }}
       {...motionHover}
       {...motionTap}
     >
       <div
-        className="group relative rounded-xl overflow-hidden h-full flex flex-col
-          bg-[#111114]/60 border border-zinc-800/40 hover:border-zinc-700/50
-          transition-colors duration-300"
+        className="group relative rounded-2xl overflow-hidden h-full flex flex-col
+          bg-[#0f0f12] border border-white/[0.06] hover:border-white/[0.12]
+          transition-all duration-300 hover:bg-[#131316]"
       >
-        {/* Image — fixed height for consistent alignment across grid */}
-        <div className="relative w-full h-[160px] overflow-hidden shrink-0">
+        {/* Image — taller, with subtle bottom blend so text reads */}
+        <div className="relative w-full aspect-[16/10] overflow-hidden shrink-0 bg-zinc-900">
           <Image
             src={imageUrl}
             alt={title}
             fill
             loading="lazy"
-            className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.04]"
+            className="object-cover object-top transition-transform duration-700 group-hover:scale-[1.06]"
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#111114]/70 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0f0f12] via-[#0f0f12]/20 to-transparent" />
         </div>
 
-        {/* Content */}
-        <div className="p-5 flex flex-col flex-1">
+        {/* Content — airy with Jakarta hierarchy */}
+        <div className="p-7 flex flex-col flex-1 gap-5">
           <div>
-            <div className="flex items-center gap-2 mb-2">
-              {projectSlugMap[icon] ? <SkeuIcon icon={projectSlugMap[icon]} size={24} /> : <span className="text-base">{icon}</span>}
-              <h3 className="text-[0.95rem] font-semibold text-white">{title}</h3>
-            </div>
-
-            <p className="text-xs text-zinc-500 leading-relaxed mb-3 line-clamp-2">
-              {description}
-            </p>
-
-            <div className="flex flex-wrap gap-1 mb-4">
-              {tags.slice(0, 4).map((tag) => (
+            <div className="flex items-start justify-between gap-3 mb-2">
+              <h3 className="text-xl font-bold text-white tracking-tight leading-tight">
+                {title}
+              </h3>
+              {demo && (
                 <span
-                  key={tag}
-                  className="px-2 py-0.5 rounded text-[0.6rem] font-medium
-                    bg-zinc-800/60 text-zinc-500 border border-zinc-700/30"
+                  className="inline-flex items-center gap-1 shrink-0 px-2 py-0.5 text-[9px] font-semibold
+                    tracking-wider uppercase rounded-full bg-emerald-500/10 text-emerald-300 border border-emerald-500/20"
                 >
-                  {tag}
+                  <span className="w-1 h-1 rounded-full bg-emerald-400 animate-pulse" />
+                  Live
                 </span>
-              ))}
+              )}
             </div>
+            <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-zinc-500">
+              {subtitle}
+            </p>
           </div>
 
-          <div className="flex gap-2 mt-auto">
+          <p className="text-[0.85rem] text-zinc-400 leading-relaxed font-light line-clamp-3">
+            {description}
+          </p>
+
+          <div className="flex flex-wrap gap-1.5">
+            {tags.slice(0, 4).map((tag) => (
+              <span
+                key={tag}
+                className="px-2.5 py-1 rounded-full text-[10px] font-semibold uppercase tracking-[0.12em]
+                  bg-white/[0.04] text-zinc-300 border border-white/10"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+
+          <div className="flex gap-2.5 mt-auto pt-2">
             <a
               href={github}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-medium rounded-lg
-                border border-zinc-700/50 text-zinc-400 hover:text-zinc-200 hover:border-zinc-600
+              className="inline-flex items-center gap-2 px-4 py-2 text-xs font-semibold rounded-full
+                border border-white/15 text-zinc-200 hover:text-white hover:border-white/30 hover:bg-white/5
                 transition-all duration-200"
             >
-              <Github className="w-3 h-3" />
+              <Github className="w-3.5 h-3.5" />
               Code
             </a>
             {demo && (
@@ -331,12 +344,14 @@ export default function ProjectCard({
                 href={demo}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-medium rounded-lg
-                  bg-zinc-800 text-zinc-300 hover:bg-zinc-700 hover:text-zinc-100
-                  transition-colors duration-200"
+                className="group/btn inline-flex items-center gap-2 pl-4 pr-1.5 py-1.5 text-xs font-semibold rounded-full
+                  bg-white text-zinc-900 hover:bg-zinc-100
+                  transition-all duration-200 hover:gap-3"
               >
-                <ExternalLink className="w-3 h-3" />
-                Demo
+                Visit
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-zinc-900">
+                  <ExternalLink className="w-3 h-3 text-white" />
+                </span>
               </a>
             )}
           </div>

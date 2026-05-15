@@ -1,10 +1,10 @@
 'use client'
 
 import { useRef, useCallback } from 'react'
-import Image from 'next/image'
 import { SkeuIcon, type SkeuIconName } from '@/components/ui/skeu-icon'
 import { motion, useReducedMotion } from 'framer-motion'
 import { staggerContainer, staggerItem, viewportConfig } from '@/lib/motion'
+import TeamMemberCard from '@/components/ui/team-member-card'
 
 function TiltCard({
   icon,
@@ -117,50 +117,35 @@ export default function AboutSection() {
         whileInView="visible"
         viewport={viewportConfig}
       >
-        <div className="max-w-4xl mx-auto">
-          {/* Profile + heading */}
-          <motion.div variants={prefersReducedMotion ? undefined : staggerItem} className="flex flex-col items-center mb-12 reveal-blur">
-            <Image
-              src="/images/me.png"
-              alt="Ali Shahid"
-              width={128}
-              height={128}
-              className="rounded-full border-2 border-white/15 object-cover mb-6
-                shadow-lg shadow-white/5"
-              priority
-              fetchPriority="high"
-              sizes="128px"
-            />
+        <div className="max-w-6xl mx-auto">
+          {/* Section heading */}
+          <motion.div variants={prefersReducedMotion ? undefined : staggerItem} className="text-center mb-16 reveal-blur">
             <h2 className="text-4xl md:text-5xl font-bold gradient-text">About Me</h2>
-            <div className="h-1 w-16 bg-gradient-to-r from-white to-zinc-300 mt-4 rounded-full" />
+            <div className="h-1 w-16 bg-gradient-to-r from-white to-zinc-300 mt-4 rounded-full mx-auto" />
           </motion.div>
 
-          {/* Bio */}
-          <motion.div variants={prefersReducedMotion ? undefined : staggerItem} className="text-center mb-16 reveal-blur" style={{ transitionDelay: '80ms' }}>
-            <p className="text-lg leading-relaxed text-zinc-400">
-              I&apos;m a Full-Stack Developer with a BS in Computer Science from{' '}
-              <span className="text-zinc-100 font-medium">Bahria University</span>.
-              Currently at <span className="text-zinc-100 font-medium">Hubble42</span>; previously at{' '}
-              <span className="text-zinc-100 font-medium">NgXoft Solutions</span>. I build and ship
-              production-grade web applications. I work with{' '}
-              <span className="text-zinc-300 font-medium">
-                Node.js, Express, MongoDB, React.js, Next.js, NestJS, PostgreSQL, and Docker
-              </span>
-              . I&apos;ve developed{' '}
-              <span className="text-zinc-100 font-medium">10+ end-to-end web applications</span>{' '}
-              spanning AI-powered platforms, job market intelligence, WhatsApp automation, authentication systems, and inventory management tools.
-            </p>
+          {/* Editorial portrait card — replaces the previous avatar + bio block */}
+          <motion.div variants={prefersReducedMotion ? undefined : staggerItem} className="mb-16">
+            <TeamMemberCard
+              position="left"
+              jobPosition="Full Stack Developer"
+              firstName="Ali"
+              lastName="Shahid"
+              imageUrl="/images/me.png"
+              description="Software engineer in Lahore, Pakistan. CS from Bahria University. Currently at Hubble42 building Next.js + NestJS + Postgres platforms; previously at NgXoft Solutions on React + Tailwind frontends and NestJS backends. About a year and a half of full-stack MERN and AI work — schema → REST/tRPC → integration (OpenAI, Gemini, Groq) → Docker → CI → ship. Side projects skew AI-heavy: a multi-tenant SaaS with four agents, a self-hosted LLM gateway, a job-application pipeline, and a career-intelligence platform with pgvector matching."
+              ctaHref="#contact"
+            />
           </motion.div>
 
           {/* 3D Tilt cards */}
-          <motion.div variants={prefersReducedMotion ? undefined : staggerItem} className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+          <motion.div variants={prefersReducedMotion ? undefined : staggerItem} className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16 max-w-4xl mx-auto">
             {cards.map((item, i) => (
               <TiltCard key={item.title} icon={item.icon} title={item.title} index={i} />
             ))}
           </motion.div>
 
           {/* Additional info */}
-          <motion.div variants={prefersReducedMotion ? undefined : staggerItem} className="reveal text-center" style={{ transitionDelay: '420ms' }}>
+          <motion.div variants={prefersReducedMotion ? undefined : staggerItem} className="reveal text-center max-w-3xl mx-auto" style={{ transitionDelay: '420ms' }}>
             <p className="text-lg text-zinc-400">
               Skilled in designing <span className="text-zinc-100">RESTful APIs</span>,
               integrating third-party services, and automating deployments with{' '}

@@ -1,150 +1,113 @@
 'use client'
 
-import Image from 'next/image'
-import { useEffect, useRef, useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { staggerContainer, staggerItem, viewportConfig } from '@/lib/motion'
+import { Skills } from '@/components/ui/skills-showcase'
 
-const categoryColors: Record<string, string> = {
-  Frontend: 'category-frontend',
-  Backend: 'category-backend',
-  Database: 'category-database',
-  DevOps: 'category-devops',
-}
-
-const categoryAccents: Record<string, string> = {
-  Frontend: '#fafafa',
-  Backend: '#a1a1aa',
-  Database: '#71717a',
-  DevOps: '#fafafa',
-}
-
-interface Skill {
-  name: string
-  icon: string
-  category: string
-  proficiency: number
-}
-
-const skills: Skill[] = [
-  { name: 'React', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg', category: 'Frontend', proficiency: 90 },
-  { name: 'Next.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg', category: 'Frontend', proficiency: 88 },
-  { name: 'TypeScript', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg', category: 'Frontend', proficiency: 85 },
-  { name: 'Tailwind CSS', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg', category: 'Frontend', proficiency: 92 },
-  { name: 'Node.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg', category: 'Backend', proficiency: 88 },
-  { name: 'NestJS', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nestjs/nestjs-original.svg', category: 'Backend', proficiency: 85 },
-  { name: 'Express', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg', category: 'Backend', proficiency: 87 },
-  { name: 'MongoDB', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg', category: 'Database', proficiency: 85 },
-  { name: 'PostgreSQL', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg', category: 'Database', proficiency: 80 },
-  { name: 'Docker', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg', category: 'DevOps', proficiency: 78 },
-  { name: 'Git', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg', category: 'DevOps', proficiency: 90 },
+// Skills organized by category, sourced from Ali's resume (not invented).
+// Levels are subjective self-rating — most-used (90+), frequent (80-89),
+// familiar (70-79).
+const frontend = [
+  { name: 'React', level: 92 },
+  { name: 'Next.js', level: 90 },
+  { name: 'TypeScript', level: 88 },
+  { name: 'Tailwind CSS', level: 92 },
+  { name: 'Framer Motion', level: 80 },
 ]
 
-const categories = ['Frontend', 'Backend', 'Database', 'DevOps']
+const backend = [
+  { name: 'Node.js', level: 90 },
+  { name: 'NestJS', level: 88 },
+  { name: 'Express', level: 85 },
+  { name: 'REST + tRPC', level: 85 },
+  { name: 'Socket.IO / BullMQ', level: 78 },
+]
+
+const databases = [
+  { name: 'PostgreSQL + Prisma', level: 88 },
+  { name: 'MongoDB + Mongoose', level: 85 },
+  { name: 'Redis', level: 80 },
+  { name: 'pgvector / Pinecone', level: 78 },
+  { name: 'Supabase', level: 75 },
+]
+
+const aiDevops = [
+  { name: 'OpenAI · Gemini · Groq', level: 88 },
+  { name: 'Docker', level: 82 },
+  { name: 'Vercel · Render · Fly', level: 85 },
+  { name: 'GitHub Actions CI/CD', level: 80 },
+  { name: 'Stripe + Webhooks', level: 78 },
+]
 
 export default function SkillsSection() {
   const prefersReducedMotion = useReducedMotion()
-  const [visible, setVisible] = useState(false)
-  const sectionRef = useRef<HTMLElement>(null)
-
-  useEffect(() => {
-    const el = sectionRef.current
-    if (!el) return
-
-    const obs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true)
-          obs.disconnect()
-        }
-      },
-      { threshold: 0.2 }
-    )
-
-    obs.observe(el)
-    return () => obs.disconnect()
-  }, [])
 
   return (
-    <section id="skills" ref={sectionRef} className="relative py-28">
-      <div className="relative z-10 container mx-auto px-4">
-        <div className="max-w-5xl mx-auto">
-          {/* Heading */}
-          <div className="text-center mb-16 reveal-blur">
-            <h2 className="text-4xl md:text-5xl font-bold gradient-text">Skills & Tech</h2>
-            <div className="h-1 w-16 bg-gradient-to-r from-white to-zinc-300 mx-auto mt-4 rounded-full" />
+    <section id="skills" className="relative py-28 overflow-hidden isolate">
+      {/* Editorial backdrop: ambient sky + violet radial glows behind a
+          faint CSS dot grid. Replaces the prior Boxes pattern (rainbow
+          tiles felt too busy against the new minimal list cards). */}
+      <div
+        aria-hidden
+        className="absolute inset-0 z-0 pointer-events-none overflow-hidden"
+        style={{
+          maskImage:
+            'linear-gradient(to bottom, transparent 0%, black 18%, black 82%, transparent 100%)',
+          WebkitMaskImage:
+            'linear-gradient(to bottom, transparent 0%, black 18%, black 82%, transparent 100%)',
+        }}
+      >
+        {/* Ambient glows — two large blurred radial fills, low opacity */}
+        <div
+          className="absolute top-1/3 -left-40 w-[700px] h-[700px] rounded-full blur-[120px]"
+          style={{ background: 'radial-gradient(circle, rgba(125,211,252,0.10), transparent 65%)' }}
+        />
+        <div
+          className="absolute bottom-1/4 -right-40 w-[600px] h-[600px] rounded-full blur-[110px]"
+          style={{ background: 'radial-gradient(circle, rgba(165,180,252,0.08), transparent 65%)' }}
+        />
+        {/* Dot grid — pure CSS, ~2px dots on a 32px grid, very dim */}
+        <div
+          className="absolute inset-0 opacity-50"
+          style={{
+            backgroundImage:
+              'radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px)',
+            backgroundSize: '32px 32px',
+            backgroundPosition: '0 0',
+          }}
+        />
+      </div>
+      <div className="relative z-20 container mx-auto px-4">
+        <div className="max-w-6xl mx-auto">
+          {/* Heading — explicit zinc tones for legibility over the box grid. */}
+          <div className="text-center mb-20 reveal-blur">
+            <h2 className="text-4xl md:text-5xl font-bold text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.6)]">
+              Skills <span className="text-zinc-400">&amp;</span> Tech
+            </h2>
+            <div className="h-1 w-16 bg-gradient-to-r from-white to-zinc-400 mx-auto mt-4 rounded-full" />
+            <p className="mt-5 text-sm text-zinc-500 tracking-wide">Hover any row to reveal proficiency</p>
           </div>
 
-          {/* Categories */}
+          {/* 4 hover-reveal skill lists in a 2-column grid (single col on mobile) */}
           <motion.div
-            className="space-y-12"
+            className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-14 justify-items-center"
             variants={prefersReducedMotion ? undefined : staggerContainer}
             initial="hidden"
             whileInView="visible"
             viewport={viewportConfig}
           >
-            {categories.map((cat, catIndex) => {
-              const catSkills = skills.filter((s) => s.category === cat)
-              return (
-                <motion.div
-                  key={cat}
-                  className="reveal"
-                  style={{ transitionDelay: `${catIndex * 100}ms` }}
-                  variants={prefersReducedMotion ? undefined : staggerItem}
-                >
-                  <h3
-                    className="text-lg font-semibold mb-5 pl-3"
-                    style={{ color: categoryAccents[cat] }}
-                  >
-                    {cat}
-                  </h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {catSkills.map((skill, i) => (
-                      <div
-                        key={skill.name}
-                        className={`${categoryColors[cat]} glass rounded-xl p-5
-                          hover:translate-y-[-2px] hover:shadow-lg hover:scale-[1.02]
-                          transition-all duration-200 group cursor-default`}
-                        style={{
-                          transitionDelay: `${(catIndex * 3 + i) * 50}ms`,
-                          willChange: 'transform',
-                        }}
-                      >
-                        <div className="flex items-center gap-4 mb-3">
-                          <div className="w-10 h-10 flex items-center justify-center shrink-0
-                            rounded-lg bg-white/[0.04] group-hover:bg-white/[0.08] transition-colors">
-                            <Image
-                              src={skill.icon}
-                              alt={skill.name}
-                              width={28}
-                              height={28}
-                              sizes="28px"
-                              loading="lazy"
-                              className="group-hover:scale-110 transition-transform duration-200"
-                            />
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <div className="flex items-center justify-between mb-1.5">
-                              <span className="text-sm font-medium text-zinc-200">{skill.name}</span>
-                              <span className="text-xs text-zinc-500">{skill.proficiency}%</span>
-                            </div>
-                            <div className="skill-progress">
-                              <div
-                                className="skill-progress-fill"
-                                style={{
-                                  width: visible ? `${skill.proficiency}%` : '0%',
-                                  background: `linear-gradient(90deg, ${categoryAccents[cat]}, ${categoryAccents[cat]}88)`,
-                                }}
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </motion.div>
-              )
-            })}
+            <motion.div variants={prefersReducedMotion ? undefined : staggerItem} className="reveal">
+              <Skills title="Frontend" items={frontend} />
+            </motion.div>
+            <motion.div variants={prefersReducedMotion ? undefined : staggerItem} className="reveal">
+              <Skills title="Backend" items={backend} />
+            </motion.div>
+            <motion.div variants={prefersReducedMotion ? undefined : staggerItem} className="reveal">
+              <Skills title="Databases" items={databases} />
+            </motion.div>
+            <motion.div variants={prefersReducedMotion ? undefined : staggerItem} className="reveal">
+              <Skills title="AI & DevOps" items={aiDevops} />
+            </motion.div>
           </motion.div>
         </div>
       </div>

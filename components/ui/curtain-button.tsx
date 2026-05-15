@@ -21,9 +21,12 @@ const CurtainButton = React.forwardRef<HTMLButtonElement, CurtainButtonProps>(
 
     const styles = {
       default: {
-        base: 'bg-white text-white shadow-lg shadow-white/10',
-        curtain: 'bg-white',
-        hoverText: 'text-zinc-100',
+        // Resting: white pill, near-black text (was bg-white text-white —
+        // the text vanished into the bg). Curtain sweeps up a dark panel
+        // and the duplicate text reveals as light, inverting the pill.
+        base: 'bg-white text-zinc-900 shadow-lg shadow-white/10',
+        curtain: 'bg-zinc-900',
+        hoverText: 'text-white',
       },
       outline: {
         base: 'border border-white/15 text-zinc-200',

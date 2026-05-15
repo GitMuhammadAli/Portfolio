@@ -4,85 +4,62 @@ import ProjectCard from './projectCard'
 import { projects } from '@/data/projects'
 import { motion, useReducedMotion } from 'framer-motion'
 import { staggerContainer, staggerItem, viewportConfig } from '@/lib/motion'
+import { FeaturedProjectsFlow } from './FeaturedProjectsFlow'
 
 export default function ProjectsSection() {
   const prefersReducedMotion = useReducedMotion()
   const allFeatured = projects.filter((p) => p.featured)
-  const hero = allFeatured[0]
-  const featured = allFeatured.slice(1)
   const other = projects.filter((p) => !p.featured)
 
   return (
-    <section id="projects" className="relative py-28">
-      <motion.div
-        className="relative z-10 container mx-auto px-4"
-        variants={prefersReducedMotion ? undefined : staggerContainer}
-        initial="hidden"
-        whileInView="visible"
-        viewport={viewportConfig}
-      >
+    <section id="projects" className="relative">
+      {/* Section heading — compact so it doesn't create a big dark gap
+          before the pinned scrollytell starts. */}
+      <div className="relative z-10 container mx-auto px-4 pt-16 pb-4">
         <div className="max-w-6xl mx-auto">
-          {/* Section heading */}
-          <motion.div variants={prefersReducedMotion ? undefined : staggerItem} className="text-center mb-16 reveal-blur">
-            <h2 className="text-4xl md:text-5xl font-bold gradient-text">Projects</h2>
-            <div className="h-1 w-16 bg-gradient-to-r from-white to-zinc-300 mx-auto mt-4 rounded-full" />
-          </motion.div>
+          <div className="text-center reveal-blur">
+            <h2 className="text-4xl md:text-5xl font-bold text-white">Projects</h2>
+            <div className="h-1 w-16 bg-gradient-to-r from-white to-zinc-400 mx-auto mt-3 rounded-full" />
+            <p className="text-zinc-500 mt-3 text-xs uppercase tracking-[0.25em]">
+              Scroll through the work
+            </p>
+          </div>
+        </div>
+      </div>
 
-          {/* Hero project — full-width horizontal card */}
-          {hero && (
-            <motion.div variants={prefersReducedMotion ? undefined : staggerItem} className="mb-10">
-              <p className="reveal text-center text-xs uppercase tracking-[0.2em] text-zinc-600 mb-6 font-medium">
-                Featured
-              </p>
-              <ProjectCard
-                title={hero.title}
-                subtitle={hero.subtitle}
-                description={hero.description}
-                tags={hero.tags}
-                imageUrl={hero.imageUrl}
-                github={hero.github}
-                demo={hero.demo}
-                icon={hero.icon}
-                index={0}
-                variant="hero"
-              />
-            </motion.div>
-          )}
+      {/* Featured projects — pinned scrollytell with live demos as backdrops */}
+      {allFeatured.length > 0 && (
+        <FeaturedProjectsFlow projects={allFeatured} />
+      )}
 
-          {/* Secondary featured projects — 2-column grid */}
-          {featured.length > 0 && (
-            <motion.div variants={prefersReducedMotion ? undefined : staggerItem} className="mb-14">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                {featured.map((p, i) => (
-                  <ProjectCard
-                    key={p.slug}
-                    title={p.title}
-                    subtitle={p.subtitle}
-                    description={p.description}
-                    tags={p.tags}
-                    imageUrl={p.imageUrl}
-                    github={p.github}
-                    demo={p.demo}
-                    icon={p.icon}
-                    index={i + 1}
-                    variant="featured"
-                  />
-                ))}
-              </div>
-            </motion.div>
-          )}
-
-          {/* Other projects — 3-column grid */}
-          {other.length > 0 && (
+      {/* Other projects — traditional grid below the flow */}
+      {other.length > 0 && (
+        <motion.div
+          className="relative z-10 container mx-auto px-4 py-20"
+          variants={prefersReducedMotion ? undefined : staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewportConfig}
+        >
+          <div className="max-w-6xl mx-auto">
             <motion.div variants={prefersReducedMotion ? undefined : staggerItem}>
-              <div className="flex items-center gap-4 mb-8">
-                <div className="h-px flex-1 bg-zinc-800/60" />
-                <p className="text-xs uppercase tracking-[0.2em] text-zinc-600 font-medium shrink-0">
-                  More Projects
+              {/* Section heading — magazine-style with index count */}
+              <div className="text-center mb-14">
+                <div className="flex items-center justify-center gap-3 mb-4">
+                  <div className="h-px w-12 bg-zinc-700" />
+                  <p className="text-[10px] uppercase tracking-[0.4em] text-zinc-500 font-semibold">
+                    The Archive
+                  </p>
+                  <div className="h-px w-12 bg-zinc-700" />
+                </div>
+                <h3 className="text-3xl md:text-4xl font-bold text-white tracking-tight">
+                  Selected side work
+                </h3>
+                <p className="mt-3 text-sm text-zinc-500 font-light max-w-md mx-auto">
+                  Smaller experiments, learning projects, and tools I built along the way.
                 </p>
-                <div className="h-px flex-1 bg-zinc-800/60" />
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {other.map((p, i) => (
                   <ProjectCard
                     key={p.slug}
@@ -100,9 +77,9 @@ export default function ProjectsSection() {
                 ))}
               </div>
             </motion.div>
-          )}
-        </div>
-      </motion.div>
+          </div>
+        </motion.div>
+      )}
     </section>
   )
 }

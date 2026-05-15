@@ -3,11 +3,17 @@
 import { useState, useEffect, useRef } from 'react'
 import { useReducedMotion } from 'framer-motion'
 import { CurtainButton } from '@/components/ui/curtain-button'
+import { SparklesCore } from '@/components/ui/sparkles'
+import { GooeyText } from '@/components/ui/gooey-text-morphing'
 
-const phrases = [
-  'I build scalable web apps',
-  'I design clean APIs',
-  'I ship production code',
+// Rotating identity prompts for the gooey morph below the name. Short words
+// only — the morph effect distorts long strings and they overflow on mobile.
+const identities = [
+  'Curious',
+  'Pragmatic',
+  'Builder',
+  'Shipper',
+  'Storyteller',
 ]
 
 function StaticCurves() {
@@ -29,18 +35,8 @@ function StaticCurves() {
           <stop offset="100%" stopColor="#fafafa" stopOpacity="0.1" />
         </linearGradient>
       </defs>
-      <path
-        d="M0 400 Q200 200 400 350 T800 300 T1200 400"
-        stroke="url(#heroGrad1)"
-        strokeWidth="1.5"
-        fill="none"
-      />
-      <path
-        d="M0 500 Q300 350 600 450 T1200 380"
-        stroke="url(#heroGrad2)"
-        strokeWidth="1"
-        fill="none"
-      />
+      <path d="M0 400 Q200 200 400 350 T800 300 T1200 400" stroke="url(#heroGrad1)" strokeWidth="1.5" fill="none" />
+      <path d="M0 500 Q300 350 600 450 T1200 380" stroke="url(#heroGrad2)" strokeWidth="1" fill="none" />
     </svg>
   )
 }
@@ -52,46 +48,25 @@ function DriftingBlobs() {
   useEffect(() => {
     const el = ref.current
     if (!el) return
-    const observer = new IntersectionObserver(
-      ([entry]) => setIsVisible(entry.isIntersecting),
-      { threshold: 0 }
-    )
+    const observer = new IntersectionObserver(([entry]) => setIsVisible(entry.isIntersecting), { threshold: 0 })
     observer.observe(el)
     return () => observer.disconnect()
   }, [])
 
-  const pauseStyle = isVisible
-    ? undefined
-    : { animationPlayState: 'paused' as const }
+  // Drop to two smaller blobs with blur-2xl instead of three with blur-3xl —
+  // 3xl + transform animations on offscreen-large divs were the hero's main
+  // jank source. Pause the animation entirely when the section scrolls out.
+  const pauseStyle = isVisible ? undefined : { animationPlayState: 'paused' as const }
 
   return (
     <div ref={ref} className="absolute inset-0 pointer-events-none">
       <div
-        className="absolute w-[500px] h-[500px] rounded-full blur-3xl opacity-[0.08] animate-blob-drift"
-        style={{
-          background: 'linear-gradient(135deg, #fafafa, #a1a1aa)',
-          top: '10%',
-          left: '-5%',
-          ...pauseStyle,
-        }}
+        className="absolute w-[380px] h-[380px] rounded-full blur-2xl opacity-[0.07] animate-blob-drift will-change-transform"
+        style={{ background: 'linear-gradient(135deg, #fafafa, #a1a1aa)', top: '10%', left: '-5%', ...pauseStyle }}
       />
       <div
-        className="absolute w-[400px] h-[400px] rounded-full blur-3xl opacity-[0.07] animate-blob-drift-2"
-        style={{
-          background: 'linear-gradient(135deg, #a1a1aa, #71717a)',
-          bottom: '5%',
-          right: '-3%',
-          ...pauseStyle,
-        }}
-      />
-      <div
-        className="absolute w-[300px] h-[300px] rounded-full blur-3xl opacity-[0.06] animate-blob-drift-3"
-        style={{
-          background: 'linear-gradient(135deg, #71717a, #fafafa)',
-          top: '50%',
-          left: '60%',
-          ...pauseStyle,
-        }}
+        className="absolute w-[320px] h-[320px] rounded-full blur-2xl opacity-[0.06] animate-blob-drift-2 will-change-transform"
+        style={{ background: 'linear-gradient(135deg, #a1a1aa, #71717a)', bottom: '5%', right: '-3%', ...pauseStyle }}
       />
     </div>
   )
@@ -99,43 +74,9 @@ function DriftingBlobs() {
 
 export default function Background() {
   const prefersReducedMotion = useReducedMotion()
-  const [phraseIndex, setPhraseIndex] = useState(0)
-  const [charIndex, setCharIndex] = useState(0)
-  const [isDeleting, setIsDeleting] = useState(false)
-
-  useEffect(() => {
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (prefersReduced) {
-      setCharIndex(phrases[0].length)
-      return
-    }
-
-    const current = phrases[phraseIndex]
-    const speed = isDeleting ? 30 : 60
-
-    if (!isDeleting && charIndex === current.length) {
-      const timeout = setTimeout(() => setIsDeleting(true), 2000)
-      return () => clearTimeout(timeout)
-    }
-
-    if (isDeleting && charIndex === 0) {
-      setIsDeleting(false)
-      setPhraseIndex((prev) => (prev + 1) % phrases.length)
-      return
-    }
-
-    const timeout = setTimeout(() => {
-      setCharIndex((prev) => prev + (isDeleting ? -1 : 1))
-    }, speed)
-
-    return () => clearTimeout(timeout)
-  }, [charIndex, isDeleting, phraseIndex])
 
   return (
-    <section
-      id="home"
-      className="relative min-h-screen w-full flex items-center justify-center overflow-hidden"
-    >
+    <section id="home" className="relative min-h-screen w-full flex items-center justify-center overflow-hidden">
       {/* Layered radial gradient background */}
       <div className="absolute inset-0">
         <div
@@ -150,45 +91,79 @@ export default function Background() {
         />
       </div>
 
-      {/* Static SVG curves (was animated — paint-bound, too costly) */}
       <StaticCurves />
-
-      {/* Drifting blobs — transform+opacity only, paused when out of viewport */}
       <DriftingBlobs />
 
-      {/* Content */}
-      <div className="relative z-10 container mx-auto px-4 md:px-6">
-        <div className="max-w-3xl mx-auto text-center">
-          {/* Name */}
+      {/* Content — centered Acme-style hero. Name → tag → sparkle strip →
+          gooey morph → CTAs. */}
+      <div className="relative z-10 w-full px-4 md:px-6">
+        <div className="max-w-5xl mx-auto text-center flex flex-col items-center">
           <h1
-            className="text-6xl sm:text-7xl md:text-8xl font-bold mb-4 tracking-tight text-white"
-            style={{ lineHeight: 1.1 }}
+            className="font-bold tracking-tight text-white"
+            style={{
+              fontSize: 'clamp(2.75rem, 12vw, 8.5rem)',
+              lineHeight: 0.95,
+              letterSpacing: '-0.025em',
+            }}
           >
             Ali Shahid
           </h1>
 
-          {/* Gradient subtitle (was animated; static gradient is indistinguishable at rest) */}
-          <p
-            className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-6"
-            style={{
-              background: 'linear-gradient(90deg, #fafafa, #a1a1aa, #71717a)',
-              WebkitBackgroundClip: 'text',
-              backgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-            }}
-          >
+          <p className="mt-3 text-xs sm:text-sm text-zinc-400 font-light tracking-[0.3em] uppercase">
             Full Stack Developer
           </p>
 
-          {/* Typing effect */}
-          <div className="h-8 mb-10 flex items-center justify-center">
-            <span className="text-lg sm:text-xl text-zinc-400 font-light typing-cursor">
-              {phrases[phraseIndex].substring(0, charIndex)}
-            </span>
+          {/* Sparkle strip — gradient lines + sparkle puddle. Width tracks
+              the name (~12vw font ⇒ "Ali Shahid" ≈ 70–80% of viewport at
+              wide breakpoints). Lines span the full width with edge fades,
+              sparkle puddle stays centered under the name. */}
+          <div className="relative w-full max-w-[56rem] md:max-w-[64rem] lg:max-w-[72rem] h-28 sm:h-32 mt-6 mx-auto">
+            <div className="absolute inset-x-[8%] top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-[2px] blur-sm" />
+            <div className="absolute inset-x-[8%] top-0 bg-gradient-to-r from-transparent via-indigo-400 to-transparent h-px" />
+            <div className="absolute inset-x-[20%] top-0 bg-gradient-to-r from-transparent via-sky-400 to-transparent h-[5px] blur-md" />
+            <div className="absolute inset-x-[20%] top-0 bg-gradient-to-r from-transparent via-sky-300 to-transparent h-px" />
+
+            {!prefersReducedMotion && (
+              <div
+                className="absolute inset-0"
+                style={{
+                  maskImage:
+                    'radial-gradient(70% 70% at 50% 0%, black 30%, transparent 100%)',
+                  WebkitMaskImage:
+                    'radial-gradient(70% 70% at 50% 0%, black 30%, transparent 100%)',
+                }}
+              >
+                <SparklesCore
+                  id="hero-strip-sparkles"
+                  background="transparent"
+                  minSize={0.4}
+                  maxSize={1}
+                  particleDensity={420}
+                  particleColor="#ffffff"
+                  speed={0.7}
+                  className="w-full h-full"
+                />
+              </div>
+            )}
           </div>
 
-          {/* CTA buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="h-14 sm:h-16 mt-2 mb-10 flex items-center justify-center">
+            {prefersReducedMotion ? (
+              <span className="text-2xl sm:text-3xl text-zinc-200 font-medium tracking-tight">
+                {identities[0]}
+              </span>
+            ) : (
+              <GooeyText
+                texts={identities}
+                morphTime={1.1}
+                cooldownTime={1.4}
+                className="h-14 sm:h-16 w-full"
+                textClassName="text-2xl sm:text-3xl md:text-4xl font-medium tracking-tight"
+              />
+            )}
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center w-full sm:w-auto px-4 sm:px-0">
             <CurtainButton
               text="View Projects"
               variant="default"
@@ -209,7 +184,6 @@ export default function Background() {
         </div>
       </div>
 
-      {/* Bottom fade */}
       <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#09090b] to-transparent pointer-events-none" />
     </section>
   )

@@ -1,12 +1,15 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import React from 'react'
-import { Inter } from 'next/font/google'
+import { Plus_Jakarta_Sans } from 'next/font/google'
 import { LazyMotionProvider } from '@/components/LazyMotionProvider'
 
-const inter = Inter({
+// Plus Jakarta Sans — modern geometric sans with personality. Replaced Inter
+// (too generic / AI-portfolio default).
+const jakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
   display: 'swap',
+  weight: ['300', '400', '500', '600', '700', '800'],
 })
 
 export const metadata: Metadata = {
@@ -62,10 +65,11 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={inter.className}>
+    <html lang="en" className={jakarta.className}>
       <head>
         <script
           type="speculationrules"
+          suppressHydrationWarning
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               prerender: [{ where: { href_matches: "/*" }, eagerness: "moderate" }],
