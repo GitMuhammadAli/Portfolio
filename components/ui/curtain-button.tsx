@@ -42,7 +42,7 @@ const CurtainButton = React.forwardRef<HTMLButtonElement, CurtainButtonProps>(
       <motion.button
         ref={ref}
         className={cn(
-          'relative overflow-hidden rounded-full px-8 py-3.5 font-medium',
+          'relative overflow-hidden rounded-full px-6 sm:px-8 py-3 sm:py-3.5 text-sm sm:text-base font-medium',
           'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white',
           'transition-shadow duration-300',
           s.base,

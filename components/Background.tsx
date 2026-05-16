@@ -92,7 +92,11 @@ export default function Background() {
   const particleColor = mounted && resolvedTheme === 'light' ? '#09090b' : '#ffffff'
 
   return (
-    <section id="home" className="relative min-h-screen w-full flex items-center justify-center overflow-hidden">
+    <section
+      id="home"
+      className="relative w-full flex items-center justify-center overflow-hidden"
+      style={{ minHeight: '100dvh' }}
+    >
       {/* Layered radial gradient background */}
       <div className="absolute inset-0">
         <div
@@ -132,7 +136,7 @@ export default function Background() {
           {/* Sparkle strip — width tracks the name. On mobile the strip
               is clamped to a tight max-w so it sits visually under the
               "Ali Shahid" headline instead of overshooting. */}
-          <div className="relative w-full max-w-[20rem] sm:max-w-[36rem] md:max-w-[64rem] lg:max-w-[72rem] h-24 sm:h-32 mt-6 mx-auto">
+          <div className="relative w-full max-w-[20rem] sm:max-w-[36rem] md:max-w-[64rem] lg:max-w-[72rem] h-16 sm:h-32 mt-4 sm:mt-6 mx-auto">
             <div className="absolute inset-x-[8%] top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-[2px] blur-sm" />
             <div className="absolute inset-x-[8%] top-0 bg-gradient-to-r from-transparent via-indigo-400 to-transparent h-px" />
             <div className="absolute inset-x-[20%] top-0 bg-gradient-to-r from-transparent via-sky-400 to-transparent h-[5px] blur-md" />
@@ -162,9 +166,9 @@ export default function Background() {
             )}
           </div>
 
-          <div className="h-14 sm:h-16 mt-2 mb-10 flex items-center justify-center">
+          <div className="h-10 sm:h-16 mt-1 sm:mt-2 mb-6 sm:mb-10 flex items-center justify-center">
             {prefersReducedMotion ? (
-              <span className="text-2xl sm:text-3xl text-fg font-medium tracking-tight">
+              <span className="text-xl sm:text-3xl text-fg font-medium tracking-tight">
                 {identities[0]}
               </span>
             ) : (
@@ -172,13 +176,13 @@ export default function Background() {
                 texts={identities}
                 morphTime={1.1}
                 cooldownTime={1.4}
-                className="h-14 sm:h-16 w-full"
-                textClassName="text-2xl sm:text-3xl md:text-4xl font-medium tracking-tight"
+                className="h-10 sm:h-16 w-full"
+                textClassName="text-xl sm:text-3xl md:text-4xl font-medium tracking-tight"
               />
             )}
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center w-full sm:w-auto px-4 sm:px-0">
+          <div className="flex flex-row flex-wrap gap-3 sm:gap-4 justify-center items-center">
             <CurtainButton
               text="View Projects"
               variant="default"
@@ -191,8 +195,14 @@ export default function Background() {
               text="Get In Touch"
               variant="outline"
               onClick={() => {
-                const el = document.getElementById('contact')
-                if (el) window.scrollTo({ top: el.offsetTop, behavior: 'smooth' })
+                // ContactSection was replaced by the curtain-reveal
+                // CinematicFooter — scroll to the bottom of the page so the
+                // footer rises into view instead of trying to hit a deleted
+                // #contact anchor.
+                window.scrollTo({
+                  top: document.documentElement.scrollHeight,
+                  behavior: 'smooth',
+                })
               }}
             />
           </div>
