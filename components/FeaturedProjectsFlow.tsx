@@ -51,23 +51,17 @@ export function FeaturedProjectsFlow({ projects }: FeaturedProjectsFlowProps) {
                 }}
               />
             )}
-            {/* Strong side wash + backdrop-blur on the text half so the
-                project screenshot doesn't bleed through the headline. The
-                light vignette used to be 78%→25% bg; in light mode the
-                screenshot's own text was readable behind ours. Now 95%→55%
-                with a 12px backdrop-blur on the left half — the image still
-                breathes on the right, text reads clean on the left. */}
+            {/* Strong side wash so the project screenshot doesn't bleed
+                through the headline. The backdrop-filter was the heaviest
+                paint cost in this section — five pinned full-screen cards
+                each running an 8px backdrop-blur was murder on scroll. A
+                near-opaque gradient (97%→30% bg) does the masking job
+                without compositor cost. */}
             <div
-              className="absolute inset-0 z-[1]"
+              className="absolute inset-0 z-[1] pointer-events-none"
               style={{
                 background:
-                  'linear-gradient(105deg, color-mix(in srgb, var(--bg) 95%, transparent) 0%, color-mix(in srgb, var(--bg) 80%, transparent) 45%, color-mix(in srgb, var(--bg) 55%, transparent) 75%, color-mix(in srgb, var(--bg) 30%, transparent) 100%)',
-                backdropFilter: 'blur(8px) saturate(110%)',
-                WebkitBackdropFilter: 'blur(8px) saturate(110%)',
-                maskImage:
-                  'linear-gradient(105deg, black 0%, black 55%, transparent 80%)',
-                WebkitMaskImage:
-                  'linear-gradient(105deg, black 0%, black 55%, transparent 80%)',
+                  'linear-gradient(105deg, color-mix(in srgb, var(--bg) 97%, transparent) 0%, color-mix(in srgb, var(--bg) 88%, transparent) 35%, color-mix(in srgb, var(--bg) 60%, transparent) 70%, color-mix(in srgb, var(--bg) 30%, transparent) 100%)',
               }}
             />
             {/* Soft bottom darken so the next section's blend isn't abrupt */}

@@ -39,6 +39,19 @@
 
 html {
   scroll-behavior: smooth;
+  /* Invisible scrollbar — Firefox + IE/Edge legacy. */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+/* Invisible scrollbar — WebKit (Chrome, Safari, modern Edge). Element
+   still scrolls; the gutter just isn't drawn. */
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+*::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  background: transparent;
 }
 
 body {

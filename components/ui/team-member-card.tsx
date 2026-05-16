@@ -137,10 +137,14 @@ export default function TeamMemberCard({
             <div className="w-full md:w-[70%] lg:w-[75%] max-w-[62ch]">
               <p
                 className={cn(
-                  'text-[15px] md:text-base font-normal text-fg',
+                  'text-[15px] md:text-base font-normal',
                   isPositionRight && 'text-right'
                 )}
                 style={{
+                  // Inline CSS var so the color is bullet-proof against any
+                  // Tailwind purge edge-case — in either theme this resolves
+                  // to the correct foreground (#fafafa dark, #09090b light).
+                  color: 'var(--fg)',
                   lineHeight: 1.75,
                   letterSpacing: '0.015em',
                 }}
