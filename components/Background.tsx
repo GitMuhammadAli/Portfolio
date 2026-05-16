@@ -20,10 +20,11 @@ const identities = [
 function StaticCurves() {
   // Uses currentColor so the stroke follows the fg token — visible in
   // both light (dark curves) and dark (light curves) themes. Outer
-  // opacity-20 keeps them quiet either way.
+  // opacity-20 keeps them quiet either way. Hidden on small screens so
+  // the hero stays clean and uncluttered on phones.
   return (
     <svg
-      className="absolute inset-0 w-full h-full pointer-events-none opacity-20 text-fg"
+      className="hidden sm:block absolute inset-0 w-full h-full pointer-events-none opacity-20 text-fg"
       viewBox="0 0 1200 800"
       fill="none"
       preserveAspectRatio="none"
@@ -53,11 +54,12 @@ function DriftingBlobs() {
 
   return (
     <div ref={ref} className="absolute inset-0 pointer-events-none">
-      {/* Two soft blobs tinted with the accent color via color-mix so they
-          show in both themes (faded sky on white, faded sky on near-black).
-          The previous white/zinc gradient was invisible on a light bg. */}
+      {/* Two soft accent-tinted blobs. Hidden on small screens — they
+          were 380px / 320px on a 375px iPhone viewport which forced the
+          hero into compositor weight that mobile can't afford, and
+          ambient decoration is the easiest thing to drop on small screens. */}
       <div
-        className="absolute w-[380px] h-[380px] rounded-full blur-2xl opacity-50 animate-blob-drift will-change-transform"
+        className="hidden md:block absolute w-[380px] h-[380px] rounded-full blur-2xl opacity-50 animate-blob-drift will-change-transform"
         style={{
           background:
             'radial-gradient(circle, color-mix(in srgb, var(--accent) 30%, transparent), transparent 70%)',
@@ -67,7 +69,7 @@ function DriftingBlobs() {
         }}
       />
       <div
-        className="absolute w-[320px] h-[320px] rounded-full blur-2xl opacity-40 animate-blob-drift-2 will-change-transform"
+        className="hidden md:block absolute w-[320px] h-[320px] rounded-full blur-2xl opacity-40 animate-blob-drift-2 will-change-transform"
         style={{
           background:
             'radial-gradient(circle, color-mix(in srgb, var(--accent) 25%, transparent), transparent 70%)',
@@ -127,11 +129,10 @@ export default function Background() {
             Full Stack Developer
           </p>
 
-          {/* Sparkle strip — gradient lines + sparkle puddle. Width tracks
-              the name (~12vw font ⇒ "Ali Shahid" ≈ 70–80% of viewport at
-              wide breakpoints). Lines span the full width with edge fades,
-              sparkle puddle stays centered under the name. */}
-          <div className="relative w-full max-w-[56rem] md:max-w-[64rem] lg:max-w-[72rem] h-28 sm:h-32 mt-6 mx-auto">
+          {/* Sparkle strip — width tracks the name. On mobile the strip
+              is clamped to a tight max-w so it sits visually under the
+              "Ali Shahid" headline instead of overshooting. */}
+          <div className="relative w-full max-w-[20rem] sm:max-w-[36rem] md:max-w-[64rem] lg:max-w-[72rem] h-24 sm:h-32 mt-6 mx-auto">
             <div className="absolute inset-x-[8%] top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-[2px] blur-sm" />
             <div className="absolute inset-x-[8%] top-0 bg-gradient-to-r from-transparent via-indigo-400 to-transparent h-px" />
             <div className="absolute inset-x-[20%] top-0 bg-gradient-to-r from-transparent via-sky-400 to-transparent h-[5px] blur-md" />
