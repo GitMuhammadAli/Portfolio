@@ -57,18 +57,30 @@ const FlowArt: React.FC<FlowArtProps> = ({
 }) => {
   const containerRef = useRef<HTMLElement>(null)
   const [reducedMotion, setReducedMotion] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
-    const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
-    const update = () => setReducedMotion(mq.matches)
-    update()
-    mq.addEventListener('change', update)
-    return () => mq.removeEventListener('change', update)
+    const reducedMQ = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const mobileMQ = window.matchMedia('(max-width: 767px)')
+    const updateReduced = () => setReducedMotion(reducedMQ.matches)
+    const updateMobile = () => setIsMobile(mobileMQ.matches)
+    updateReduced()
+    updateMobile()
+    reducedMQ.addEventListener('change', updateReduced)
+    mobileMQ.addEventListener('change', updateMobile)
+    return () => {
+      reducedMQ.removeEventListener('change', updateReduced)
+      mobileMQ.removeEventListener('change', updateMobile)
+    }
   }, [])
 
   useGSAP(
     () => {
-      if (!containerRef.current || reducedMotion) return
+      // Pin + scrub rotation is unreliable on iOS Safari (toolbar
+      // resize fights the pin, momentum scroll desyncs with scrub).
+      // Under md, fall back to normal vertical scroll — every section
+      // just stacks at min-h-screen, no choreography.
+      if (!containerRef.current || reducedMotion || isMobile) return
 
       const sections = Array.from(
         containerRef.current.querySelectorAll<HTMLElement>('[data-flow-section]'),
@@ -117,7 +129,7 @@ const FlowArt: React.FC<FlowArtProps> = ({
         triggers.forEach((t) => t.kill())
       }
     },
-    { scope: containerRef, dependencies: [childCount(children), reducedMotion] },
+    { scope: containerRef, dependencies: [childCount(children), reducedMotion, isMobile] },
   )
 
   return (
