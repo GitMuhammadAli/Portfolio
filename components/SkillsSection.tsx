@@ -57,13 +57,15 @@ export default function SkillsSection() {
             'linear-gradient(to bottom, transparent 0%, black 18%, black 82%, transparent 100%)',
         }}
       >
-        {/* Ambient glows — sky + indigo radial fills */}
+        {/* Ambient glows — sky + indigo radial fills. Hidden under md
+            because 700/600px blurred radials on a 375px viewport are
+            both visually overwhelming and a heavy compositor cost. */}
         <div
-          className="absolute top-1/3 -left-40 w-[700px] h-[700px] rounded-full blur-[120px]"
+          className="hidden md:block absolute top-1/3 -left-40 w-[700px] h-[700px] rounded-full blur-[120px]"
           style={{ background: 'radial-gradient(circle, color-mix(in srgb, var(--accent) 18%, transparent), transparent 65%)' }}
         />
         <div
-          className="absolute bottom-1/4 -right-40 w-[600px] h-[600px] rounded-full blur-[110px]"
+          className="hidden md:block absolute bottom-1/4 -right-40 w-[600px] h-[600px] rounded-full blur-[110px]"
           style={{ background: 'radial-gradient(circle, color-mix(in srgb, var(--accent) 12%, transparent), transparent 65%)' }}
         />
         {/* Dot grid — uses fg-token so dots invert per theme */}

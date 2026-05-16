@@ -173,10 +173,16 @@ export function CinematicFooter() {
           inner footer stays position:fixed underneath. Scrolling slides the
           page up, revealing the footer beneath the curtain. */}
       <div
-        className="relative h-screen w-full"
-        style={{ clipPath: 'polygon(0% 0, 100% 0%, 100% 100%, 0 100%)' }}
+        className="relative w-full"
+        style={{
+          height: '100dvh',
+          clipPath: 'polygon(0% 0, 100% 0%, 100% 100%, 0 100%)',
+        }}
       >
-        <footer className="fixed bottom-0 left-0 flex h-screen w-full flex-col justify-between overflow-hidden bg-bg text-fg cinematic-footer-wrapper">
+        <footer
+          className="fixed bottom-0 left-0 flex w-full flex-col justify-between overflow-hidden bg-bg text-fg cinematic-footer-wrapper"
+          style={{ height: '100dvh' }}
+        >
           {/* Ambient aurora glow + grid — blur dropped from 80px to 40px
               and the breathe animation removed. An 80px blurred radial that
               scales+opacity-pulses every 8s was the heaviest non-pill paint
