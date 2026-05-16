@@ -131,7 +131,7 @@ export default function AboutSection() {
               firstName="Ali"
               lastName="Shahid"
               imageUrl="/images/me.png"
-              description="Software engineer in Lahore, Pakistan. CS from Bahria University. Currently at Hubble42 building Next.js + NestJS + Postgres platforms; previously at NgXoft Solutions on React + Tailwind frontends and NestJS backends. About a year and a half of full-stack MERN and AI work — schema → REST/tRPC → integration (OpenAI, Gemini, Groq) → Docker → CI → ship. Side projects skew AI-heavy: a multi-tenant SaaS with four agents, a self-hosted LLM gateway, a job-application pipeline, and a career-intelligence platform with pgvector matching."
+              description="I'm a software engineer based in Lahore. Most of what I do is full-stack TypeScript — React or Next on the front, NestJS or Node on the back, Postgres or Mongo holding the state. A year and a half into the industry: currently at Hubble42, NgXoft before that. Outside work I keep building things that ship. A multi-tenant SaaS that runs four AI agents under one roof. A self-hosted LLM gateway. A job-application bot pulling from nine sources. A career-intelligence app matching resumes to JDs with pgvector. The through-line is taking something fuzzy and turning it into a thing you can actually use."
               ctaHref="#contact"
             />
           </motion.div>

@@ -41,34 +41,41 @@ export function FeaturedProjectsFlow({ projects }: FeaturedProjectsFlowProps) {
               priority={i === 0}
               className="object-cover"
             />
-            {/* Top fade — only on the first card; the rest pin under it.
-                Uses bg token so the fade matches the page background in both
-                themes. */}
+            {/* Top fade */}
             {i === 0 && (
               <div
-                className="absolute inset-x-0 top-0 h-32 pointer-events-none"
+                className="absolute inset-x-0 top-0 h-32 pointer-events-none z-[1]"
                 style={{
                   background:
                     'linear-gradient(to bottom, var(--bg) 0%, transparent 100%)',
                 }}
               />
             )}
-            {/* Side darken so the long descriptive paragraph stays legible.
-                Uses bg with progressive opacity so the image tints toward the
-                page bg, working in both light and dark. */}
+            {/* Strong side wash + backdrop-blur on the text half so the
+                project screenshot doesn't bleed through the headline. The
+                light vignette used to be 78%→25% bg; in light mode the
+                screenshot's own text was readable behind ours. Now 95%→55%
+                with a 12px backdrop-blur on the left half — the image still
+                breathes on the right, text reads clean on the left. */}
             <div
-              className="absolute inset-0"
+              className="absolute inset-0 z-[1]"
               style={{
                 background:
-                  'linear-gradient(105deg, color-mix(in srgb, var(--bg) 78%, transparent) 0%, color-mix(in srgb, var(--bg) 50%, transparent) 50%, color-mix(in srgb, var(--bg) 25%, transparent) 100%)',
+                  'linear-gradient(105deg, color-mix(in srgb, var(--bg) 95%, transparent) 0%, color-mix(in srgb, var(--bg) 80%, transparent) 45%, color-mix(in srgb, var(--bg) 55%, transparent) 75%, color-mix(in srgb, var(--bg) 30%, transparent) 100%)',
+                backdropFilter: 'blur(8px) saturate(110%)',
+                WebkitBackdropFilter: 'blur(8px) saturate(110%)',
+                maskImage:
+                  'linear-gradient(105deg, black 0%, black 55%, transparent 80%)',
+                WebkitMaskImage:
+                  'linear-gradient(105deg, black 0%, black 55%, transparent 80%)',
               }}
             />
             {/* Soft bottom darken so the next section's blend isn't abrupt */}
             <div
-              className="absolute inset-x-0 bottom-0 h-40 pointer-events-none"
+              className="absolute inset-x-0 bottom-0 h-40 pointer-events-none z-[1]"
               style={{
                 background:
-                  'linear-gradient(to top, color-mix(in srgb, var(--bg) 85%, transparent) 0%, transparent 100%)',
+                  'linear-gradient(to top, color-mix(in srgb, var(--bg) 90%, transparent) 0%, transparent 100%)',
               }}
             />
           </div>

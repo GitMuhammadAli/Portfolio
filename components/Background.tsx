@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { useReducedMotion } from 'framer-motion'
+import { useTheme } from 'next-themes'
 import { CurtainButton } from '@/components/ui/curtain-button'
 import { SparklesCore } from '@/components/ui/sparkles'
 import { GooeyText } from '@/components/ui/gooey-text-morphing'
@@ -17,26 +18,18 @@ const identities = [
 ]
 
 function StaticCurves() {
+  // Uses currentColor so the stroke follows the fg token — visible in
+  // both light (dark curves) and dark (light curves) themes. Outer
+  // opacity-20 keeps them quiet either way.
   return (
     <svg
-      className="absolute inset-0 w-full h-full pointer-events-none opacity-20"
+      className="absolute inset-0 w-full h-full pointer-events-none opacity-20 text-fg"
       viewBox="0 0 1200 800"
       fill="none"
       preserveAspectRatio="none"
     >
-      <defs>
-        <linearGradient id="heroGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#fafafa" stopOpacity="0.4" />
-          <stop offset="50%" stopColor="#a1a1aa" stopOpacity="0.2" />
-          <stop offset="100%" stopColor="#71717a" stopOpacity="0.1" />
-        </linearGradient>
-        <linearGradient id="heroGrad2" x1="100%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor="#a1a1aa" stopOpacity="0.3" />
-          <stop offset="100%" stopColor="#fafafa" stopOpacity="0.1" />
-        </linearGradient>
-      </defs>
-      <path d="M0 400 Q200 200 400 350 T800 300 T1200 400" stroke="url(#heroGrad1)" strokeWidth="1.5" fill="none" />
-      <path d="M0 500 Q300 350 600 450 T1200 380" stroke="url(#heroGrad2)" strokeWidth="1" fill="none" />
+      <path d="M0 400 Q200 200 400 350 T800 300 T1200 400" stroke="currentColor" strokeOpacity="0.4" strokeWidth="1.5" fill="none" />
+      <path d="M0 500 Q300 350 600 450 T1200 380" stroke="currentColor" strokeOpacity="0.25" strokeWidth="1" fill="none" />
     </svg>
   )
 }
@@ -60,13 +53,28 @@ function DriftingBlobs() {
 
   return (
     <div ref={ref} className="absolute inset-0 pointer-events-none">
+      {/* Two soft blobs tinted with the accent color via color-mix so they
+          show in both themes (faded sky on white, faded sky on near-black).
+          The previous white/zinc gradient was invisible on a light bg. */}
       <div
-        className="absolute w-[380px] h-[380px] rounded-full blur-2xl opacity-[0.07] animate-blob-drift will-change-transform"
-        style={{ background: 'linear-gradient(135deg, #fafafa, #a1a1aa)', top: '10%', left: '-5%', ...pauseStyle }}
+        className="absolute w-[380px] h-[380px] rounded-full blur-2xl opacity-50 animate-blob-drift will-change-transform"
+        style={{
+          background:
+            'radial-gradient(circle, color-mix(in srgb, var(--accent) 30%, transparent), transparent 70%)',
+          top: '10%',
+          left: '-5%',
+          ...pauseStyle,
+        }}
       />
       <div
-        className="absolute w-[320px] h-[320px] rounded-full blur-2xl opacity-[0.06] animate-blob-drift-2 will-change-transform"
-        style={{ background: 'linear-gradient(135deg, #a1a1aa, #71717a)', bottom: '5%', right: '-3%', ...pauseStyle }}
+        className="absolute w-[320px] h-[320px] rounded-full blur-2xl opacity-40 animate-blob-drift-2 will-change-transform"
+        style={{
+          background:
+            'radial-gradient(circle, color-mix(in srgb, var(--accent) 25%, transparent), transparent 70%)',
+          bottom: '5%',
+          right: '-3%',
+          ...pauseStyle,
+        }}
       />
     </div>
   )
@@ -74,6 +82,12 @@ function DriftingBlobs() {
 
 export default function Background() {
   const prefersReducedMotion = useReducedMotion()
+  const { resolvedTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => setMounted(true), [])
+  // Particle color flips with theme. Until mounted we default to dark
+  // (matches SSR default theme) to avoid hydration mismatch.
+  const particleColor = mounted && resolvedTheme === 'light' ? '#09090b' : '#ffffff'
 
   return (
     <section id="home" className="relative min-h-screen w-full flex items-center justify-center overflow-hidden">
@@ -139,7 +153,7 @@ export default function Background() {
                   minSize={0.4}
                   maxSize={1}
                   particleDensity={420}
-                  particleColor="#ffffff"
+                  particleColor={particleColor}
                   speed={0.7}
                   className="w-full h-full"
                 />

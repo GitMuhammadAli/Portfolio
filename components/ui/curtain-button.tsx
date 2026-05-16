@@ -21,17 +21,19 @@ const CurtainButton = React.forwardRef<HTMLButtonElement, CurtainButtonProps>(
 
     const styles = {
       default: {
-        // Resting: white pill, near-black text (was bg-white text-white —
-        // the text vanished into the bg). Curtain sweeps up a dark panel
-        // and the duplicate text reveals as light, inverting the pill.
-        base: 'bg-white text-zinc-900 shadow-lg shadow-white/10',
-        curtain: 'bg-zinc-900',
-        hoverText: 'text-white',
+        // Resting: foreground-colored pill (white in dark mode, dark in
+        // light mode) with inverted text. On hover, the curtain rises
+        // showing the inverted background, and the duplicate text reads
+        // in the pill's foreground color — so the contrast stays correct
+        // in both themes.
+        base: 'bg-fg text-bg shadow-lg',
+        curtain: 'bg-bg',
+        hoverText: 'text-fg',
       },
       outline: {
-        base: 'border border-white/15 text-zinc-200',
-        curtain: 'bg-white/10',
-        hoverText: 'text-white',
+        base: 'border border-border-strong text-fg',
+        curtain: 'bg-bg-muted',
+        hoverText: 'text-fg',
       },
     }
     const s = styles[variant]
